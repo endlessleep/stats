@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MICRO — Lecture 1</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- KaTeX for LaTeX rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Overlay for mobile nav -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-icon">
+            <i data-lucide="bar-chart-3"></i>
+          </div>
+          <span class="brand-name">MICRO<span class="dot">.</span></span>
+        </div>
+        <button class="toggle-btn" id="toggle-sidebar" aria-label="Toggle Sidebar">
+          <i data-lucide="chevron-left"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <span class="nav-section-title">Lectures</span>
+          <a href="#" class="nav-item active">
+            <i data-lucide="book-open"></i>
+            <span class="nav-text">Lecture 1</span>
+            <span class="badge">Active</span>
+          </a>
+          <a href="#" class="nav-item disabled">
+            <i data-lucide="lock"></i>
+            <span class="nav-text">Lecture 2</span>
+          </a>
+          <a href="#" class="nav-item disabled">
+            <i data-lucide="lock"></i>
+            <span class="nav-text">Lecture 3</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="avatar">
+            <span>SN</span>
+            <span class="status-indicator"></span>
+          </div>
+          <div class="user-info">
+            <span class="user-name">Administrator star nova</span>
+            <span class="user-role">micro.github.io</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Topbar Header -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="mobile-toggle" id="mobile-toggle" aria-label="Open Navigation">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="search-box">
+            <i data-lucide="search"></i>
+            <input type="text" placeholder="Search in Lecture 1..." />
+            <kbd>⌘K</kbd>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="status-badge">
+            <span class="pulse-dot"></span>
+            <span>Lecture 1</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Container -->
+      <div class="content-body">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Lecture 1 : Concepts & Exercises</h1>
+            <p class="page-subtitle">Introduction to Microeconomics</p>
+          </div>
+        </div>
+
+        <!-- Empty State Card (Design Soigné) -->
+        <div class="empty-state-card" style="margin-top: 40px; text-align: center; padding: 60px 20px;">
+          <div class="empty-icon-wrapper" style="margin: 0 auto 20px;">
+            <i data-lucide="sparkles" style="width: 40px; height: 40px;"></i>
+          </div>
+          <h2>Ready for Microeconomics</h2>
+          <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;">
+            The template has been successfully cleared. I am ready to integrate your first Microeconomics lesson and exercises.
+          </p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
