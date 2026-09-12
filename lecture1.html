@@ -334,7 +334,7 @@ body {
       <div class="subsection-title">1.1 Preference Relations</div>
 
       <div class="key-note">
-        Preferences capture only the <strong>ranking</strong> of alternatives — not absolute liking, disliking, or the <strong>intensity</strong> of preference.
+        Preferences only tell us how alternatives are <strong>ranked</strong> relative to each other ($x$ over $y$). They do <strong>not</strong> measure absolute satisfaction, emotional liking, or <strong>how strongly (intensity)</strong> one option is preferred over another.
       </div>
 
       <div>
@@ -348,6 +348,9 @@ body {
           <div class="def-formula">
             $x \succeq y$
             <span class="meaning">"$x$ is at least as good as $y$."</span>
+            <div class="math-display boxed" style="margin-top:8px;">
+              $\boxed{x \succ y \quad \text{or} \quad x \sim y}$
+            </div>
           </div>
         </div>
 
@@ -386,22 +389,7 @@ body {
       </div>
 
       <div class="key-note" style="border-color:#64748b; background:rgba(255,255,255,0.03);">
-        $x \succeq y$ can correspond to either $x \succ y$ &nbsp;or&nbsp; $x \sim y$.
-      </div>
-
-      <div>
-        <button class="toggle-btn" onclick="toggle(this, 'ex-weak')">
-          Show example — Weak preference, strict preference, indifference <span class="arrow">▾</span>
-        </button>
-        <div class="collapsible" id="ex-weak">
-          <p>Consider three bundles of goods: $A$, $B$, $C$.</p>
-          <ul class="bullet-list" style="margin-top:8px;">
-            <li>If an agent prefers $A$ over $B$ and would not accept $B$ instead: $A \succ B$</li>
-            <li>If an agent would accept either $A$ or $B$ with no preference: $A \sim B$</li>
-            <li>Both cases are captured by: $A \succeq B$</li>
-          </ul>
-          <p style="margin-top:10px;">Weak preference is the primitive concept — strict preference and indifference are both derived from it.</p>
-        </div>
+        $x \succeq y$ means either $x \succ y$ (strictly better) or $x \sim y$ (equally good).
       </div>
 
     </section>
@@ -430,7 +418,7 @@ body {
           <div class="property-name">Transitivity</div>
           <div class="property-body">
             <div class="math-display" style="margin:8px 0;">$x \succeq y \text{ and } y \succeq z \Rightarrow x \succeq z$</div>
-            <span class="intuition">Rankings must be logically consistent. Transitivity rules out preference cycles, except when alternatives are indifferent.</span>
+            <span class="intuition">Rankings must be logically consistent. Transitivity rules out strict preference cycles.</span>
           </div>
         </div>
 
@@ -474,10 +462,10 @@ body {
       <p style="font-size:0.9rem; color:var(--text-2); margin-top:6px;">That is, for some $x, y$: &nbsp; neither $x \succeq y$ &nbsp;nor&nbsp; $y \succeq x$ holds.</p>
 
       <div>
-        <div class="sub-label" style="margin-bottom:8px;">Potential reasons</div>
+        <div class="sub-label" style="margin-bottom:8px;">Potential reasons for incompleteness</div>
         <ul class="bullet-list">
-          <li>Cognitive limitations</li>
-          <li>Lack of information</li>
+          <li><strong>Cognitive limitations</strong> — The alternatives are too complex or difficult for the agent to mentally process and rank.</li>
+          <li><strong>Lack of information</strong> — The agent does not have enough information about the alternatives to form a decision.</li>
         </ul>
       </div>
 
@@ -502,9 +490,6 @@ body {
         <button class="toggle-btn" onclick="toggle(this, 'rn-incomplete')">
           Show research note — Revealed incomplete preferences <span class="arrow">▾</span>
         </button>
-        <button class="toggle-btn" onclick="toggle(this, 'emp-incomplete')">
-          Show empirical evidence <span class="arrow">▾</span>
-        </button>
       </div>
 
       <div class="collapsible" id="rn-incomplete">
@@ -514,14 +499,6 @@ body {
           <li>"I don't know" — the agent genuinely cannot form a ranking</li>
         </ul>
         <p style="margin-top:10px;">Goal: distinguish true <em>indifference</em> from genuine <em>incompleteness</em>. The experiment uses <strong>real monetary incentives</strong> — choices affect actual payment — to ensure the stated preferences are revealed, not hypothetical.</p>
-      </div>
-
-      <div class="collapsible" id="emp-incomplete">
-        <ul class="bullet-list">
-          <li>Roughly <strong>40–50%</strong> of subjects display incomplete preferences in baseline treatment.</li>
-          <li>Up to around <strong>75%</strong> in a more cognitively demanding (complex) treatment.</li>
-        </ul>
-        <p style="margin-top:10px;">These numbers suggest that the completeness axiom — a cornerstone of rational preferences — is routinely violated by real decision-makers.</p>
       </div>
 
     </section>
@@ -571,7 +548,7 @@ body {
           Show example <span class="arrow">▾</span>
         </button>
         <div class="collapsible" id="ex-framing">
-          <p>A stereo costs $125, a calculator costs $15. A nearby store offers a $5 discount.</p>
+          <p>A stereo costs \$125, a calculator costs \$15. A nearby store offers a \$5 discount.</p>
           <ul class="bullet-list" style="margin-top:8px;">
             <li>Most people travel to get the discount when it applies to the <strong>calculator</strong>: &nbsp;$\text{Calculator-Discount} \succ \text{No Discount}$</li>
             <li>Most people do not bother when it applies to the <strong>stereo</strong>: &nbsp;$\text{No Discount} \succ \text{Stereo-Discount}$</li>
@@ -618,87 +595,6 @@ body {
       </div>
 
     </section>
-
-
-    <!-- ══════════════════════════════
-         1.5  NEURAL CORRELATES
-    ══════════════════════════════ -->
-    <section class="subsection">
-      <div class="subsection-title">1.5 Neural Correlates of Intransitive Preferences</div>
-
-      <button class="toggle-btn" onclick="toggle(this, 'rn-neural')">
-        Show research note <span class="arrow">▾</span>
-      </button>
-      <div class="collapsible" id="rn-neural">
-        <p><strong>Kalencher et al. (2010)</strong> — used brain imaging to investigate intransitive choices.</p>
-        <ul class="bullet-list" style="margin-top:8px;">
-          <li>Brain regions implicated: DLPFC, PPC, and striatum.</li>
-          <li>Intransitive choices may not simply be random noise or mistakes.</li>
-          <li>They may reflect <strong>context-dependent valuation</strong> — the brain assigns value differently depending on what other options are present.</li>
-        </ul>
-      </div>
-    </section>
-
-
-    <hr class="sep-line">
-
-
-    <!-- ══════════════════════
-         END SUMMARY
-    ══════════════════════ -->
-    <section class="subsection">
-      <div class="subsection-title">What to Remember</div>
-
-      <div class="summary-card">
-        <div class="summary-card-title">Preference Relations — Definitions</div>
-        <div class="def-list">
-          <div class="def-item">
-            <div class="def-label">$x \succeq y$</div>
-            <div class="def-formula">$x$ is at least as good as $y$ <span class="meaning">Weak preference — the primitive relation.</span></div>
-          </div>
-          <div class="def-item">
-            <div class="def-label">$x \succ y$</div>
-            <div class="def-formula">$x \succeq y$ and $y \not\succeq x$ <span class="meaning">Strict preference — derived from $\succeq$.</span></div>
-          </div>
-          <div class="def-item">
-            <div class="def-label">$x \sim y$</div>
-            <div class="def-formula">$x \succeq y$ and $y \succeq x$ <span class="meaning">Indifference — derived from $\succeq$.</span></div>
-          </div>
-        </div>
-
-        <div class="math-display boxed">$\boxed{\text{Rational} = \text{Complete} + \text{Transitive}}$</div>
-
-        <div class="distinction">
-          <div class="dist-side left">
-            <div class="dist-label">Completeness</div>
-            <div class="dist-body">Every pair can be ranked: $x \succeq y$ or $y \succeq x$.</div>
-          </div>
-          <div class="dist-side right">
-            <div class="dist-label">Transitivity</div>
-            <div class="dist-body">$x \succeq y,\ y \succeq z \Rightarrow x \succeq z$</div>
-          </div>
-        </div>
-
-        <div class="math-display boxed">$\boxed{\text{Indifference} \neq \text{Incompleteness}}$</div>
-        <p style="font-size:0.88rem; color:var(--text-3);">Indifference = equal ranking. &nbsp; Incompleteness = no ranking possible.</p>
-
-        <p style="font-size:0.88rem; color:var(--text-2); font-style:italic;">Observed preferences may violate both completeness and transitivity.</p>
-      </div>
-    </section>
-
-
-    <hr class="sep-line">
-
-
-    <!-- ═══════════════════════════
-         SECTIONS 2 & 3 — PLACEHOLDERS
-    ═══════════════════════════ -->
-    <div class="placeholder">
-      <p>📌 &nbsp; <strong>2. Utility</strong> &nbsp;—&nbsp; coming soon</p>
-    </div>
-    <div class="placeholder">
-      <p>📌 &nbsp; <strong>3. Choice</strong> &nbsp;—&nbsp; coming soon</p>
-    </div>
 
   </div>
 </div>
