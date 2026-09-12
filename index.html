@@ -62,7 +62,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── SIDEBAR (Clean single item) ── */
+/* ── SIDEBAR ── */
 .sidebar {
   width: var(--sidebar-width);
   background: var(--sidebar-bg);
@@ -185,14 +185,14 @@ body {
   padding: 36px 40px 60px;
   max-width: 1000px; width: 100%;
   margin: 0 auto;
-  display: flex; flex-direction: column; gap: 48px;
+  display: flex; flex-direction: column; gap: 40px;
 }
 
 /* ── SECTION HEADER ── */
 .section-header { display: flex; flex-direction: column; gap: 6px; }
 .section-pill {
   display: inline-flex; align-items: center; gap: 8px;
-  background: var(--red-muted); border: 1px solid var(--red-border);
+  background: var(--red-muted); border: 1px solid var(--border-active);
   color: var(--red); font-size: 0.72rem; font-weight: 800;
   text-transform: uppercase; letter-spacing: 0.8px;
   padding: 4px 12px; border-radius: 999px; width: fit-content;
@@ -202,16 +202,11 @@ body {
   letter-spacing: -0.5px; line-height: 1.2;
 }
 .section-title span { color: var(--red); }
-.section-lead {
-  font-size: 0.97rem; color: var(--text-2); line-height: 1.75;
-  max-width: 800px;
-}
 
 /* ── PAGE TITLE ── */
-.page-title-block { border-bottom: 1px solid var(--border); padding-bottom: 28px; }
-.page-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--red); margin-bottom: 10px; }
+.page-title-block { border-bottom: 1px solid var(--border); padding-bottom: 24px; }
+.page-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--red); margin-bottom: 8px; }
 .page-title-block h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.6px; line-height: 1.15; }
-.page-title-block p { color: var(--text-3); font-size: 1rem; margin-top: 8px; }
 
 /* ── CALLOUTS ── */
 .callout {
@@ -228,14 +223,6 @@ body {
 .callout-body { font-size: 0.93rem; line-height: 1.7; }
 .callout-body strong { font-weight: 700; }
 
-.callout-def   { background: var(--blue-muted);   border-color: #3b82f6; }
-.callout-def .callout-label   { color: #60a5fa; }
-.callout-def .callout-label::before { content: "📘"; }
-
-.callout-key   { background: var(--red-muted);    border-color: var(--red); }
-.callout-key .callout-label   { color: var(--red); }
-.callout-key .callout-label::before { content: "🔑"; }
-
 .callout-quote { background: var(--purple-muted); border-color: #8b5cf6; }
 .callout-quote .callout-label { color: #a78bfa; }
 .callout-quote .callout-label::before { content: "💬"; }
@@ -246,7 +233,6 @@ body {
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
-.card-grid-3 { grid-template-columns: repeat(3, 1fr); }
 .card-full { grid-column: 1 / -1; }
 
 .concept-card {
@@ -334,56 +320,9 @@ body {
 .dilemma-answer-box .dilemma-inner-label { color: var(--red); }
 .dilemma-challenge-box p,
 .dilemma-answer-box p { font-size: 0.92rem; line-height: 1.7; color: var(--text-2); }
-.dilemma-answer-box p strong { color: var(--text); }
-
-/* ── REFERENCES BOX ── */
-.references-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  display: flex; flex-direction: column; gap: 16px;
-}
-.ref-item {
-  display: flex; flex-direction: column; gap: 4px;
-  padding: 12px 16px; background: rgba(255,255,255,0.02);
-  border-radius: 8px; border: 1px solid var(--border);
-}
-.ref-title { font-size: 0.95rem; font-weight: 700; color: var(--text); }
-.ref-desc { font-size: 0.88rem; color: var(--text-3); }
-.legend-box {
-  background: rgba(225,29,72,0.05);
-  border: 1px solid var(--red-border);
-  border-radius: 8px; padding: 14px 16px;
-  display: flex; flex-direction: column; gap: 8px;
-}
-.legend-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--red); }
-.legend-item { font-size: 0.88rem; color: var(--text-2); display: flex; align-items: center; gap: 10px; }
-.bullet-dot { color: var(--red); font-weight: 800; }
 
 /* ── HIGHLIGHT / FLUO TEXT ── */
 .hl  { color: var(--red-bright); font-weight: 700; }
-.hlb { background: var(--red-muted); color: var(--red-bright); font-weight: 700; padding: 0 5px 1px; border-radius: 4px; }
-
-/* ── TAKEAWAY BANNER ── */
-.takeaway {
-  background: linear-gradient(135deg, rgba(225,29,72,0.12), rgba(159,18,57,0.06));
-  border: 1px solid var(--red-border);
-  border-radius: var(--radius-lg);
-  padding: 26px 28px;
-  display: flex; gap: 18px; align-items: flex-start;
-  box-shadow: 0 0 40px rgba(225,29,72,0.07);
-}
-.takeaway-icon {
-  width: 46px; height: 46px;
-  background: var(--red-gradient);
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem; flex-shrink: 0;
-  box-shadow: 0 4px 14px var(--red-glow);
-}
-.takeaway-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--red); margin-bottom: 7px; }
-.takeaway p { font-size: 0.97rem; color: var(--text-2); line-height: 1.72; }
 
 /* ── UTILITY ── */
 .sep-line { border: none; border-top: 1px solid var(--border); }
@@ -397,7 +336,6 @@ body {
 .tag-blue   { color: #60a5fa; background: var(--blue-muted);   border-color: var(--blue-border); }
 .tag-green  { color: #34d399; background: var(--green-muted);  border-color: var(--green-border); }
 .tag-orange { color: #fbbf24; background: var(--orange-muted); border-color: var(--orange-border); }
-.tag-purple { color: #a78bfa; background: var(--purple-muted); border-color: var(--purple-border); }
 
 /* scrollbar */
 ::-webkit-scrollbar { width: 5px; }
@@ -412,10 +350,8 @@ body {
   .topbar-toggle { display: flex; }
   .main-content { padding: 24px 20px 40px; }
   .card-grid { grid-template-columns: 1fr; }
-  .card-grid-3 { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 560px) {
-  .card-grid-3 { grid-template-columns: 1fr; }
   .dilemma-top { flex-direction: column; }
 }
 </style>
@@ -423,7 +359,7 @@ body {
 <body>
 
 <!-- ══════════════════════════════════════════
-     SIDEBAR (Cleaned up: Only 0 — Introduction)
+     SIDEBAR
 ════════════════════════════════════════════ -->
 <aside class="sidebar open" id="sidebar">
   <div class="sidebar-brand">
@@ -468,55 +404,19 @@ body {
 
     <!-- ── PAGE TITLE ── -->
     <div class="page-title-block">
-      <div class="page-label">Advanced Microeconomics (Theory)</div>
+      <div class="page-label">0 — Introduction</div>
       <h1>What Use Is Microeconomic Theory?</h1>
-      <p>Exploring the usefulness of economic theory and discussing the main challenges faced by economic theorists when presenting their work.</p>
     </div>
-
-    <!-- ── COURSE REFERENCES & LEGEND BOX ── -->
-    <section>
-      <div class="references-box">
-        <div class="section-label">📚 Literature &amp; References</div>
-        
-        <div class="ref-item">
-          <div class="ref-title">Varian, H. R. (1993). <em>What use is economic theory?</em></div>
-          <div class="ref-desc">→ Advocacy for the use of economic theory.</div>
-        </div>
-
-        <div class="ref-item">
-          <div class="ref-title">Rubinstein, A. (2006). <em>Dilemmas of an economic theorist</em>. Econometrica, 865–883.</div>
-          <div class="ref-desc">→ Discussion of the different standpoints that an economic theorist can adopt.</div>
-        </div>
-
-        <!-- Legend -->
-        <div class="legend-box">
-          <div class="legend-title">Legend for References</div>
-          <div class="legend-item">
-            <span class="bullet-dot">•</span> I do not expect you to read this article.
-          </div>
-          <div class="legend-item">
-            <span class="bullet-dot">• •</span> I expect you to read this article to help you understand the lecture slides.
-          </div>
-          <div class="legend-item">
-            <span class="bullet-dot">• • •</span> I expect you to read and know its content beyond the lecture slides.
-          </div>
-        </div>
-
-      </div>
-    </section>
 
 
     <!-- ══════════════════════════════════════
          PART I — VARIAN'S ADVOCACY
     ═══════════════════════════════════════ -->
-    <section id="varian">
+    <section>
 
       <div class="section-header">
-        <div class="section-pill">📌 Part I</div>
+        <div class="section-pill">Part I</div>
         <div class="section-title">Varian's Advocacy</div>
-        <p class="section-lead">
-          Varian, H. R. (1993). <em>What use is economic theory?</em> — Hal Varian presents the arguments in favor of using economic theory.
-        </p>
       </div>
 
       <!-- Opening question -->
@@ -611,14 +511,11 @@ body {
     <!-- ══════════════════════════════════════
          PART II — RUBINSTEIN'S DILEMMAS
     ═══════════════════════════════════════ -->
-    <section id="dilemmas">
+    <section>
 
       <div class="section-header">
-        <div class="section-pill">📌 Part II</div>
+        <div class="section-pill">Part II</div>
         <div class="section-title">Rubinstein's Dilemmas</div>
-        <p class="section-lead">
-          Rubinstein, A. (2006). <em>Dilemmas of an economic theorist</em>. Econometrica, 865–883.
-        </p>
       </div>
 
       <!-- Opening Question -->
@@ -642,19 +539,18 @@ body {
         <div class="dilemma-top">
           <div class="dilemma-num">1</div>
           <div class="dilemma-top-text">
-            <div class="dilemma-tag">Rubinstein's Dilemma 1</div>
-            <div class="dilemma-title">The Dilemma of Absurd Conclusions</div>
+            <div class="dilemma-tag">The Dilemma of Absurd Conclusions</div>
           </div>
         </div>
         <div class="dilemma-body">
           <div class="dilemma-challenge-box">
-            <div class="dilemma-inner-label">❓ Challenge</div>
+            <div class="dilemma-inner-label">❓ Question / Challenge</div>
             <p>
-              <strong>Should a model be discarded if it leads to absurd conclusions, or should it be seen as a limited tool that fails in some contexts?</strong>
+              Should a model be discarded if it leads to absurd conclusions, or should it be seen as a limited tool that fails in some contexts?
             </p>
           </div>
           <div class="dilemma-answer-box">
-            <div class="dilemma-inner-label">✔ Resolution &amp; Explanation</div>
+            <div class="dilemma-inner-label">✔ Answer &amp; Resolution</div>
             <p>
               Economists should recognize that <span class="hl">all models are simplifications of reality and will inevitably fail in some contexts</span>. These absurdities highlight the limitations of the model's assumptions and serve as an opportunity to reinterpret them.
             </p>
@@ -667,21 +563,20 @@ body {
         <div class="dilemma-top">
           <div class="dilemma-num">2</div>
           <div class="dilemma-top-text">
-            <div class="dilemma-tag">Rubinstein's Dilemma 2</div>
-            <div class="dilemma-title">The Dilemma of Responding to Evidence</div>
+            <div class="dilemma-tag">The Dilemma of Responding to Evidence</div>
           </div>
         </div>
         <div class="dilemma-body">
           <div class="dilemma-challenge-box">
-            <div class="dilemma-inner-label">❓ Challenge</div>
+            <div class="dilemma-inner-label">❓ Question / Challenge</div>
             <p>
-              <strong>Should economic models be adjusted or rejected if they are contradicted by experimental evidence?</strong>
+              Should economic models be adjusted or rejected if they are contradicted by experimental evidence?
             </p>
           </div>
           <div class="dilemma-answer-box">
-            <div class="dilemma-inner-label">✔ Resolution &amp; Explanation</div>
+            <div class="dilemma-inner-label">✔ Answer &amp; Resolution</div>
             <p>
-              Economists should <span class="hl">use empirical refutations as a basis for refining models or developing new ones</span>. When experimental evidence contradicts a model, it shows us where the model needs improvement.
+              Economists should <span class="hl">use empirical refutations as a basis for refining models or developing new ones</span>. When real-world evidence contradicts a model, it shows us where the model needs improvement.
             </p>
           </div>
         </div>
@@ -692,19 +587,18 @@ body {
         <div class="dilemma-top">
           <div class="dilemma-num">3</div>
           <div class="dilemma-top-text">
-            <div class="dilemma-tag">Rubinstein's Dilemma 3</div>
-            <div class="dilemma-title">The Dilemma of Modelless Regularities</div>
+            <div class="dilemma-tag">The Dilemma of Modelless Regularities</div>
           </div>
         </div>
         <div class="dilemma-body">
           <div class="dilemma-challenge-box">
-            <div class="dilemma-inner-label">❓ Challenge</div>
+            <div class="dilemma-inner-label">❓ Question / Challenge</div>
             <p>
-              <strong>Should economic theorists rely on models to discover regularities in human behavior, or can these regularities be identified directly through observation?</strong>
+              Should economic theorists rely on models to discover regularities in human behavior, or can these regularities be identified directly through observation?
             </p>
           </div>
           <div class="dilemma-answer-box">
-            <div class="dilemma-inner-label">✔ Resolution &amp; Explanation</div>
+            <div class="dilemma-inner-label">✔ Answer &amp; Resolution</div>
             <p>
               Regularities can often be <span class="hl">observed directly without the need for models</span>. However, models can still play a useful role by providing a <span class="hl">structured way to think about these regularities</span>.
             </p>
@@ -717,19 +611,18 @@ body {
         <div class="dilemma-top">
           <div class="dilemma-num">4</div>
           <div class="dilemma-top-text">
-            <div class="dilemma-tag">Rubinstein's Dilemma 4</div>
-            <div class="dilemma-title">The Dilemma of Relevance</div>
+            <div class="dilemma-tag">The Dilemma of Relevance</div>
           </div>
         </div>
         <div class="dilemma-body">
           <div class="dilemma-challenge-box">
-            <div class="dilemma-inner-label">❓ Challenge</div>
+            <div class="dilemma-inner-label">❓ Question / Challenge</div>
             <p>
-              <strong>Can economic theorists offer meaningful advice that impacts the real world, or are their models too detached from reality to be relevant?</strong>
+              Can economic theorists offer meaningful advice that impacts the real world, or are their models too detached from reality to be relevant?
             </p>
           </div>
           <div class="dilemma-answer-box">
-            <div class="dilemma-inner-label">✔ Resolution &amp; Explanation</div>
+            <div class="dilemma-inner-label">✔ Answer &amp; Resolution</div>
             <p>
               While economic theory may not always provide actionable advice, it is still relevant because it <span class="hl">shapes the way people think about economic issues</span>. Theorists should be responsible in how they present their work, <span class="hl">recognizing the limitations of their models and avoiding oversimplification</span> when addressing complex real-world problems.
             </p>
@@ -738,67 +631,6 @@ body {
       </div>
 
     </section>
-
-
-    <hr class="sep-line">
-
-
-    <!-- ══════════════════════════════════════
-         PART III — WHAT TO EXPECT IN THIS COURSE
-    ═══════════════════════════════════════ -->
-    <section id="course-expectations">
-
-      <div class="section-header">
-        <div class="section-pill">📌 Part III</div>
-        <div class="section-title">What to Expect in This Course</div>
-        <p class="section-lead">
-          An overview of what will be covered throughout this Advanced Microeconomics course.
-        </p>
-      </div>
-
-      <div class="card-grid card-grid-3">
-
-        <div class="concept-card red-top">
-          <div class="card-icon-wrap">🔁</div>
-          <h3>1. Revise Known Concepts + Proofs + More Complex Exercises</h3>
-          <p>
-            We will review fundamental microeconomic principles, go deeper into mathematical proofs, and solve more challenging, complex exercises.
-          </p>
-        </div>
-
-        <div class="concept-card blue-top">
-          <div class="card-icon-wrap blue">✨</div>
-          <h3>2. Introduce New Concepts</h3>
-          <p>
-            We will introduce new advanced theoretical concepts and frameworks that build upon basic microeconomic theory.
-          </p>
-        </div>
-
-        <div class="concept-card green-top">
-          <div class="card-icon-wrap green">🔍</div>
-          <h3>3. Get a Glimpse into Research in Microeconomics</h3>
-          <p>
-            We will explore modern microeconomic research, connecting theoretical models directly with empirical evidence (<span class="hl">Theory + Evidence</span>).
-          </p>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ══════════════════════════════════════
-         KEY TAKEAWAY
-    ═══════════════════════════════════════ -->
-    <div class="takeaway" id="takeaway">
-      <div class="takeaway-icon">✨</div>
-      <div>
-        <div class="takeaway-label">Key Takeaway — 0 Introduction</div>
-        <p>
-          Microeconomic theory provides useful tools to predict outcomes without data, guide parameter identification, connect disparate problems, and generate testable hypotheses (Varian). However, theorists face key dilemmas regarding absurd conclusions, empirical refutations, modelless regularities, and real-world relevance (Rubinstein). In this course, we will revise known concepts with proofs, introduce new concepts, and explore research combining theory and evidence.
-        </p>
-      </div>
-    </div>
 
   </div><!-- /main-content -->
 </div><!-- /main-wrap -->
