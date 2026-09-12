@@ -487,6 +487,12 @@ body {
       <p>Revealed preferences, rationalizability, Property &alpha;, and Houthakker’s Axiom (HARP).</p>
     </div>
 
+    <!-- UNIVERSAL CHOICE ENVIRONMENT -->
+    <div class="key-note" style="border-left-color: var(--text-3); background: rgba(255,255,255,0.03);">
+      Let $X$ be the set of possible alternatives.<br>
+      A non-empty subset $A \subseteq X$ from which an agent can choose is called a <strong>choice set</strong> (or <strong>menu</strong>).
+    </div>
+
     <!-- ════════════════════════════════════════════════════
          MACRO OVERVIEW: THE TWO PILLARS OF CHOICE THEORY
     ════════════════════════════════════════════════════ -->
@@ -496,14 +502,14 @@ body {
         <span class="overview-badge">Part 1 · Single-Valued</span>
         <div class="overview-title">Choice Function $C_F$</div>
         <div class="overview-desc">
-          Selects <strong>exactly one alternative</strong> from each menu:
+          Selects <strong>exactly one alternative</strong>:
           <div class="math-display" style="margin:4px 0; padding:6px 10px; font-size:0.86rem;">
-            $$C_F(A) \in A \quad \text{e.g. } C_F(\{x, y, z\}) = x$$
+            $$C_F(A) \in A \quad \text{e.g. } C(\{x, y, z\}) = x$$
           </div>
         </div>
         <div class="overview-formula-box">
           <div class="math-display boxed blue">
-            $$\boxed{C_F \text{ rationalizable } \iff \text{Property } \alpha}$$
+            $$\boxed{C \text{ rationalizable } \iff \text{Property } \alpha}$$
           </div>
         </div>
       </div>
@@ -513,20 +519,18 @@ body {
         <span class="overview-badge">Part 2 · Multi-Valued</span>
         <div class="overview-title">Choice Rule $C_R$</div>
         <div class="overview-desc">
-          Selects a <strong>non-empty set of maximal alternatives</strong> (allows ties $\sim$):
+          Selects a <strong>set of maximal alternatives</strong> (allows ties $\sim$):
           <div class="math-display" style="margin:4px 0; padding:6px 10px; font-size:0.86rem;">
-            $$C_R(A) \subseteq A \quad \text{e.g. } C_R(\{x, y, z\}) = \{x, y\} \text{ if } x \sim y \succ z$$
+            $$C_R(A) \subseteq A \quad \text{e.g. } C(\{x, y, z\}) = \{x, y\}$$
           </div>
         </div>
         <div class="overview-formula-box">
           <div class="math-display boxed">
-            $$\boxed{C_R \text{ rationalizable } \iff \text{HARP}}$$
+            $$\boxed{C \text{ rationalizable } \iff \text{HARP}}$$
           </div>
         </div>
       </div>
     </div>
-
-
 
 
     <!-- ════════════════════════════════════════════════════
@@ -543,10 +547,6 @@ body {
       <div class="subsection-title blue">1.1 Choice Functions & Rationalizability</div>
 
       <p style="font-size:0.9rem; color:var(--text-2);">
-        Let $X$ be the set of possible alternatives. A non-empty subset $A \subseteq X$ is called a <strong>choice set</strong> (or menu).
-      </p>
-
-      <p style="font-size:0.9rem; color:var(--text-2);">
         A <strong>choice function</strong> $C_F$ assigns to every choice set $A$ exactly one chosen alternative:
       </p>
 
@@ -554,12 +554,16 @@ body {
         $$\boxed{C_F(A) \in A}$$
       </div>
 
+      <p style="font-size:0.86rem; color:var(--text-3); font-style:italic;">
+        (Throughout this chapter, we use the standard shorthand $C(A)$ when the context is clear.)
+      </p>
+
       <p style="font-size:0.9rem; color:var(--text-2);">
-        A choice function $C_F$ is <strong>rationalizable</strong> if there exists a rational preference relation $\succeq$ on $X$ such that, for every choice set $A$, $C_F(A)$ is the unique strictly best alternative in $A$:
+        A choice function $C$ is <strong>rationalizable</strong> if there exists a rational preference relation $\succeq$ on $X$ such that, for every choice set $A$, $C(A)$ is the unique strictly best alternative in $A$:
       </p>
 
       <div class="math-display boxed blue">
-        $$\boxed{C_F(A) \succ y \qquad \forall y \in A, \ y \neq C_F(A)}$$
+        $$\boxed{C(A) \succ y \qquad \forall y \in A, \ y \neq C(A)}$$
       </div>
 
       <!-- Distinction -->
@@ -585,11 +589,11 @@ body {
         <div class="collapsible" id="ex-non-rat">
           <p>Let $X = \{x, y, h\}$ (e.g. going out with Xavier, with Yoan, or staying home):</p>
           <div class="math-display" style="margin:8px 0;">
-            $$C_F(\{x, h\}) = x, \qquad C_F(\{y, h\}) = y, \qquad C_F(\{x, y, h\}) = h$$
+            $$C(\{x, h\}) = x, \qquad C(\{y, h\}) = y, \qquad C(\{x, y, h\}) = h$$
           </div>
           <p style="margin-top:8px;">
-            From $C_F(\{x, h\}) = x$, we infer $x \succ h$.<br>
-            However, when $y$ is added to the menu, $h$ is chosen ($C_F(\{x, y, h\}) = h$) even though $x$ is still available.
+            From $C(\{x, h\}) = x$, we infer $x \succ h$.<br>
+            However, when $y$ is added to the menu, $h$ is chosen ($C(\{x, y, h\}) = h$) even though $x$ is still available.
           </p>
           <p style="margin-top:8px; font-weight:700; color:var(--red-bright);">
             Therefore, this choice function is not rationalizable.
@@ -604,53 +608,70 @@ body {
       <div class="subsection-title blue">1.2 Characterization: Property &alpha;</div>
 
       <div class="math-display boxed blue">
-        $$\boxed{C_F \text{ is rationalizable } \iff C_F \text{ satisfies Property } \alpha}$$
+        $$\boxed{\text{A choice function } C \text{ is rationalizable } \iff C \text{ satisfies Property } \alpha}$$
       </div>
 
       <div class="property-item blue">
         <div class="property-name">Definition — Property &alpha;</div>
         <div class="property-body">
-          For any $B \subset A \subseteq X$, if $C_F(A) \in B$, then:
+          For any $B \subset A \subseteq X$, if $C(A) \in B$, then:
           <div class="math-display" style="margin:10px 0;">
-            $$\boxed{C_F(B) = C_F(A)}$$
+            $$\boxed{C(B) = C(A)}$$
           </div>
-          <span class="intuition">If the old winner $C_F(A)$ is still available after some unchosen alternatives are removed, it must remain the winner.</span>
+          <span class="intuition">If the old winner is still available after some unchosen alternatives are removed, it must remain the winner.</span>
         </div>
       </div>
 
-      <!-- PROOFS FOR PROPERTY ALPHA -->
-      <div style="display:flex; flex-direction:column; gap:10px;">
+      <!-- THEOREM PROOF BLOCK: PROPERTY ALPHA -->
+      <div class="proof-section-card" style="border-top: 2px solid #3b82f6;">
+
         <!-- DIRECTION 1 -->
         <div>
+          <div style="font-size:0.95rem; font-weight:800; color:var(--text); margin-bottom:8px;">
+            Direction 1: Rationalizable $\implies$ Property &alpha;
+          </div>
+          <div style="font-size:0.88rem; color:var(--text-2); line-height:1.6; margin-bottom:10px;">
+            <strong>Starting point:</strong> Suppose $C$ is rationalizable.<br>
+            Then, by definition, there exists a rational preference relation $\succeq$ such that, for every choice set $A$, $C(A)$ is the unique strictly best alternative in $A$.
+          </div>
           <button class="toggle-btn blue" onclick="toggle(this, 'proof-alpha-dir1')">
             Show proof — Rationalizable $\implies$ Property &alpha; <span class="arrow">▾</span>
           </button>
           <div class="collapsible" id="proof-alpha-dir1">
-            <p>Let $C_F$ be a rationalizable choice function on $X$.</p>
-            <p style="margin-top:4px;">Then there exists a rational preference relation $\succeq$ such that, for every choice set $A$, $C_F(A)$ is the unique best alternative in $A$:</p>
-            <div class="math-display" style="margin:8px 0;">$$C_F(A) \succ y \qquad \forall y \in A, \ y \neq C_F(A)$$</div>
+            <p>Since $C(A)$ is the unique best alternative in $A$:</p>
+            <div class="math-display" style="margin:8px 0;">$$C(A) \succ y \qquad \forall y \in A, \ y \neq C(A)$$</div>
 
-            <p>Assume $B \subset A$ and $C_F(A) \in B$.</p>
+            <p>Assume $B \subset A$ and $C(A) \in B$.</p>
             <p style="margin-top:4px;">Since $B \subset A$, it follows directly that:</p>
-            <div class="math-display" style="margin:8px 0;">$$C_F(A) \succ y \qquad \forall y \in B, \ y \neq C_F(A)$$</div>
+            <div class="math-display" style="margin:8px 0;">$$C(A) \succ y \qquad \forall y \in B, \ y \neq C(A)$$</div>
 
-            <p>Hence $C_F(A)$ is also the unique strictly best alternative in $B$.</p>
-            <p style="margin-top:6px; font-weight:700;">Therefore: $C_F(B) = C_F(A)$. Thus $C_F$ satisfies Property $\alpha$. $\blacksquare$</p>
+            <p>Hence $C(A)$ is also the unique strictly best alternative in $B$.</p>
+            <p style="margin-top:6px; font-weight:700;">Therefore: $C(B) = C(A)$. Thus $C$ satisfies Property $\alpha$. $\blacksquare$</p>
           </div>
         </div>
 
-        <!-- DIRECTION 2 (PLACEHOLDER FOR CLASS CORRECTION) -->
+        <hr class="sep-line" style="margin: 4px 0;">
+
+        <!-- DIRECTION 2 -->
         <div>
+          <div style="font-size:0.95rem; font-weight:800; color:var(--text); margin-bottom:8px;">
+            Direction 2: Property &alpha; $\implies$ Rationalizable
+          </div>
+          <div style="font-size:0.88rem; color:var(--text-2); line-height:1.6; margin-bottom:10px;">
+            <strong>Starting point:</strong> Suppose $C$ satisfies Property $\alpha$.<br>
+            Now we do not yet have a preference relation: we construct one from pairwise choices (e.g. $x \succeq y \iff C(\{x, y\}) = x$) and prove that Property $\alpha$ guarantees completeness, transitivity, and reproduction of observed choices.
+          </div>
           <button class="toggle-btn blue" onclick="toggle(this, 'proof-alpha-dir2')">
             Show proof — Property &alpha; $\implies$ Rationalizable <span class="arrow">▾</span>
           </button>
           <div class="collapsible" id="proof-alpha-dir2">
             <div class="key-note blue" style="margin: 4px 0;">
               <strong>Reserved for class correction:</strong><br>
-              This direction constructs a preference relation $\succeq$ from binary choices $C_F(\{x, y\})$ and verifies completeness, transitivity, and consistency using Property $\alpha$. The full step-by-step demonstration will be inserted here after lecture review.
+              This direction constructs a preference relation $\succeq$ from binary choices $C(\{x, y\})$ and verifies completeness, transitivity, and consistency using Property $\alpha$. The full step-by-step demonstration will be inserted here after lecture review.
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
@@ -666,7 +687,7 @@ body {
 
     <!-- ── 2.1 CHOICE RULES & RATIONALIZABILITY ── -->
     <section class="subsection">
-      <div class="subsection-title red">2.1 Choice Rules $C_R$ (Correspondences) & Rationalizability</div>
+      <div class="subsection-title red">2.1 Choice Rules (Correspondences) & Rationalizability</div>
 
       <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
         A choice function assumes a single winner. When an agent is indifferent between multiple items, several alternatives can be equally optimal. A <strong>choice rule</strong> (or <strong>choice correspondence</strong>) $C_R$ selects a non-empty subset of alternatives:
@@ -677,16 +698,16 @@ body {
       </div>
 
       <p style="font-size:0.9rem; color:var(--text-2);">
-        A choice rule $C_R$ is <strong>rationalizable</strong> if there exists a rational preference relation $\succeq$ such that $C_R(A)$ corresponds to the set of <strong>maximal alternatives</strong> in $A$:
+        A choice rule $C$ is <strong>rationalizable</strong> if there exists a rational preference relation $\succeq$ such that $C(A)$ corresponds to the set of <strong>maximal alternatives</strong> in $A$:
       </p>
 
       <div class="math-display boxed">
-        $$\boxed{C_R(A) = \{x \in A : x \succeq y \quad \forall y \in A\}}$$
+        $$\boxed{C(A) = \{x \in A : x \succeq y \quad \forall y \in A\}}$$
       </div>
 
       <ul class="bullet-list">
-        <li>$C_R(A)$ is the set of all elements in $A$ that are at least as good as every other element in $A$.</li>
-        <li>Multiple alternatives belong to $C_R(A)$ simultaneously whenever they are indifferent ($x \sim y$).</li>
+        <li>$C(A)$ is the set of all elements in $A$ that are at least as good as every other element in $A$.</li>
+        <li>Multiple alternatives belong to $C(A)$ simultaneously whenever they are indifferent ($x \sim y$).</li>
       </ul>
     </section>
 
@@ -696,17 +717,17 @@ body {
       <div class="subsection-title red">2.2 Houthakker’s Axiom of Revealed Preferences (HARP)</div>
 
       <p style="font-size:0.9rem; color:var(--text-2);">
-        For multi-valued choice rules, the consistency axiom is <strong>HARP</strong>. For all $a, b \in A \cap B$ such that $a \in C_R(A)$ and $b \in C_R(B)$:
+        For multi-valued choice rules, the consistency axiom is <strong>HARP</strong>. For all $a, b \in A \cap B$ such that $a \in C(A)$ and $b \in C(B)$:
       </p>
 
       <div class="math-display boxed">
-        $$\boxed{a \in C_R(B) \quad \text{and} \quad b \in C_R(A)}$$
+        $$\boxed{a \in C(B) \quad \text{and} \quad b \in C(A)}$$
       </div>
 
       <div class="key-note">
         <strong>Intuition:</strong><br>
-        — If $a$ is chosen when $b$ is available ($a \in C_R(A), b \in A$), this reveals $a \succeq b$.<br>
-        — If $b$ is chosen when $a$ is available ($b \in C_R(B), a \in B$), this reveals $b \succeq a$.<br>
+        — If $a$ is chosen when $b$ is available ($a \in C(A), b \in A$), this reveals $a \succeq b$.<br>
+        — If $b$ is chosen when $a$ is available ($b \in C(B), a \in B$), this reveals $b \succeq a$.<br>
         Therefore $a \sim b$. Since both are tied at the top, both must be maximal in both choice sets!
       </div>
 
@@ -719,13 +740,13 @@ body {
           Show example — Violation of HARP <span class="arrow">▾</span>
         </button>
         <div class="collapsible" id="ex-harp-viol">
-          <p>Consider $A = \{a, b, c\}$ with $C_R(A) = \{a\}$, and $B = \{a, b\}$ with $C_R(B) = \{b\}$.</p>
+          <p>Consider $A = \{a, b, c\}$ with $C(A) = \{a\}$, and $B = \{a, b\}$ with $C(B) = \{b\}$.</p>
           <ul class="bullet-list" style="margin-top:8px;">
             <li>$a, b \in A \cap B$.</li>
-            <li>$a \in C_R(A)$ reveals $a \succeq b$.</li>
-            <li>$b \in C_R(B)$ reveals $b \succeq a$.</li>
+            <li>$a \in C(A)$ reveals $a \succeq b$.</li>
+            <li>$b \in C(B)$ reveals $b \succeq a$.</li>
           </ul>
-          <p style="margin-top:8px;">HARP requires $a \in C_R(B)$ and $b \in C_R(A)$. But here $a \notin C_R(B)$ and $b \notin C_R(A)$.</p>
+          <p style="margin-top:8px;">HARP requires $a \in C(B)$ and $b \in C(A)$. But here $a \notin C(B)$ and $b \notin C(A)$.</p>
           <p style="margin-top:6px; font-weight:700; color:var(--red-bright);">Conclusion: The choice rule violates HARP and cannot be rationalized.</p>
         </div>
       </div>
@@ -737,12 +758,8 @@ body {
       <div class="subsection-title red">2.3 Main Characterization Theorem (Finite $X$)</div>
 
       <div class="math-display boxed">
-        $$\boxed{\text{Given a finite set } X, \text{ a choice rule } C_R \text{ is rationalizable } \iff C_R \text{ satisfies HARP.}}$$
+        $$\boxed{\text{Given a finite set } X, \text{ a choice rule } C \text{ is rationalizable } \iff C \text{ satisfies HARP.}}$$
       </div>
-
-      <p style="font-size:0.84rem; color:var(--text-3); font-style:italic; margin-bottom:4px;">
-        (The formal proof below uses the generic shorthand $C$ to keep the algebra concise and uncluttered.)
-      </p>
 
       <!-- THEOREM PROOF BLOCK -->
       <div class="proof-section-card">
@@ -752,12 +769,15 @@ body {
           <div style="font-size:0.95rem; font-weight:800; color:var(--text); margin-bottom:8px;">
             Direction 1: Rationalizable $\implies$ HARP
           </div>
+          <div style="font-size:0.88rem; color:var(--text-2); line-height:1.6; margin-bottom:10px;">
+            <strong>Starting point:</strong> Suppose $C$ is rationalizable.<br>
+            Then, by definition, there exists a rational preference relation $\succeq$ such that $C(A)$ contains the maximal alternatives of every choice set $A$.
+          </div>
           <button class="toggle-btn" onclick="toggle(this, 'proof-dir1')">
             Show proof — Rationalizable $\implies$ HARP <span class="arrow">▾</span>
           </button>
           <div class="collapsible" id="proof-dir1">
-            <p>Suppose $C$ is rationalizable by some rational preference relation $\succeq$.</p>
-            <p style="margin-top:6px;">Consider $a, b \in A \cap B$ such that $a \in C(A)$ and $b \in C(B)$.</p>
+            <p>Consider $a, b \in A \cap B$ such that $a \in C(A)$ and $b \in C(B)$.</p>
 
             <ul class="bullet-list" style="margin-top:10px;">
               <li><span class="proof-badge">By maximality</span> Since $a \in C(A)$ and $b \in A$, we have: $a \succeq b$.</li>
@@ -779,9 +799,13 @@ body {
           <div style="font-size:0.95rem; font-weight:800; color:var(--text); margin-bottom:8px;">
             Direction 2: HARP $\implies$ Rationalizable
           </div>
+          <div style="font-size:0.88rem; color:var(--text-2); line-height:1.6; margin-bottom:10px;">
+            <strong>Starting point:</strong> Suppose $C$ satisfies HARP.<br>
+            Now we do not yet have a preference relation: we construct one from observed choices, and then prove it is rational.
+          </div>
 
           <p style="font-size:0.88rem; color:var(--text-2); line-height:1.6;">
-            Suppose $C$ satisfies HARP. Define the <strong>revealed preference relation</strong> $\succeq$ by:
+            Define the <strong>revealed preference relation</strong> $\succeq$ by:
           </p>
 
           <div class="math-display boxed" style="margin:10px 0;">
@@ -904,15 +928,6 @@ body {
         </div>
 
       </div>
-
-      <!-- FINAL THEOREM SUMMARY -->
-      <div style="margin-top:12px;">
-        <div class="key-note">
-          <strong>Logical Proof Map:</strong><br>
-          $$\text{HARP} \implies \text{define } \succeq \implies \text{complete} \implies \text{transitive} \implies C(A) = C(A, \succeq) \implies \text{rationalizable}$$
-        </div>
-      </div>
-
     </section>
 
 
