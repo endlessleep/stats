@@ -304,7 +304,7 @@ body {
       <p style="font-size:0.9rem; color:var(--text-2);">A utility function $u: X \to \mathbb{R}$ <strong>represents</strong> a preference relation $\succeq$ if:</p>
 
       <div class="math-display boxed">
-        $\boxed{x \succeq y \iff u(x) \ge u(y)}$
+        $$\boxed{x \succeq y \iff u(x) \ge u(y)}$$
       </div>
 
       <div class="key-note">
@@ -316,21 +316,36 @@ body {
         <li>Utility representations are generally <strong>not unique</strong>.</li>
       </ul>
 
-      <!-- Distinction -->
+      <!-- Ordinal vs Cardinal -->
       <div class="property-item red">
         <div class="property-name">Ordinal vs. Cardinal</div>
         <div class="property-body">
-          Utility is <strong>ordinal</strong>, not cardinal. The numerical values themselves do not measure the intensity of preference.
+          Utility is <strong>ordinal</strong>, not cardinal. The numerical values themselves do not measure the intensity of preference — only the ranking matters.
+        </div>
+      </div>
+
+      <!-- Increasing Transformation -->
+      <div class="property-item blue">
+        <div class="property-name">Invariance to Monotonic Transformations</div>
+        <div class="property-body">
+          If $u$ represents $\succeq$, then for any strictly increasing function $v: \mathbb{R} \to \mathbb{R}$, the composition $v \circ u$ also represents $\succeq$:
+          <div class="math-display" style="margin:10px 0;">
+            $$u(x) \ge u(y) \iff v(u(x)) \ge v(u(y))$$
+          </div>
+          <span class="intuition">Strictly increasing transformations preserve the order of numbers, so they preserve the preference ranking.</span>
         </div>
       </div>
 
       <div>
-        <button class="toggle-btn" onclick="toggle(this, 'ex-ordinal')">
-          Show example — Ordinal meaning of utility <span class="arrow">▾</span>
+        <button class="toggle-btn" onclick="toggle(this, 'proof-transf')">
+          Show proof — Increasing transformations preserve representation <span class="arrow">▾</span>
         </button>
-        <div class="collapsible" id="ex-ordinal">
-          <p>Suppose $u(A) - u(B) = 5$ &nbsp;and&nbsp; $u(A) - u(C) = 1$.</p>
-          <p style="margin-top:8px;">This does <strong>not</strong> imply that the preference for $A$ over $B$ is 5 times stronger than the preference for $A$ over $C$. Only the order matters ($u(A) > u(B) > u(C)$), not the differences between the numbers.</p>
+        <div class="collapsible" id="proof-transf">
+          <p>By definition of utility representation:</p>
+          <div class="math-display" style="margin:8px 0;">$$x \succeq y \iff u(x) \ge u(y)$$</div>
+          <p>Since $v: \mathbb{R} \to \mathbb{R}$ is strictly increasing ($a \ge b \iff v(a) \ge v(b)$):</p>
+          <div class="math-display" style="margin:8px 0;">$$u(x) \ge u(y) \iff v(u(x)) \ge v(u(y))$$</div>
+          <p>Therefore: $x \succeq y \iff v(u(x)) \ge v(u(y))$, which means $(v \circ u)$ represents $\succeq$. $\blacksquare$</p>
         </div>
       </div>
     </section>
@@ -340,21 +355,17 @@ body {
 
 
     <!-- ══════════════════════════════
-         2.2  REPRESENTATION & RATIONALITY
+         2.2  REPRESENTABILITY IMPLIES RATIONALITY
     ══════════════════════════════ -->
     <section class="subsection">
-      <div class="subsection-title">2.2 Representation and Rationality</div>
+      <div class="subsection-title">2.2 Representability Implies Rationality</div>
 
       <div class="math-display boxed">
-        $\boxed{\text{If } \succeq \text{ is representable by a utility function, then } \succeq \text{ is rational.}}$
-      </div>
-
-      <div class="key-note">
-        Rational means <strong>complete</strong> and <strong>transitive</strong>.
+        $$\boxed{\text{Representable by utility} \implies \text{Rational (Complete + Transitive)}}$$
       </div>
 
       <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
-        Real numbers can always be compared ($\ge$) and their ordering is transitive, so a preference relation represented by real-valued utility inherits completeness and transitivity.
+        Real numbers are naturally complete (any two numbers can be compared via $\ge$) and transitive. A preference relation represented by a real-valued utility function inherits these exact properties.
       </p>
 
       <div>
@@ -368,7 +379,7 @@ body {
 
           <p style="font-weight:700; color:var(--red); margin-top:14px; margin-bottom:6px;">Part 2: Transitivity</p>
           <p>Suppose $x \succeq y$ and $y \succeq z$.</p>
-          <p style="margin-top:4px;">Then $u(x) \ge u(y)$ and $u(y) \ge u(z)$, which implies $u(x) \ge u(z)$.</p>
+          <p style="margin-top:4px;">Then $u(x) \ge u(y)$ and $u(y) \ge u(z)$, which implies $u(x) \ge u(z)$ by transitivity of $\ge$ on $\mathbb{R}$.</p>
           <p style="margin-top:4px;">Therefore, $x \succeq z$. Hence $\succeq$ is transitive. $\blacksquare$</p>
         </div>
       </div>
@@ -379,103 +390,155 @@ body {
 
 
     <!-- ════════════════════════════════════════════
-         2.3  DOES RATIONALITY IMPLY REPRESENTATION?
+         2.3  RATIONALITY AND UTILITY REPRESENTATION
     ════════════════════════════════════════════ -->
     <section class="subsection">
-      <div class="subsection-title">2.3 Does Rationality Imply Utility Representation?</div>
+      <div class="subsection-title">2.3 Rationality and Utility Representation</div>
 
-      <div class="math-display boxed">
-        $\boxed{\text{Representable} \Rightarrow \text{Rational}} \quad \text{(Always)}$
+      <div class="key-note">
+        <strong>Does rationality imply utility representation?</strong>
       </div>
 
-      <p style="font-size:0.9rem; color:var(--text-2);">The reverse implication depends on the choice set $X$:</p>
+      <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
+        Recall:
+      </p>
 
-      <!-- Finite X -->
+      <div class="math-display">
+        $$\text{Rational preferences} = \text{complete} + \text{transitive}$$
+      </div>
+
+      <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
+        and:
+      </p>
+
+      <div class="math-display">
+        $$x \succeq y \iff u(x) \ge u(y)$$
+      </div>
+
+      <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
+        means that $u$ represents the preference relation.
+      </p>
+
+      <!-- Finite choice set -->
       <div class="property-item green">
-        <div class="property-name">Finite Choice Set ($X$ is finite)</div>
+        <div class="property-name">Finite Choice Set</div>
         <div class="property-body">
+          <p style="font-size:0.9rem; margin-bottom:8px;">If $X$ is finite:</p>
           <div class="math-display boxed" style="margin:8px 0;">
-            $\boxed{\text{Rational} \Rightarrow \text{Representable}}$
+            $$\boxed{\text{Rational} \implies \text{Representable}}$$
           </div>
-          <span class="intuition">With finitely many alternatives, a complete and transitive ranking can always be encoded by real numbers.</span>
+          <span class="intuition">With finitely many alternatives, a complete and transitive ranking can always be encoded by utility numbers.</span>
         </div>
         <div>
           <button class="toggle-btn" onclick="toggle(this, 'ex-finite')">
             Show example — Finite choice set <span class="arrow">▾</span>
           </button>
           <div class="collapsible" id="ex-finite">
-            <p>If $a \succ b \succ c$, we can simply assign:</p>
-            <div class="math-display" style="margin:8px 0;">$u(a) = 3, \quad u(b) = 2, \quad u(c) = 1$</div>
-            <p>This preserves $a \succ b \succ c$ perfectly.</p>
+            <p>Example: $a \succ b \succ c$ can be represented by:</p>
+            <div class="math-display" style="margin:8px 0;">$$u(a) = 3, \quad u(b) = 2, \quad u(c) = 1$$</div>
           </div>
         </div>
       </div>
 
-      <!-- Infinite X -->
+      <!-- Infinite choice set -->
       <div class="property-item red">
-        <div class="property-name">Infinite Choice Set ($X$ is infinite)</div>
+        <div class="property-name">Infinite Choice Set</div>
         <div class="property-body">
+          <p style="font-size:0.9rem; margin-bottom:8px;">If $X$ is infinite:</p>
           <div class="math-display boxed" style="margin:8px 0;">
-            $\boxed{\text{Rational} \not\Rightarrow \text{Representable in general}}$
+            $$\boxed{\text{Rational} \not\implies \text{Representable in general}}$$
           </div>
-          <span class="intuition">"Not necessarily" does not mean infinite choice sets are <em>never</em> representable. Some rational preferences on infinite sets ARE representable.</span>
+          <span class="intuition">“Not in general” does not mean that rational preferences on infinite sets are never representable. Some are representable, some are not.</span>
         </div>
         <div>
           <button class="toggle-btn" onclick="toggle(this, 'ex-infinite')">
-            Show example — Representable preferences on an infinite set <span class="arrow">▾</span>
+            Show example — Infinite set but representable <span class="arrow">▾</span>
           </button>
           <div class="collapsible" id="ex-infinite">
-            <p>On $X = \mathbb{R}_+$, define $x \succeq y \iff x \ge y$.</p>
-            <p style="margin-top:6px;">This rational preference relation on an infinite set is easily represented by:</p>
-            <div class="math-display" style="margin:8px 0;">$u(x) = x$</div>
+            <p>Let $X = \mathbb{R}_+$ and define:</p>
+            <div class="math-display" style="margin:8px 0;">$$x \succeq y \iff x \ge y$$</div>
+            <p>Then:</p>
+            <div class="math-display" style="margin:8px 0;">$$u(x) = x$$</div>
+            <p style="margin-top:6px;">represents these preferences.</p>
+            <p style="margin-top:8px; font-style:italic; color:var(--text-3);">The utility function preserves exactly the same ranking as the numerical order.</p>
           </div>
         </div>
       </div>
+
+      <!-- Bridge to continuity -->
+      <div class="property-item" style="border-left:3px solid var(--text-muted);">
+        <div class="property-name" style="color:var(--text-3);">Why can representation fail on an infinite set?</div>
+        <div class="property-body">
+          Rationality only imposes completeness and transitivity. On an infinite set, this may still allow preference relations that behave discontinuously or exhibit “jumps”.
+          <div style="margin-top:8px; font-weight:700; color:var(--text);">
+            This motivates continuity as an additional condition.
+          </div>
+        </div>
+      </div>
+
     </section>
 
 
     <hr class="sep-line">
 
 
-    <!-- ════════════════════════════════
-         2.4  INCREASING TRANSFORMATIONS
-    ════════════════════════════════ -->
+    <!-- ════════════════════════════════════════
+         2.4  CONTINUITY
+    ════════════════════════════════════════ -->
     <section class="subsection">
-      <div class="subsection-title">2.4 Increasing Transformations</div>
+      <div class="subsection-title">2.4 Continuity</div>
 
-      <div class="property-item blue">
-        <div class="property-name">Proposition</div>
-        <div class="property-body">
-          If $u$ represents $\succeq$, then for any strictly increasing function $v: \mathbb{R} \to \mathbb{R}$, the composition $v \circ u$ also represents $\succeq$.
-          <div class="math-display" style="margin:10px 0;">
-            $u(x) \ge u(y) \iff v(u(x)) \ge v(u(y))$
-          </div>
-          <span class="intuition">Strictly increasing transformations preserve rankings. Therefore, utility is ordinal.</span>
-        </div>
+      <div class="key-note">
+        Continuity rules out abrupt jumps in preferences.
       </div>
+
+      <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
+        When $X \subseteq \mathbb{R}^n$:
+      </p>
+
+      <div class="math-display boxed">
+        $$\boxed{\text{Rational + Continuous} \implies \text{Representable by a continuous utility function}}$$
+      </div>
+
+      <p style="font-size:0.9rem; color:var(--text-3); font-style:italic; line-height:1.6;">
+        If alternatives become arbitrarily close, their ranking should not suddenly reverse at the limit.
+      </p>
 
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <button class="toggle-btn" onclick="toggle(this, 'proof-transf')">
-          Show proof — Increasing transformations preserve representation <span class="arrow">▾</span>
+        <button class="toggle-btn" onclick="toggle(this, 'def-continuity')">
+          Show definition — Continuity of preferences <span class="arrow">▾</span>
         </button>
-        <button class="toggle-btn" onclick="toggle(this, 'ex-transf')">
-          Show example — Increasing transformation <span class="arrow">▾</span>
+        <button class="toggle-btn" onclick="toggle(this, 'counterex-lex')">
+          Show counterexample — Rational but not continuous <span class="arrow">▾</span>
         </button>
       </div>
 
-      <div class="collapsible" id="proof-transf">
-        <p>By definition of utility representation:</p>
-        <div class="math-display" style="margin:8px 0;">$x \succeq y \iff u(x) \ge u(y)$</div>
-        <p>Since $v$ is strictly increasing:</p>
-        <div class="math-display" style="margin:8px 0;">$u(x) \ge u(y) \iff v(u(x)) \ge v(u(y))$</div>
-        <p>Therefore: $x \succeq y \iff v(u(x)) \ge v(u(y))$, so $v \circ u$ also represents $\succeq$. $\blacksquare$</p>
+      <div class="collapsible" id="def-continuity">
+        <p>A preference relation $\succeq$ on $X \subseteq \mathbb{R}^n$ is <strong>continuous</strong> if for all $x \in X$:</p>
+        <ul class="bullet-list" style="margin:10px 0;">
+          <li>The upper contour set $\{y \in X \mid y \succeq x\}$ is closed in $X$.</li>
+          <li>The lower contour set $\{y \in X \mid x \succeq y\}$ is closed in $X$.</li>
+        </ul>
+        <p style="margin-top:6px;">Equivalently, for any sequence of bundles $y^k \to y$, if $y^k \succeq x$ for all $k$, then $y \succeq x$ in the limit.</p>
       </div>
 
-      <div class="collapsible" id="ex-transf">
-        <p>Let $u(A)=3, u(B)=2, u(C)=1$, representing $A \succ B \succ C$.</p>
-        <p style="margin-top:6px;">Apply the strictly increasing transformation $v(t) = 10t + 100$:</p>
-        <div class="math-display" style="margin:8px 0;">$v(u(A)) = 130, \quad v(u(B)) = 120, \quad v(u(C)) = 110$</div>
-        <p>Since $130 > 120 > 110$, the preference ranking $A \succ B \succ C$ is completely unchanged.</p>
+      <div class="collapsible" id="counterex-lex">
+        <p><strong>Lexicographic Preferences</strong> on $\mathbb{R}^2_+$:</p>
+        <p style="margin-top:6px;">For $x = (x_1, x_2)$ and $y = (y_1, y_2)$,</p>
+        <div class="math-display" style="margin:8px 0;">
+          $$x \succ y \iff x_1 > y_1 \quad \text{or} \quad (x_1 = y_1 \text{ and } x_2 > y_2)$$
+        </div>
+        <p style="font-style:italic; color:var(--text-3); margin-bottom:12px;">The first coordinate has absolute priority over the second.</p>
+
+        <p style="font-weight:700; color:var(--red); margin-bottom:6px;">Demonstration:</p>
+        <p>Let $x = (0.5, 0.5)$ and $y^k = \left(0.5 + \frac{1}{k}, 0\right)$.</p>
+        <ul class="bullet-list" style="margin-top:8px;">
+          <li>For every finite $k$: $y^k \succ x$ because $0.5 + \frac{1}{k} > 0.5$.</li>
+          <li>As $k \to \infty$: $y^k \to (0.5, 0)$.</li>
+          <li>At the limit: $x \succ (0.5, 0)$ because the first coordinates are equal ($0.5 = 0.5$) and $0.5 > 0$.</li>
+        </ul>
+        <p style="margin-top:10px;">The ranking jumps at the limit, so lexicographic preferences are <strong>not continuous</strong>.</p>
+        <p style="margin-top:8px; font-weight:700; color:var(--text);">This provides a rational preference relation on an infinite set for which rationality alone is not enough.</p>
       </div>
     </section>
 
@@ -484,36 +547,20 @@ body {
 
 
     <!-- ════════════════════════════════════════
-         2.5  CONTINUITY & UTILITY REPRESENTATION
+         2.5  LOGICAL SUMMARY
     ════════════════════════════════════════ -->
     <section class="subsection">
-      <div class="subsection-title">2.5 Continuity and Utility Representation</div>
+      <div class="subsection-title">Logical Summary</div>
 
-      <div class="math-display boxed">
-        $\boxed{\text{When } X \subseteq \mathbb{R}^n, \text{ Rational } + \text{ Continuous Preferences } \Rightarrow \text{ Continuous Utility Representation } u: X \to \mathbb{R}}$
-      </div>
-
-      <div class="key-note">
-        Continuity prevents "jumps" in preferences. If a sequence of bundles $y^k \to y$ approaches $y$, then preferences behave consistently in the limit.
-      </div>
-
-      <div>
-        <button class="toggle-btn" onclick="toggle(this, 'counterex-lex')">
-          Show counterexample — Lexicographic preferences <span class="arrow">▾</span>
-        </button>
-        <div class="collapsible" id="counterex-lex">
-          <p><strong>Lexicographic Preferences</strong> on $\mathbb{R}^2_+$ are defined by: $x \succ y$ if either $x_1 > y_1$, or ($x_1 = y_1$ and $x_2 > y_2$).</p>
-          <span class="intuition" style="margin-top:4px; display:block;">The first coordinate has absolute priority; the second coordinate matters only if the first coordinates are equal.</span>
-
-          <p style="font-weight:700; color:var(--red); margin-top:14px; margin-bottom:6px;">Counterexample Proof of Non-Continuity:</p>
-          <p>Let $x = (0.5, 0.5)$ and $y^k = \left(0.5 + \frac{1}{k}, 0\right)$.</p>
-          <ul class="bullet-list" style="margin-top:8px;">
-            <li>For every finite $k$: $y^k \succ x$ &nbsp;because $0.5 + \frac{1}{k} > 0.5$.</li>
-            <li>In the limit as $k \to \infty$: $y^k \to (0.5, 0)$.</li>
-            <li>Direct comparison gives: $x \succ (0.5, 0)$ &nbsp;because first coordinates are equal ($0.5 = 0.5$) and $0.5 > 0$.</li>
-          </ul>
-          <p style="margin-top:10px;">Preferences "jump" at the limit: $y^k \succ x$ for all $k$, but $\lim y^k \prec x$.</p>
-          <p style="margin-top:8px; font-weight:700;">Conclusion: Lexicographic preferences are rational but not continuous, and therefore cannot be represented by a continuous utility function.</p>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div class="math-display boxed" style="margin:0;">
+          $$\boxed{\text{Finite } X: \quad \text{Rational} \implies \text{Representable}}$$
+        </div>
+        <div class="math-display boxed" style="margin:0;">
+          $$\boxed{\text{Infinite } X: \quad \text{Rational alone may not be enough}}$$
+        </div>
+        <div class="math-display boxed" style="margin:0;">
+          $$\boxed{\text{Rational} + \text{Continuous} \implies \text{Utility representation}}$$
         </div>
       </div>
     </section>
