@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MICRO — Exercises · Choice Theory</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+
+<style>
+/* =====================================================
+   DESIGN SYSTEM — MICRO (Dark Red Premium)
+   ===================================================== */
+:root {
+  --sidebar-bg: #13020A;
+  --sidebar-width: 280px;
+  --bg: #0f1117;
+  --bg-card: #161922;
+  --red: #e11d48;
+  --red-bright: #ff2d55;
+  --red-muted: rgba(225,29,72,0.1);
+  --red-border: rgba(225,29,72,0.3);
+  --red-glow: rgba(225,29,72,0.15);
+  --red-gradient: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
+  --blue-bright: #60a5fa;
+  --blue-muted: rgba(59,130,246,0.1);
+  --blue-border: rgba(59,130,246,0.3);
+  --green-bright: #34d399;
+  --green-muted: rgba(16,185,129,0.08);
+  --green-border: rgba(16,185,129,0.3);
+  --purple-bright: #c084fc;
+  --purple-muted: rgba(168,85,247,0.1);
+  --purple-border: rgba(168,85,247,0.3);
+  --orange-muted: rgba(245,158,11,0.08);
+  --orange-border: rgba(245,158,11,0.3);
+  --text: #f8fafc;
+  --text-2: #cbd5e1;
+  --text-3: #94a3b8;
+  --text-muted: #64748b;
+  --border: rgba(255,255,255,0.07);
+  --radius: 10px;
+  --radius-lg: 16px;
+  --font: 'Outfit', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  position: fixed; top:0; left:0; bottom:0;
+  z-index: 200; transition: transform .3s ease; overflow: hidden;
+}
+.sidebar:not(.open) { transform: translateX(-100%); }
+.sidebar-brand {
+  padding: 22px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.sidebar-brand h1 { font-size: 1.3rem; font-weight: 800; letter-spacing: 1px; }
+.sidebar-brand h1 span { color: var(--red); }
+.sidebar-close { background:none; border:none; color:var(--text-3); font-size:1.4rem; cursor:pointer; }
+.sidebar-close:hover { color: var(--red); }
+.sidebar-nav { flex:1; overflow-y:auto; padding:12px 0; }
+
+.sidebar-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 22px;
+  color: var(--text-3); text-decoration: none;
+  font-size: 0.88rem; font-weight: 700;
+  transition: all .2s; border-left: 3px solid transparent;
+}
+.sidebar-link:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.sidebar-link.active { color: var(--red-bright); border-left-color: var(--red); background: var(--red-muted); }
+
+.sidebar-group { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
+.sidebar-group-title {
+  padding: 10px 22px 4px;
+  font-size: 0.82rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.6px; color: var(--text-3);
+}
+.sidebar-sublink {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 22px 9px 36px;
+  color: var(--text-3); text-decoration: none;
+  font-size: 0.85rem; font-weight: 600;
+  transition: all .2s; border-left: 3px solid transparent;
+}
+.sidebar-sublink:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.sidebar-sublink.active { color: var(--red-bright); border-left-color: var(--red); background: var(--red-muted); }
+.sidebar-sublink.disabled { opacity: 0.4; cursor: not-allowed; }
+
+.sidebar-footer {
+  padding: 14px 16px; border-top: 1px solid var(--border);
+}
+.sidebar-user { display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--radius); padding:10px 12px; }
+.user-avatar { width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; position:relative; }
+.user-dot { width:8px; height:8px; background:#10b981; border-radius:50%; border:2px solid var(--sidebar-bg); position:absolute; bottom:-2px; right:-2px; }
+.user-info { overflow:hidden; }
+.user-name { font-size:0.82rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.user-role { font-size:0.7rem; color:var(--text-muted); }
+
+/* ── TOPBAR ── */
+.topbar {
+  height: 64px; background: rgba(15,17,23,0.9); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px); position:sticky; top:0; z-index:100;
+  display:flex; align-items:center; padding:0 28px; gap:16px;
+}
+.topbar-toggle { background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text); width:38px; height:38px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; flex-shrink:0; transition:.2s; }
+.topbar-toggle:hover { border-color: var(--red-border); color: var(--red); }
+.topbar-breadcrumb { color:var(--text-3); font-size:0.88rem; display:flex; align-items:center; gap:6px; }
+.topbar-breadcrumb .sep { opacity:.4; }
+.topbar-breadcrumb strong { color:var(--text); font-weight:700; }
+.topbar-pill { margin-left:auto; background:var(--red-muted); border:1px solid var(--red-border); color:var(--red); padding:5px 14px; border-radius:999px; font-size:0.78rem; font-weight:700; display:flex; align-items:center; gap:7px; }
+.topbar-dot { width:7px; height:7px; border-radius:50%; background:var(--red); box-shadow:0 0 7px var(--red); }
+
+/* ── LAYOUT ── */
+.main-wrap { margin-left: var(--sidebar-width); flex:1; display:flex; flex-direction:column; transition:margin-left .3s; min-width:0; }
+.main-wrap.expanded { margin-left:0; }
+.main-content { padding:40px 44px 70px; max-width:880px; width:100%; margin:0 auto; display:flex; flex-direction:column; gap:36px; }
+
+/* ── PAGE TITLE ── */
+.page-title-block { border-bottom: 1px solid var(--border); padding-bottom: 24px; }
+.page-label { font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--red); margin-bottom:8px; }
+.page-title-block h1 { font-size:2rem; font-weight:800; letter-spacing:-0.5px; line-height:1.15; }
+.page-title-block p { color:var(--text-3); font-size:0.95rem; margin-top:7px; }
+
+/* ── PART BANNERS ── */
+.part-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 10px 0 0;
+}
+.part-pill {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.part-pill.red {
+  background: var(--red-muted);
+  color: var(--red-bright);
+  border: 1px solid var(--red-border);
+}
+.part-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── EXERCISE STATEMENT CARD ── */
+.exercise-statement-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--red);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.statement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.statement-title {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+.statement-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--red-muted);
+  color: var(--red-bright);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--red-border);
+}
+
+/* ── QUESTION CARD ── */
+.question-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.question-title {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.question-goal {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* ── TOGGLE & COLLAPSIBLE ── */
+.toggle-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  color: var(--text-2); font-family: var(--font);
+  font-size: 0.82rem; font-weight: 700;
+  padding: 8px 16px; border-radius: 999px;
+  cursor: pointer; transition: all .2s ease; width: fit-content;
+}
+.toggle-btn:hover { border-color: var(--red-border); color: var(--red-bright); background: var(--red-muted); }
+.toggle-btn .arrow { font-size: 0.65rem; transition: transform .25s ease; display: inline-block; }
+.toggle-btn.open .arrow { transform: rotate(180deg); }
+
+.collapsible {
+  display: none;
+  margin-top: 6px;
+  background: rgba(10,11,16,0.75);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.65;
+}
+.collapsible.open { display: block; animation: fadeDown .2s ease; }
+.collapsible strong { color: var(--text); font-weight: 700; }
+@keyframes fadeDown { from {opacity:0;transform:translateY(-6px);} to {opacity:1;transform:translateY(0);} }
+
+/* ── BALANCED COMPACT SOLUTION STYLES ── */
+.sol-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sol-step-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--red-bright);
+  margin-top: 4px;
+}
+.sol-subbox {
+  padding-left: 14px;
+  border-left: 2px solid var(--red);
+  margin: 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.math-display {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  text-align: center;
+  margin: 4px 0;
+  overflow-x: auto;
+}
+.math-display.boxed {
+  border-color: var(--red-border);
+  background: var(--red-muted);
+}
+.math-display.boxed.green {
+  border-color: var(--green-border);
+  background: var(--green-muted);
+}
+.key-note {
+  font-size: 0.88rem; color: var(--text-2); line-height: 1.6;
+  border-left: 3px solid var(--red);
+  padding: 10px 14px;
+  background: var(--red-muted);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.key-note strong { color: var(--text); font-weight: 800; }
+
+/* ── RESPONSIVE ── */
+@media (max-width:900px) {
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .main-wrap { margin-left:0 !important; }
+  .main-content { padding:24px 20px 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar open" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>MICRO<span>.</span></h1>
+    <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="index.html" class="sidebar-link">📂 0 — Introduction</a>
+    
+    <div class="sidebar-group">
+      <div class="sidebar-group-title">📂 1 — Choice Theory</div>
+      <a href="lecture1.html" class="sidebar-sublink">A) Preferences</a>
+      <a href="utility.html" class="sidebar-sublink">B) Utility</a>
+      <a href="choice.html" class="sidebar-sublink">C) Choice</a>
+      <a href="exercises.html" class="sidebar-sublink active">D) Exercises</a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar" style="background: transparent;">
+        <img src="images/avatar.png" alt="STAR NOVA" style="width: 100%; height: 100%; border-radius: 8px; object-fit: cover;">
+        <span class="user-dot"></span>
+      </div>
+      <div class="user-info">
+        <div class="user-name">STAR NOVA</div>
+        <div class="user-role">micro.github.io</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main-wrap" id="main-wrap">
+
+  <div class="topbar">
+    <button class="topbar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-breadcrumb">
+      MICRO <span class="sep">›</span> 1 — Choice Theory <span class="sep">›</span> <strong>Exercises</strong>
+    </div>
+    <div class="topbar-pill"><span class="topbar-dot"></span>Part I</div>
+  </div>
+
+  <div class="main-content">
+
+    <!-- PAGE TITLE -->
+    <div class="page-title-block">
+      <div class="page-label">Part I — Choice Theory</div>
+      <h1>Exercises</h1>
+      <p>Problem sets, formal demonstrations, and step-by-step solutions.</p>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════
+         EXERCISE 1 · PREFERENCE RELATIONS
+    ════════════════════════════════════════════════════ -->
+    <div class="part-banner">
+      <span class="part-pill red">Exercise 1 · Preference Relations</span>
+      <div class="part-line"></div>
+    </div>
+
+    <!-- GLOBAL PROBLEM STATEMENT -->
+    <div class="exercise-statement-card">
+      <div class="statement-header">
+        <div class="statement-title">Exercise 1. Preference Relations</div>
+        <span class="statement-badge">Problem Set</span>
+      </div>
+      <p style="font-size:0.92rem; color:var(--text-2); font-weight:600;">
+        Prove the following statements about preference relations:
+      </p>
+      <ol style="margin-left:22px; display:flex; flex-direction:column; gap:8px; font-size:0.9rem; color:var(--text-2);">
+        <li>If $\succeq$ is transitive, then $\succ$ is also transitive.</li>
+        <li>If $\succeq$ is transitive, then $\sim$ is also transitive.</li>
+        <li>
+          If $\succeq$ is complete and transitive, then $\succeq$ is <em>negatively transitive</em>.<br>
+          <span style="font-size:0.84rem; color:var(--text-3); font-style:italic;">
+            (Note: Negatively transitive means: if $x \succeq y$, then for any $z$ either $x \succeq z$ or $z \succeq y$ or both.)
+          </span>
+        </li>
+      </ol>
+    </div>
+
+
+    <!-- ── QUESTION 1 ── -->
+    <div class="question-card">
+      <div class="question-header">
+        <div class="question-title">1. Transitivity of Strict Preference ($\succ$)</div>
+      </div>
+      <div class="question-goal">
+        <strong>Goal:</strong> Show that if $\succeq$ is transitive, then $\succ$ is transitive:
+        $$x \succ y \quad\text{and}\quad y \succ z \implies x \succ z$$
+      </div>
+
+      <div>
+        <button class="toggle-btn" onclick="toggle(this, 'sol-q1')">
+          Show solution — Question 1 <span class="arrow">▾</span>
+        </button>
+
+        <div class="collapsible" id="sol-q1">
+          <div class="sol-block">
+            
+            <div>
+              <strong>Goal.</strong> Show that if $\succeq$ is transitive, then $\succ$ is transitive.
+            </div>
+
+            <div>
+              So assume:
+              <div class="math-display">$$x \succ y \quad\text{and}\quad y \succ z$$</div>
+              We want to prove:
+              <div class="math-display">$$x \succ z$$</div>
+            </div>
+
+            <div>
+              By definition of strict preference, this means that we need to show:
+              <div class="math-display">$$x \succeq z \quad\text{and}\quad z \not\succeq x$$</div>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Step 1 — Proving $x \succeq z$</div>
+              <p>From:</p>
+              <div class="math-display">
+                $$x \succ y \iff x \succeq y \text{ and } y \not\succeq x \qquad\text{and}\qquad y \succ z \iff y \succeq z \text{ and } z \not\succeq y$$
+              </div>
+              <p>we obtain: $x \succeq y$ and $y \succeq z$.</p>
+              <p>Since $\succeq$ is transitive:</p>
+              <div class="math-display">
+                $$x \succeq y, \ y \succeq z \implies x \succeq z$$
+              </div>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Step 2 — Proving $z \not\succeq x$ (by contradiction)</div>
+              <p>It remains to prove: $z \not\succeq x$.</p>
+              <p>Suppose by contradiction that:</p>
+              <div class="math-display">$$z \succeq x$$</div>
+              <p>Since $x \succeq y$, transitivity gives:</p>
+              <div class="math-display">$$z \succeq y$$</div>
+              <p>But this contradicts: $z \not\succeq y$.</p>
+              <p style="margin-top:4px;">
+                Therefore the assumption $z \succeq x$ must be false, which means:
+              </p>
+              <div class="math-display">$$z \not\succeq x$$</div>
+            </div>
+
+            <div>
+              <div class="sol-step-title">Conclusion</div>
+              <p>We now have:</p>
+              <div class="math-display">$$x \succeq z \quad\text{and}\quad z \not\succeq x$$</div>
+              <p>Hence, by definition of strict preference:</p>
+              <div class="math-display boxed" style="margin:8px 0;">
+                $$\boxed{x \succ z}$$
+              </div>
+              <div class="math-display boxed green" style="margin-top:6px;">
+                $$\boxed{\succ \text{ is transitive}}$$
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── QUESTION 2 ── -->
+    <div class="question-card">
+      <div class="question-header">
+        <div class="question-title">2. Transitivity of Indifference ($\sim$)</div>
+      </div>
+      <div class="question-goal">
+        <strong>Goal:</strong> Show that if $\succeq$ is transitive, then $\sim$ is also transitive:
+        $$x \sim y \quad\text{and}\quad y \sim z \implies x \sim z$$
+      </div>
+
+      <div>
+        <button class="toggle-btn" onclick="toggle(this, 'sol-q2')">
+          Show solution — Question 2 <span class="arrow">▾</span>
+        </button>
+
+        <div class="collapsible" id="sol-q2">
+          <div class="sol-block">
+            
+            <div>
+              <strong>Goal.</strong> Show that if $\succeq$ is transitive, then $\sim$ is also transitive.
+            </div>
+
+            <div>
+              Assume:
+              <div class="math-display">$$x \sim y \quad\text{and}\quad y \sim z$$</div>
+              We want to prove:
+              <div class="math-display">$$x \sim z$$</div>
+            </div>
+
+            <div>
+              By definition of indifference:
+              <div class="math-display">
+                $$x \sim y \iff x \succeq y \text{ and } y \succeq x \qquad\text{and}\qquad y \sim z \iff y \succeq z \text{ and } z \succeq y$$
+              </div>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Applying transitivity in both directions</div>
+              <p>Since $\succeq$ is transitive:</p>
+              <div class="math-display">
+                $$x \succeq y, \ y \succeq z \implies x \succeq z$$
+              </div>
+              <p>and:</p>
+              <div class="math-display">
+                $$z \succeq y, \ y \succeq x \implies z \succeq x$$
+              </div>
+              <p style="margin-top:4px;">Thus:</p>
+              <div class="math-display">
+                $$x \succeq z \quad\text{and}\quad z \succeq x$$
+              </div>
+            </div>
+
+            <div>
+              <div class="sol-step-title">Conclusion</div>
+              <p>Hence, by definition of indifference:</p>
+              <div class="math-display boxed" style="margin:8px 0;">
+                $$\boxed{x \sim z}$$
+              </div>
+              <div class="math-display boxed green" style="margin-top:6px;">
+                $$\boxed{\sim \text{ is transitive}}$$
+              </div>
+              <p style="font-size:0.84rem; color:var(--text-3); font-style:italic; margin-top:8px;">
+                Note : beaucoup plus direct que la question 1 — pas besoin de contradiction, on applique simplement la transitivité dans les deux directions.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── QUESTION 3 ── -->
+    <div class="question-card">
+      <div class="question-header">
+        <div class="question-title">3. Negative Transitivity of Weak Preference ($\succeq$)</div>
+      </div>
+      <div class="question-goal">
+        <strong>Goal:</strong> Suppose $\succeq$ is complete and transitive. Show that:
+        $$x \succeq y \implies \forall z, \quad x \succeq z \text{ or } z \succeq y$$
+      </div>
+
+      <div>
+        <button class="toggle-btn" onclick="toggle(this, 'sol-q3')">
+          Show solution — Question 3 <span class="arrow">▾</span>
+        </button>
+
+        <div class="collapsible" id="sol-q3">
+          <div class="sol-block">
+            
+            <div>
+              <strong>Goal.</strong> Suppose $\succeq$ is complete and transitive. Show that:
+              <div class="math-display">
+                $$x \succeq y \implies \forall z, \quad x \succeq z \text{ or } z \succeq y$$
+              </div>
+            </div>
+
+            <div>
+              Assume:
+              <div class="math-display">$$x \succeq y$$</div>
+              Take any $z \in X$. Since $\succeq$ is <strong>complete</strong>, when comparing $x$ and $z$, we must have:
+              <div class="math-display">
+                $$x \succeq z \quad\text{or}\quad z \succeq x$$
+              </div>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Case 1</div>
+              <p>If $x \succeq z$, we already have one of the two required conditions. Done.</p>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Case 2</div>
+              <p>If $z \succeq x$, we already know $x \succeq y$.</p>
+              <p>By transitivity:</p>
+              <div class="math-display">
+                $$z \succeq x, \ x \succeq y \implies z \succeq y$$
+              </div>
+            </div>
+
+            <div>
+              <div class="sol-step-title">Conclusion</div>
+              <p>Therefore, in every case:</p>
+              <div class="math-display boxed" style="margin:8px 0;">
+                $$\boxed{x \succeq z \quad\text{or}\quad z \succeq y} \qquad \forall z$$
+              </div>
+              <div class="math-display boxed green" style="margin-top:6px;">
+                $$\boxed{\succeq \text{ is negatively transitive}}$$
+              </div>
+            </div>
+
+            <div class="key-note" style="margin-top:8px;">
+              <strong>Important intuition:</strong> We do <em>not</em> need to know exactly where $z$ ranks. We only need at least one of these to hold: $x \succeq z$ or $z \succeq y$. And because $\succeq$ is weak preference, both can also hold—for example if some alternatives are indifferent.
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('main-wrap').classList.toggle('expanded');
+}
+
+function toggle(btn, id) {
+  const box = document.getElementById(id);
+  const isOpen = box.classList.contains('open');
+  box.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  if (!isOpen && window.MathJax) {
+    MathJax.typesetPromise([box]);
+  }
+}
+</script>
+</body>
+</html>
