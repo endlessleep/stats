@@ -489,24 +489,45 @@ body {
       <div class="subsection-title">2.4 Continuity</div>
 
       <div class="key-note">
-        Continuity rules out abrupt jumps in preferences.
+        <strong>Continuity of preferences avoids “jumps” in preferences.</strong>
       </div>
 
       <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
-        When $X \subseteq \mathbb{R}^n$:
+        Take a sequence of bundles $y^k$ that gets closer and closer to a bundle $y$:
       </p>
 
-      <div class="math-display boxed">
-        $$\boxed{\text{Rational + Continuous} \implies \text{Representable by a continuous utility function}}$$
+      <div class="math-display">
+        $$y^k \to y$$
+      </div>
+
+      <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
+        If each $y^k$ is at least as good as a fixed bundle $x$:
+      </p>
+
+      <div class="math-display">
+        $$y^k \succeq x \qquad \forall k$$
+      </div>
+
+      <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
+        then continuity requires:
+      </p>
+
+      <div class="math-display">
+        $$y \succeq x$$
       </div>
 
       <p style="font-size:0.9rem; color:var(--text-3); font-style:italic; line-height:1.6;">
-        If alternatives become arbitrarily close, their ranking should not suddenly reverse at the limit.
+        If all nearby bundles are at least as good as $x$, the limiting bundle should not suddenly become worse than $x$.
       </p>
 
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <div class="math-display boxed" style="margin-top:16px;">
+        $$\boxed{\text{Rational + Continuous} \implies \text{Representable by a continuous utility function}}$$
+      </div>
+      <p style="font-size:0.82rem; color:var(--text-muted); text-align:center; margin-top:-4px;">(when $X \subseteq \mathbb{R}^n$)</p>
+
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
         <button class="toggle-btn" onclick="toggle(this, 'def-continuity')">
-          Show definition — Continuity of preferences <span class="arrow">▾</span>
+          Show formal definition — Continuity of preferences <span class="arrow">▾</span>
         </button>
         <button class="toggle-btn" onclick="toggle(this, 'counterex-lex')">
           Show counterexample — Rational but not continuous <span class="arrow">▾</span>
@@ -514,12 +535,12 @@ body {
       </div>
 
       <div class="collapsible" id="def-continuity">
-        <p>A preference relation $\succeq$ on $X \subseteq \mathbb{R}^n$ is <strong>continuous</strong> if for all $x \in X$:</p>
-        <ul class="bullet-list" style="margin:10px 0;">
-          <li>The upper contour set $\{y \in X \mid y \succeq x\}$ is closed in $X$.</li>
-          <li>The lower contour set $\{y \in X \mid x \succeq y\}$ is closed in $X$.</li>
-        </ul>
-        <p style="margin-top:6px;">Equivalently, for any sequence of bundles $y^k \to y$, if $y^k \succeq x$ for all $k$, then $y \succeq x$ in the limit.</p>
+        <p>For every $x \in X$, the upper contour set:</p>
+        <div class="math-display" style="margin:8px 0;">$$\{y \in X : y \succeq x\}$$</div>
+        <p>and the lower contour set:</p>
+        <div class="math-display" style="margin:8px 0;">$$\{y \in X : x \succeq y\}$$</div>
+        <p>are <strong>closed</strong> in $X$.</p>
+        <p style="margin-top:8px; font-style:italic; color:var(--text-3);">A closed set contains its limit points.</p>
       </div>
 
       <div class="collapsible" id="counterex-lex">
@@ -530,8 +551,8 @@ body {
         </div>
         <p style="font-style:italic; color:var(--text-3); margin-bottom:12px;">The first coordinate has absolute priority over the second.</p>
 
-        <p style="font-weight:700; color:var(--red); margin-bottom:6px;">Demonstration:</p>
-        <p>Let $x = (0.5, 0.5)$ and $y^k = \left(0.5 + \frac{1}{k}, 0\right)$.</p>
+        <p style="font-weight:700; color:var(--red); margin-bottom:6px;">Illustration of the “jump at the limit”:</p>
+        <p>Consider $x = (0.5, 0.5)$ and the sequence $y^k = \left(0.5 + \frac{1}{k}, 0\right)$.</p>
         <ul class="bullet-list" style="margin-top:8px;">
           <li>For every finite $k$: $y^k \succ x$ because $0.5 + \frac{1}{k} > 0.5$.</li>
           <li>As $k \to \infty$: $y^k \to (0.5, 0)$.</li>
