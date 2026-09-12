@@ -3,15 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MICRO — Lecture 1</title>
+  <title>MICRO — 0 · Introduction</title>
   
-  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   
-  <!-- KaTeX for LaTeX rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
@@ -20,7 +18,6 @@
 </head>
 <body>
   <div class="app-container">
-    <!-- Overlay for mobile nav -->
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
     <!-- Sidebar -->
@@ -28,7 +25,7 @@
       <div class="sidebar-header">
         <div class="brand">
           <div class="brand-icon">
-            <i data-lucide="bar-chart-3"></i>
+            <i data-lucide="trending-up"></i>
           </div>
           <span class="brand-name">MICRO<span class="dot">.</span></span>
         </div>
@@ -42,16 +39,16 @@
           <span class="nav-section-title">Lectures</span>
           <a href="#" class="nav-item active">
             <i data-lucide="book-open"></i>
-            <span class="nav-text">Lecture 1</span>
+            <span class="nav-text">0 — Introduction</span>
             <span class="badge">Active</span>
           </a>
           <a href="#" class="nav-item disabled">
             <i data-lucide="lock"></i>
-            <span class="nav-text">Lecture 2</span>
+            <span class="nav-text">Lecture 1</span>
           </a>
           <a href="#" class="nav-item disabled">
             <i data-lucide="lock"></i>
-            <span class="nav-text">Lecture 3</span>
+            <span class="nav-text">Lecture 2</span>
           </a>
         </div>
       </nav>
@@ -70,9 +67,8 @@
       </div>
     </aside>
 
-    <!-- Main Content Area -->
+    <!-- Main Content -->
     <main class="main-content">
-      <!-- Topbar Header -->
       <header class="topbar">
         <div class="topbar-left">
           <button class="mobile-toggle" id="mobile-toggle" aria-label="Open Navigation">
@@ -80,37 +76,210 @@
           </button>
           <div class="search-box">
             <i data-lucide="search"></i>
-            <input type="text" placeholder="Search in Lecture 1..." />
+            <input type="text" placeholder="Search in Introduction..." />
             <kbd>⌘K</kbd>
           </div>
         </div>
-
         <div class="topbar-right">
           <div class="status-badge">
             <span class="pulse-dot"></span>
-            <span>Lecture 1</span>
+            <span>0 — Introduction</span>
           </div>
         </div>
       </header>
 
-      <!-- Content Container -->
       <div class="content-body">
+
+        <!-- Page Header -->
         <div class="page-header">
           <div>
-            <h1 class="page-title">Lecture 1 : Concepts & Exercises</h1>
-            <p class="page-subtitle">Introduction to Microeconomics</p>
+            <h1 class="page-title">0 — Introduction</h1>
+            <p class="page-subtitle">What use is microeconomic theory?</p>
           </div>
         </div>
 
-        <!-- Empty State Card (Design Soigné) -->
-        <div class="empty-state-card" style="margin-top: 40px; text-align: center; padding: 60px 20px;">
-          <div class="empty-icon-wrapper" style="margin: 0 auto 20px;">
-            <i data-lucide="sparkles" style="width: 40px; height: 40px;"></i>
+        <!-- ═══════════════════════════════════════════
+             PART I  —  VARIAN'S ADVOCACY
+        ════════════════════════════════════════════ -->
+        <section class="course-section">
+          <div class="section-label">
+            <i data-lucide="bookmark"></i>
+            <span>Part I</span>
           </div>
-          <h2>Ready for Microeconomics</h2>
-          <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;">
-            The template has been successfully cleared. I am ready to integrate your first Microeconomics lesson and exercises.
+          <h2 class="section-title">Why Does Economic Theory Matter?</h2>
+          <p class="section-intro">
+            Economic theory is often questioned for its distance from the real world. Varian identifies several concrete reasons why theory remains an indispensable tool — not just as an intellectual exercise, but as a <span class="hl">practical instrument for analysis and policy</span>.
           </p>
+
+          <div class="card-grid">
+
+            <div class="info-card">
+              <div class="card-icon"><i data-lucide="database"></i></div>
+              <div class="card-body">
+                <h3>Substituting for Data</h3>
+                <p>When direct empirical data is unavailable or costly to gather, theory allows economists to <span class="hl">predict outcomes</span> by reasoning from first principles and assumptions.</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="card-icon"><i data-lucide="crosshair"></i></div>
+              <div class="card-body">
+                <h3>Guiding the Identification of Key Parameters</h3>
+                <p>Theory tells us <span class="hl">which variables and parameters</span> are actually important for understanding a given economic phenomenon — saving researchers from collecting irrelevant information.</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="card-icon"><i data-lucide="git-merge"></i></div>
+              <div class="card-body">
+                <h3>Connecting Disparate Problems</h3>
+                <p>Theory reveals that seemingly unrelated economic problems share a <span class="hl">common structure</span>. A single framework can illuminate labour markets, insurance, taxation, and auctions all at once.</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="card-icon"><i data-lucide="lightbulb"></i></div>
+              <div class="card-body">
+                <h3>Generating Useful Insights</h3>
+                <p>Even an imperfect or simplified model can produce <span class="hl">valuable qualitative insights</span> into the mechanisms at work — insights that feed directly into policy debates, even when precise quantification is impossible.</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="card-icon"><i data-lucide="calculator"></i></div>
+              <div class="card-body">
+                <h3>Offering Quantification &amp; Calculation</h3>
+                <p>Theory provides a <span class="hl">rigorous framework for measuring relationships</span> between variables — elasticities, welfare gains, deadweight losses — that are essential inputs for informed policy decision-making.</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="card-icon"><i data-lucide="eye-off"></i></div>
+              <div class="card-body">
+                <h3>Serving as an Antidote to Introspection</h3>
+                <p>Personal experience and intuition systematically mislead us. Theory imposes <span class="hl">discipline and objectivity</span>, forcing economists to check their reasoning against a coherent logical structure rather than gut feeling.</p>
+              </div>
+            </div>
+
+            <div class="info-card card-wide">
+              <div class="card-icon"><i data-lucide="flask-conical"></i></div>
+              <div class="card-body">
+                <h3>Enabling Experimental Verification</h3>
+                <p>Theory produces <span class="hl">testable hypotheses</span>. By formalising propositions that can be confronted with data or laboratory experiments, theory creates a cumulative, self-correcting discipline: experiments refine theories, and refined theories guide new experiments.</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             PART II  —  RUBINSTEIN'S DILEMMAS
+        ════════════════════════════════════════════ -->
+        <section class="course-section">
+          <div class="section-label">
+            <i data-lucide="bookmark"></i>
+            <span>Part II</span>
+          </div>
+          <h2 class="section-title">The Dilemmas of an Economic Theorist</h2>
+          <p class="section-intro">
+            Presenting economic theory is not without tension. Rubinstein identifies four recurring <span class="hl">challenges — or dilemmas</span> — that every economic theorist must confront when defending or communicating their work.
+          </p>
+
+          <!-- Overview chips -->
+          <div class="dilemma-overview">
+            <span class="dilemma-chip"><i data-lucide="alert-triangle"></i> Theory leads to absurd conclusions</span>
+            <span class="dilemma-chip"><i data-lucide="bar-chart-2"></i> Theory is rejected by the data</span>
+            <span class="dilemma-chip"><i data-lucide="eye"></i> Empirics alone identify regularities</span>
+            <span class="dilemma-chip"><i data-lucide="link-2-off"></i> Theory is irrelevant to the real world</span>
+          </div>
+
+          <!-- Dilemma 1 -->
+          <div class="dilemma-card">
+            <div class="dilemma-number">1</div>
+            <div class="dilemma-content">
+              <div class="dilemma-header">
+                <span class="dilemma-tag">The Dilemma of Absurd Conclusions</span>
+                <h3>What if a model predicts something obviously wrong?</h3>
+              </div>
+              <div class="dilemma-challenge">
+                <div class="challenge-label"><i data-lucide="help-circle"></i> Challenge</div>
+                <p>Should a model be discarded entirely when it produces results that seem absurd or counterfactual?</p>
+              </div>
+              <div class="dilemma-response">
+                <div class="response-label"><i data-lucide="check-circle-2"></i> Response</div>
+                <p>All models are <span class="hl">deliberate simplifications</span> of reality — they will inevitably fail in some contexts. Absurd conclusions are not a reason to discard a model; they are a signal. They <span class="hl">reveal the limits of the model's assumptions</span> and create opportunities to reinterpret them or build better ones.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dilemma 2 -->
+          <div class="dilemma-card">
+            <div class="dilemma-number">2</div>
+            <div class="dilemma-content">
+              <div class="dilemma-header">
+                <span class="dilemma-tag">The Dilemma of Responding to Evidence</span>
+                <h3>What if the data contradict the model?</h3>
+              </div>
+              <div class="dilemma-challenge">
+                <div class="challenge-label"><i data-lucide="help-circle"></i> Challenge</div>
+                <p>Should economic models be adjusted or outright rejected when contradicted by experimental or empirical evidence?</p>
+              </div>
+              <div class="dilemma-response">
+                <div class="response-label"><i data-lucide="check-circle-2"></i> Response</div>
+                <p>Empirical refutations should be treated as <span class="hl">inputs for refinement</span>, not grounds for dismissal. Economists should use contradicting evidence as a basis for improving existing models or developing entirely new ones that better capture observed behaviour.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dilemma 3 -->
+          <div class="dilemma-card">
+            <div class="dilemma-number">3</div>
+            <div class="dilemma-content">
+              <div class="dilemma-header">
+                <span class="dilemma-tag">The Dilemma of Modelless Regularities</span>
+                <h3>What if patterns can be found without any model?</h3>
+              </div>
+              <div class="dilemma-challenge">
+                <div class="challenge-label"><i data-lucide="help-circle"></i> Challenge</div>
+                <p>Should economists need formal models to discover regularities in human behaviour, or can direct observation do the job just as well?</p>
+              </div>
+              <div class="dilemma-response">
+                <div class="response-label"><i data-lucide="check-circle-2"></i> Response</div>
+                <p>Regularities can indeed be observed directly without theory. However, models remain valuable even then: they provide a <span class="hl">structured, systematic framework</span> for thinking about those regularities, making them communicable, generalisable, and testable beyond the original context.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dilemma 4 -->
+          <div class="dilemma-card">
+            <div class="dilemma-number">4</div>
+            <div class="dilemma-content">
+              <div class="dilemma-header">
+                <span class="dilemma-tag">The Dilemma of Relevance</span>
+                <h3>Is theory too detached from the real world to matter?</h3>
+              </div>
+              <div class="dilemma-challenge">
+                <div class="challenge-label"><i data-lucide="help-circle"></i> Challenge</div>
+                <p>Can economic theorists offer meaningful, actionable advice, or are their models inevitably too abstract and detached to be relevant to real-world policy?</p>
+              </div>
+              <div class="dilemma-response">
+                <div class="response-label"><i data-lucide="check-circle-2"></i> Response</div>
+                <p>Theory may not always produce ready-made policy prescriptions — but it is still <span class="hl">fundamentally relevant</span> because it shapes how people think about economic problems. Theorists carry a responsibility: they must present their work honestly, acknowledge their models' limitations, and <span class="hl">resist oversimplification</span> when confronting complex real-world challenges.</p>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+             KEY TAKEAWAY
+        ════════════════════════════════════════════ -->
+        <div class="takeaway-banner">
+          <div class="takeaway-icon"><i data-lucide="sparkles"></i></div>
+          <div class="takeaway-text">
+            <p class="takeaway-label">Key Takeaway</p>
+            <p>Economic theory is not a perfect description of the world. Its value lies in structuring thought, identifying what matters, connecting problems, and generating testable predictions — while theorists must remain honest about its limits.</p>
+          </div>
         </div>
 
       </div>

@@ -997,51 +997,320 @@ body {
   }
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-  .sidebar {
-    transform: translateX(-100%);
-  }
+/* ================================================================
+   COURSE LAYOUT — MICRO
+   ================================================================ */
 
-  .sidebar.mobile-open {
-    transform: translateX(0);
-    width: var(--sidebar-width) !important;
-  }
+.content-body {
+  padding: 36px;
+  max-width: 1080px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
 
-  .sidebar.mobile-open .brand-name,
-  .sidebar.mobile-open .nav-section-title,
-  .sidebar.mobile-open .nav-text,
-  .sidebar.mobile-open .badge,
-  .sidebar.mobile-open .user-info {
-    display: block !important;
-  }
+/* ── Page Header ── */
+.page-header { margin-bottom: 4px; }
+.page-title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+}
+.page-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-top: 6px;
+}
 
-  .sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(4px);
-    z-index: 95;
-  }
+/* ── Section wrapper ── */
+.course-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 
-  .sidebar-overlay.active {
-    display: block;
-  }
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-red-muted);
+  border: 1px solid var(--border-active);
+  color: var(--accent-red);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+}
+.section-label svg { width: 13px; height: 13px; }
 
-  .main-content {
-    margin-left: 0 !important;
-  }
+.section-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.4px;
+  margin-top: -8px;
+}
 
-  .mobile-toggle {
-    display: flex;
-  }
+.section-intro {
+  font-size: 0.97rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  max-width: 820px;
+}
 
-  .content-body {
-    padding: 20px;
-  }
+/* ── Red highlight span ── */
+.hl {
+  color: var(--accent-red);
+  font-weight: 700;
+}
 
-  .exercise-card {
-    padding: 20px;
-  }
+/* ── Info Cards Grid (Varian) ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.info-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: var(--transition-fast);
+}
+
+.info-card:hover {
+  border-color: rgba(225, 29, 72, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.card-wide {
+  grid-column: 1 / -1;
+}
+
+.card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-red-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 12px var(--accent-red-glow);
+  flex-shrink: 0;
+}
+.card-icon svg { width: 18px; height: 18px; }
+
+.card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.card-body p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* ── Dilemma Overview Chips ── */
+.dilemma-overview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dilemma-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+}
+.dilemma-chip svg { width: 13px; height: 13px; color: var(--accent-red); }
+
+/* ── Dilemma Cards (Rubinstein) ── */
+.dilemma-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  gap: 24px;
+  backdrop-filter: blur(12px);
+  transition: var(--transition-fast);
+}
+
+.dilemma-card:hover {
+  border-color: rgba(225, 29, 72, 0.2);
+}
+
+.dilemma-number {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--accent-red-gradient);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px var(--accent-red-glow);
+  margin-top: 2px;
+}
+
+.dilemma-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.dilemma-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dilemma-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--accent-red);
+  background: var(--accent-red-muted);
+  border: 1px solid rgba(225, 29, 72, 0.25);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+}
+
+.dilemma-header h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+/* Challenge & Response blocks */
+.dilemma-challenge,
+.dilemma-response {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.dilemma-challenge {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-color);
+}
+
+.dilemma-response {
+  background: rgba(225, 29, 72, 0.05);
+  border: 1px solid rgba(225, 29, 72, 0.18);
+}
+
+.challenge-label,
+.response-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.challenge-label {
+  color: var(--text-muted);
+}
+
+.response-label {
+  color: var(--accent-red);
+}
+
+.challenge-label svg,
+.response-label svg {
+  width: 13px;
+  height: 13px;
+}
+
+.dilemma-challenge p { color: var(--text-secondary); }
+.dilemma-response p  { color: #e2e8f0; }
+
+/* ── Key Takeaway Banner ── */
+.takeaway-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.1) 0%, rgba(159, 18, 57, 0.06) 100%);
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  box-shadow: 0 0 30px rgba(225, 29, 72, 0.08);
+}
+
+.takeaway-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--accent-red-gradient);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px var(--accent-red-glow);
+}
+.takeaway-icon svg { width: 20px; height: 20px; }
+
+.takeaway-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent-red);
+  margin-bottom: 6px;
+}
+
+.takeaway-text p:last-child {
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  line-height: 1.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .card-grid { grid-template-columns: 1fr 1fr; }
+  .card-wide { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .dilemma-card { flex-direction: column; }
+  .content-body { padding: 20px; }
 }
