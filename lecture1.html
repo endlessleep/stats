@@ -388,10 +388,6 @@ body {
         </div>
       </div>
 
-      <div class="key-note" style="border-color:#64748b; background:rgba(255,255,255,0.03);">
-        $x \succeq y$ means either $x \succ y$ (strictly better) or $x \sim y$ (equally good).
-      </div>
-
     </section>
 
 
@@ -510,88 +506,87 @@ body {
     <section class="subsection">
       <div class="subsection-title">1.4 Intransitive Preferences</div>
 
-      <p style="font-size:0.9rem; color:var(--text-2);">Preferences are <strong style="color:var(--text);">intransitive</strong> if transitivity fails — there exist $x, y, z$ such that $x \succeq y$ and $y \succeq z$ but $x \not\succeq z$, or a cycle appears.</p>
+      <p style="font-size:0.9rem; color:var(--text-2); margin-bottom:14px;">Preferences are <strong style="color:var(--text);">intransitive</strong> if transitivity fails — there exist $x, y, z$ such that $x \succeq y$ and $y \succeq z$ but $x \not\succeq z$, creating a preference cycle.</p>
 
-      <div>
-        <div class="sub-label" style="margin-bottom:8px;">Potential reasons</div>
-        <ul class="bullet-list">
-          <li>Incomplete preferences</li>
-          <li>Just perceptible differences</li>
-          <li>Framing</li>
-          <li>Condorcet paradox</li>
-          <li>Changes in preferences over time</li>
-        </ul>
-      </div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
 
-      <!-- Just perceptible differences -->
-      <div class="cause-block">
-        <div class="cause-name">Just perceptible differences</div>
-        <div class="cause-core">Small pairwise differences may be individually imperceptible, even though the cumulative difference becomes noticeable.</div>
-        <button class="toggle-btn" onclick="toggle(this, 'ex-jpd')">
-          Show example <span class="arrow">▾</span>
-        </button>
-        <div class="collapsible" id="ex-jpd">
-          <p>Consider a sequence of nearby grey shades: $g_1, g_2, \dots, g_{10}$, each slightly darker than the previous.</p>
-          <ul class="bullet-list" style="margin-top:8px;">
-            <li>Each adjacent pair $g_i \sim g_{i+1}$ — the difference is imperceptible.</li>
-            <li>But $g_1 \succ g_{10}$ — the first and last are clearly different.</li>
-          </ul>
-          <p style="margin-top:10px;">Chaining the indifferences gives $g_1 \sim g_{10}$ by transitivity — which contradicts the direct ranking. Hence apparent intransitivity.</p>
+        <!-- Incomplete preferences -->
+        <div class="cause-block">
+          <div class="cause-name">1. Incomplete preferences</div>
+          <div class="cause-core">When an agent cannot compare certain items in a chain, a complete ranking cannot be established, breaking logical transitivity.</div>
         </div>
-      </div>
 
-      <!-- Framing -->
-      <div class="cause-block">
-        <div class="cause-name">Framing</div>
-        <div class="cause-core">Preferences may depend on how an economically equivalent situation is presented, not just on its objective content.</div>
-        <button class="toggle-btn" onclick="toggle(this, 'ex-framing')">
-          Show example <span class="arrow">▾</span>
-        </button>
-        <div class="collapsible" id="ex-framing">
-          <p>A stereo costs \$125, a calculator costs \$15. A nearby store offers a \$5 discount.</p>
-          <ul class="bullet-list" style="margin-top:8px;">
-            <li>Most people travel to get the discount when it applies to the <strong>calculator</strong>: &nbsp;$\text{Calculator-Discount} \succ \text{No Discount}$</li>
-            <li>Most people do not bother when it applies to the <strong>stereo</strong>: &nbsp;$\text{No Discount} \succ \text{Stereo-Discount}$</li>
-            <li>Yet the direct comparison often gives: &nbsp;$\text{Calculator-Discount} \sim \text{Stereo-Discount}$</li>
-          </ul>
-          <p style="margin-top:10px;">This is inconsistent with transitivity — the saved amount is identical (\$5) in both cases, yet the framing reverses the choice.</p>
+        <!-- Just perceptible differences -->
+        <div class="cause-block">
+          <div class="cause-name">2. Just perceptible differences</div>
+          <div class="cause-core">Tiny pairwise differences may be individually imperceptible ($x \sim y$ and $y \sim z$), but compounding them across multiple steps creates a noticeable difference ($x \succ z$), producing a cycle.</div>
+          <button class="toggle-btn" onclick="toggle(this, 'ex-jpd')">
+            Show example <span class="arrow">▾</span>
+          </button>
+          <div class="collapsible" id="ex-jpd">
+            <p>Consider a sequence of nearby grey shades: $g_1, g_2, \dots, g_{10}$, each slightly darker than the previous.</p>
+            <ul class="bullet-list" style="margin-top:8px;">
+              <li>Each adjacent pair $g_i \sim g_{i+1}$ — the difference is imperceptible.</li>
+              <li>But $g_1 \succ g_{10}$ — the first and last are clearly different.</li>
+            </ul>
+            <p style="margin-top:10px;">Chaining the indifferences gives $g_1 \sim g_{10}$ by transitivity — which contradicts the direct ranking $g_1 \succ g_{10}$.</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Condorcet -->
-      <div class="cause-block">
-        <div class="cause-name">Condorcet Paradox</div>
-        <div class="cause-core">Majority voting can generate cyclic social preferences even when each individual's preferences are transitive.</div>
-        <button class="toggle-btn" onclick="toggle(this, 'ex-condorcet')">
-          Show example <span class="arrow">▾</span>
-        </button>
-        <div class="collapsible" id="ex-condorcet">
-          <p>Three agents vote over: Opera ($O$), Rock ($R$), Ice-skating ($I$).</p>
-          <ul class="bullet-list" style="margin-top:8px;">
-            <li>Mom: $O \succ R \succ I$</li>
-            <li>Dad: $I \succ O \succ R$</li>
-            <li>Child: $R \succ I \succ O$</li>
-          </ul>
-          <p style="margin-top:10px;">Pairwise majority votes:</p>
-          <div class="math-display" style="margin:8px 0;">$O \succ R, \quad R \succ I, \quad I \succ O$</div>
-          <p>Hence: $O \succ R \succ I \succ O$ — a cycle. The intransitivity arises at the <strong>collective</strong> level, not the individual level.</p>
+        <!-- Framing -->
+        <div class="cause-block">
+          <div class="cause-name">3. Framing</div>
+          <div class="cause-core">Presenting economically identical options in different contexts or frames can alter choices, creating apparent inconsistencies in rankings.</div>
+          <button class="toggle-btn" onclick="toggle(this, 'ex-framing')">
+            Show example <span class="arrow">▾</span>
+          </button>
+          <div class="collapsible" id="ex-framing">
+            <p>A stereo costs \$125, a calculator costs \$15. A nearby store offers a \$5 discount.</p>
+            <ul class="bullet-list" style="margin-top:8px;">
+              <li>Most people travel to get the discount when it applies to the <strong>calculator</strong>: &nbsp;$\text{Calculator-Discount} \succ \text{No Discount}$</li>
+              <li>Most people do not bother when it applies to the <strong>stereo</strong>: &nbsp;$\text{No Discount} \succ \text{Stereo-Discount}$</li>
+              <li>Yet the direct comparison often gives: &nbsp;$\text{Calculator-Discount} \sim \text{Stereo-Discount}$</li>
+            </ul>
+            <p style="margin-top:10px;">This is inconsistent with transitivity — the saved amount is identical (\$5) in both cases, yet the framing reverses the choice.</p>
+          </div>
         </div>
-      </div>
 
-      <!-- Changes over time -->
-      <div class="cause-block">
-        <div class="cause-name">Changes in preferences over time</div>
-        <div class="cause-core">Apparent intransitivity may arise when preferences themselves change between the moments of comparison.</div>
-        <button class="toggle-btn" onclick="toggle(this, 'ex-time')">
-          Show example <span class="arrow">▾</span>
-        </button>
-        <div class="collapsible" id="ex-time">
-          <p>A smoker's ranking after just finishing a cigarette:</p>
-          <div class="math-display" style="margin:8px 0;">$\text{NoCig} \succ \text{OneCig} \succ \text{TenCig}$</div>
-          <p style="margin-top:6px;">After a period of abstinence:</p>
-          <div class="math-display" style="margin:8px 0;">$\text{TenCig} \succ \text{NoCig} \succ \text{OneCig}$</div>
-          <p style="margin-top:8px;">The ranking is not stable — it reverses over time. What looks like an intransitive cycle is in fact a preference that has shifted between observations.</p>
+        <!-- Condorcet -->
+        <div class="cause-block">
+          <div class="cause-name">4. Condorcet Paradox</div>
+          <div class="cause-core">Majority voting across individuals can generate cyclic social preferences, even if every individual voter is strictly rational and transitive.</div>
+          <button class="toggle-btn" onclick="toggle(this, 'ex-condorcet')">
+            Show example <span class="arrow">▾</span>
+          </button>
+          <div class="collapsible" id="ex-condorcet">
+            <p>Three agents vote over: Opera ($O$), Rock ($R$), Ice-skating ($I$).</p>
+            <ul class="bullet-list" style="margin-top:8px;">
+              <li>Mom: $O \succ R \succ I$</li>
+              <li>Dad: $I \succ O \succ R$</li>
+              <li>Child: $R \succ I \succ O$</li>
+            </ul>
+            <p style="margin-top:10px;">Pairwise majority votes:</p>
+            <div class="math-display" style="margin:8px 0;">$O \succ R, \quad R \succ I, \quad I \succ O$</div>
+            <p>Hence: $O \succ R \succ I \succ O$ — a cycle. The intransitivity arises at the <strong>collective</strong> level, not the individual level.</p>
+          </div>
         </div>
+
+        <!-- Changes over time -->
+        <div class="cause-block">
+          <div class="cause-name">5. Changes in preferences over time</div>
+          <div class="cause-core">Preferences fluctuate or reverse between decision moments, making choices made at different times appear as an intransitive cycle.</div>
+          <button class="toggle-btn" onclick="toggle(this, 'ex-time')">
+            Show example <span class="arrow">▾</span>
+          </button>
+          <div class="collapsible" id="ex-time">
+            <p>A smoker's ranking after just finishing a cigarette:</p>
+            <div class="math-display" style="margin:8px 0;">$\text{NoCig} \succ \text{OneCig} \succ \text{TenCig}$</div>
+            <p style="margin-top:6px;">After a period of abstinence:</p>
+            <div class="math-display" style="margin:8px 0;">$\text{TenCig} \succ \text{NoCig} \succ \text{OneCig}$</div>
+            <p style="margin-top:8px;">The ranking is not stable — it reverses over time. What looks like an intransitive cycle is in fact a preference that has shifted between observations.</p>
+          </div>
+        </div>
+
       </div>
 
     </section>
