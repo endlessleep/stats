@@ -492,55 +492,28 @@ body {
         <strong>Continuity of preferences avoids “jumps” in preferences.</strong>
       </div>
 
-      <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
-        Take a sequence of bundles $y^k$ that gets closer and closer to a bundle $y$:
-      </p>
-
-      <div class="math-display">
-        $$y^k \to y$$
-      </div>
-
-      <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
-        If each $y^k$ is at least as good as a fixed bundle $x$:
-      </p>
-
-      <div class="math-display">
-        $$y^k \succeq x \qquad \forall k$$
-      </div>
-
-      <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
-        then continuity requires:
-      </p>
-
-      <div class="math-display">
-        $$y \succeq x$$
-      </div>
-
-      <p style="font-size:0.9rem; color:var(--text-3); font-style:italic; line-height:1.6;">
-        If all nearby bundles are at least as good as $x$, the limiting bundle should not suddenly become worse than $x$.
-      </p>
-
-      <div class="math-display boxed" style="margin-top:16px;">
+      <div class="math-display boxed">
         $$\boxed{\text{Rational + Continuous} \implies \text{Representable by a continuous utility function}}$$
       </div>
       <p style="font-size:0.82rem; color:var(--text-muted); text-align:center; margin-top:-4px;">(when $X \subseteq \mathbb{R}^n$)</p>
 
       <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-        <button class="toggle-btn" onclick="toggle(this, 'def-continuity')">
-          Show formal definition — Continuity of preferences <span class="arrow">▾</span>
+        <button class="toggle-btn" onclick="toggle(this, 'intuition-continuity')">
+          Show intuition — Sequence condition <span class="arrow">▾</span>
         </button>
         <button class="toggle-btn" onclick="toggle(this, 'counterex-lex')">
           Show counterexample — Rational but not continuous <span class="arrow">▾</span>
         </button>
       </div>
 
-      <div class="collapsible" id="def-continuity">
-        <p>For every $x \in X$, the upper contour set:</p>
-        <div class="math-display" style="margin:8px 0;">$$\{y \in X : y \succeq x\}$$</div>
-        <p>and the lower contour set:</p>
-        <div class="math-display" style="margin:8px 0;">$$\{y \in X : x \succeq y\}$$</div>
-        <p>are <strong>closed</strong> in $X$.</p>
-        <p style="margin-top:8px; font-style:italic; color:var(--text-3);">A closed set contains its limit points.</p>
+      <div class="collapsible" id="intuition-continuity">
+        <p>Take a sequence of bundles $y^k$ that gets closer and closer to a bundle $y$:</p>
+        <div class="math-display" style="margin:8px 0;">$$y^k \to y$$</div>
+        <p style="margin-top:6px;">If each $y^k$ is at least as good as a fixed bundle $x$:</p>
+        <div class="math-display" style="margin:8px 0;">$$y^k \succeq x \qquad \forall k$$</div>
+        <p style="margin-top:6px;">then continuity requires:</p>
+        <div class="math-display" style="margin:8px 0;">$$y \succeq x$$</div>
+        <p style="margin-top:10px; font-style:italic; color:var(--text-3);">If all nearby bundles are at least as good as $x$, the limiting bundle should not suddenly become worse than $x$.</p>
       </div>
 
       <div class="collapsible" id="counterex-lex">
