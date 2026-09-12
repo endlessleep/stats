@@ -1,291 +1,962 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MICRO — 0 · Introduction</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MICRO — 0 · Introduction</title>
 
-  <link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+</script>
+<script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+
+<style>
+/* =====================================================
+   DESIGN SYSTEM — MICRO (Dark Red Premium)
+   ===================================================== */
+:root {
+  --sidebar-bg: #13020A;
+  --sidebar-width: 280px;
+
+  --bg: #0f1117;
+  --bg-card: #161922;
+  --bg-card-hover: #1c2131;
+  --bg-deep: #0a0b10;
+
+  --red: #e11d48;
+  --red-bright: #ff2d55;
+  --red-muted: rgba(225,29,72,0.12);
+  --red-border: rgba(225,29,72,0.35);
+  --red-glow: rgba(225,29,72,0.18);
+  --red-gradient: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
+
+  --blue-muted: rgba(59,130,246,0.1);
+  --blue-border: rgba(59,130,246,0.35);
+  --green-muted: rgba(16,185,129,0.1);
+  --green-border: rgba(16,185,129,0.35);
+  --orange-muted: rgba(245,158,11,0.1);
+  --orange-border: rgba(245,158,11,0.35);
+  --purple-muted: rgba(139,92,246,0.1);
+  --purple-border: rgba(139,92,246,0.35);
+
+  --text: #f8fafc;
+  --text-2: #cbd5e1;
+  --text-3: #94a3b8;
+  --text-muted: #64748b;
+
+  --border: rgba(255,255,255,0.07);
+  --radius: 12px;
+  --radius-lg: 18px;
+  --font: 'Outfit', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 200;
+  transition: transform .3s ease;
+  overflow: hidden;
+}
+.sidebar.closed { transform: translateX(-100%); }
+
+.sidebar-brand {
+  padding: 22px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebar-brand h1 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.sidebar-brand h1 span { color: var(--red); }
+.sidebar-close {
+  background: none; border: none; color: var(--text-3);
+  font-size: 1.4rem; cursor: pointer; line-height: 1;
+}
+.sidebar-close:hover { color: var(--red); }
+
+.sidebar-search {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-search input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  outline: none;
+}
+.sidebar-search input:focus { border-color: var(--red-border); }
+.sidebar-search input::placeholder { color: var(--text-muted); }
+
+.sidebar-nav { flex: 1; overflow-y: auto; padding: 8px 0 16px; }
+
+.accordion-header {
+  width: 100%; background: none; border: none;
+  color: var(--text-3); font-family: var(--font);
+  font-size: 0.82rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.6px;
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; transition: color .2s;
+}
+.accordion-header:hover { color: var(--red); }
+.accordion-header .acc-icon { transition: transform .3s; font-style: normal; font-size: 0.8rem; }
+.accordion-header.open .acc-icon { transform: rotate(180deg); }
+
+.accordion-content { display: none; }
+.accordion-content.open { display: block; }
+.accordion-content a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 20px 9px 28px;
+  color: var(--text-3); text-decoration: none;
+  font-size: 0.85rem; font-weight: 500;
+  transition: all .2s; border-left: 2px solid transparent;
+  margin-left: 0;
+}
+.accordion-content a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.accordion-content a.active {
+  color: var(--red-bright); border-left-color: var(--red);
+  background: var(--red-muted);
+}
+
+.sidebar-footer {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+}
+.sidebar-user {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+}
+.user-avatar {
+  width: 34px; height: 34px;
+  background: var(--red-gradient);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 800; color: #fff;
+  flex-shrink: 0; position: relative;
+}
+.user-dot {
+  width: 8px; height: 8px;
+  background: #10b981; border-radius: 50%;
+  border: 2px solid var(--sidebar-bg);
+  position: absolute; bottom: -2px; right: -2px;
+}
+.user-info { overflow: hidden; }
+.user-name { font-size: 0.82rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-role { font-size: 0.7rem; color: var(--text-muted); }
+
+/* ── TOPBAR ── */
+.topbar {
+  height: 64px;
+  background: rgba(15,17,23,0.9);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; padding: 0 28px;
+  gap: 16px;
+}
+.topbar-toggle {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  color: var(--text); width: 38px; height: 38px;
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; cursor: pointer; font-size: 1.1rem;
+  flex-shrink: 0; transition: .2s;
+}
+.topbar-toggle:hover { border-color: var(--red-border); color: var(--red); }
+.topbar-breadcrumb { color: var(--text-3); font-size: 0.88rem; display: flex; align-items: center; gap: 6px; }
+.topbar-breadcrumb .sep { opacity: .4; }
+.topbar-breadcrumb strong { color: var(--text); font-weight: 700; }
+.topbar-pill {
+  margin-left: auto;
+  background: var(--red-muted); border: 1px solid var(--red-border);
+  color: var(--red); padding: 5px 14px; border-radius: 999px;
+  font-size: 0.78rem; font-weight: 700; display: flex; align-items: center; gap: 7px;
+}
+.topbar-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--red); box-shadow: 0 0 7px var(--red);
+}
+
+/* ── LAYOUT ── */
+.main-wrap {
+  margin-left: var(--sidebar-width);
+  flex: 1; display: flex; flex-direction: column;
+  transition: margin-left .3s;
+  min-width: 0;
+}
+.main-wrap.expanded { margin-left: 0; }
+.main-content {
+  padding: 36px 40px 60px;
+  max-width: 1000px; width: 100%;
+  margin: 0 auto;
+  display: flex; flex-direction: column; gap: 48px;
+}
+
+/* ── SECTION HEADER ── */
+.section-header { display: flex; flex-direction: column; gap: 6px; }
+.section-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--red-muted); border: 1px solid var(--red-border);
+  color: var(--red); font-size: 0.7rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.8px;
+  padding: 4px 12px; border-radius: 999px; width: fit-content;
+}
+.section-title {
+  font-size: 1.7rem; font-weight: 800;
+  letter-spacing: -0.5px; line-height: 1.2;
+}
+.section-title span { color: var(--red); }
+.section-lead {
+  font-size: 0.97rem; color: var(--text-2); line-height: 1.75;
+  max-width: 800px;
+}
+
+/* ── PAGE TITLE ── */
+.page-title-block { border-bottom: 1px solid var(--border); padding-bottom: 28px; }
+.page-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--red); margin-bottom: 10px; }
+.page-title-block h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.6px; line-height: 1.15; }
+.page-title-block p { color: var(--text-3); font-size: 1rem; margin-top: 8px; }
+
+/* ── CALLOUTS ── */
+.callout {
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  display: flex; flex-direction: column; gap: 8px;
+  border-left: 4px solid;
+}
+.callout-label {
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.6px; display: flex; align-items: center; gap: 6px;
+}
+.callout-label::before { font-size: 1rem; }
+.callout-body { font-size: 0.92rem; line-height: 1.7; }
+.callout-body strong { font-weight: 700; }
+
+.callout-def   { background: var(--blue-muted);   border-color: #3b82f6; }
+.callout-def .callout-label   { color: #60a5fa; }
+.callout-def .callout-label::before { content: "📘"; }
+
+.callout-key   { background: var(--red-muted);    border-color: var(--red); }
+.callout-key .callout-label   { color: var(--red); }
+.callout-key .callout-label::before { content: "🔑"; }
+
+.callout-tip   { background: var(--green-muted);  border-color: #10b981; }
+.callout-tip .callout-label   { color: #34d399; }
+.callout-tip .callout-label::before { content: "💡"; }
+
+.callout-warn  { background: var(--orange-muted); border-color: #f59e0b; }
+.callout-warn .callout-label  { color: #fbbf24; }
+.callout-warn .callout-label::before { content: "⚠️"; }
+
+.callout-quote { background: var(--purple-muted); border-color: #8b5cf6; }
+.callout-quote .callout-label { color: #a78bfa; }
+.callout-quote .callout-label::before { content: "💬"; }
+
+/* ── CONCEPT CARDS ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card-full { grid-column: 1 / -1; }
+
+.concept-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+.concept-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(225,29,72,0.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.concept-card.red-top { border-top: 3px solid var(--red); }
+.concept-card.blue-top { border-top: 3px solid #3b82f6; }
+.concept-card.green-top { border-top: 3px solid #10b981; }
+.concept-card.purple-top { border-top: 3px solid #8b5cf6; }
+
+.card-icon-wrap {
+  width: 40px; height: 40px;
+  background: var(--red-gradient);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; margin-bottom: 14px;
+  box-shadow: 0 4px 12px var(--red-glow);
+}
+.card-icon-wrap.blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(59,130,246,0.25); }
+.card-icon-wrap.green { background: linear-gradient(135deg, #10b981, #065f46); box-shadow: 0 4px 12px rgba(16,185,129,0.25); }
+.card-icon-wrap.purple { background: linear-gradient(135deg, #8b5cf6, #5b21b6); box-shadow: 0 4px 12px rgba(139,92,246,0.25); }
+.card-icon-wrap.orange { background: linear-gradient(135deg, #f59e0b, #92400e); box-shadow: 0 4px 12px rgba(245,158,11,0.25); }
+
+.concept-card h3 { font-size: 0.97rem; font-weight: 800; margin-bottom: 10px; }
+.concept-card p  { font-size: 0.88rem; color: var(--text-2); line-height: 1.68; }
+.concept-card ul { padding-left: 18px; display: flex; flex-direction: column; gap: 7px; }
+.concept-card li { font-size: 0.87rem; color: var(--text-2); line-height: 1.6; }
+.concept-card strong { color: var(--text); font-weight: 700; }
+
+/* ── DILEMMA CARDS ── */
+.dilemma-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.dilemma-block:hover { border-color: rgba(225,29,72,0.25); }
+.dilemma-top {
+  background: rgba(225,29,72,0.06);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 22px;
+  display: flex; align-items: flex-start; gap: 16px;
+}
+.dilemma-num {
+  width: 46px; height: 46px;
+  background: var(--red-gradient);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; font-weight: 800; color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px var(--red-glow);
+}
+.dilemma-top-text { flex: 1; }
+.dilemma-tag {
+  font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.6px; color: var(--red);
+  background: var(--red-muted); border: 1px solid var(--red-border);
+  padding: 2px 9px; border-radius: 999px;
+  display: inline-block; margin-bottom: 6px;
+}
+.dilemma-title { font-size: 1.05rem; font-weight: 800; line-height: 1.3; }
+.dilemma-body { padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+.dilemma-inner-label {
+  font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.5px; margin-bottom: 5px; display: flex; align-items: center; gap: 5px;
+}
+.dilemma-challenge-box {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 16px;
+}
+.dilemma-challenge-box .dilemma-inner-label { color: var(--text-muted); }
+.dilemma-answer-box {
+  background: rgba(225,29,72,0.06);
+  border: 1px solid var(--red-border);
+  border-radius: 8px; padding: 14px 16px;
+}
+.dilemma-answer-box .dilemma-inner-label { color: var(--red); }
+.dilemma-challenge-box p,
+.dilemma-answer-box p { font-size: 0.9rem; line-height: 1.7; color: var(--text-2); }
+.dilemma-answer-box p strong { color: var(--text); }
+
+/* ── HIGHLIGHT / FLUO TEXT ── */
+.hl  { color: var(--red-bright); font-weight: 700; }
+.hlb { background: var(--red-muted); color: var(--red-bright); font-weight: 700; padding: 0 5px 1px; border-radius: 4px; }
+
+/* ── TAKEAWAY BANNER ── */
+.takeaway {
+  background: linear-gradient(135deg, rgba(225,29,72,0.12), rgba(159,18,57,0.06));
+  border: 1px solid var(--red-border);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  display: flex; gap: 18px; align-items: flex-start;
+  box-shadow: 0 0 40px rgba(225,29,72,0.07);
+}
+.takeaway-icon {
+  width: 46px; height: 46px;
+  background: var(--red-gradient);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+  box-shadow: 0 4px 14px var(--red-glow);
+}
+.takeaway-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--red); margin-bottom: 7px; }
+.takeaway p { font-size: 0.97rem; color: var(--text-2); line-height: 1.72; }
+
+/* ── UTILITY ── */
+.sep-line { border: none; border-top: 1px solid var(--border); }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.tag {
+  font-size: 0.72rem; font-weight: 700; padding: 3px 10px;
+  border-radius: 999px; border: 1px solid;
+}
+.tag-red    { color: var(--red);    background: var(--red-muted);    border-color: var(--red-border); }
+.tag-blue   { color: #60a5fa; background: var(--blue-muted);   border-color: var(--blue-border); }
+.tag-green  { color: #34d399; background: var(--green-muted);  border-color: var(--green-border); }
+.tag-orange { color: #fbbf24; background: var(--orange-muted); border-color: var(--orange-border); }
+.tag-purple { color: #a78bfa; background: var(--purple-muted); border-color: var(--purple-border); }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main-wrap { margin-left: 0 !important; }
+  .topbar-toggle { display: flex; }
+  .main-content { padding: 24px 20px 40px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .card-grid-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .card-grid-3 { grid-template-columns: 1fr; }
+  .dilemma-top { flex-direction: column; }
+}
+</style>
 </head>
 <body>
-  <div class="app-container">
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="brand">
-          <div class="brand-icon">
-            <i data-lucide="trending-up"></i>
-          </div>
-          <span class="brand-name">MICRO<span class="dot">.</span></span>
-        </div>
-        <button class="toggle-btn" id="toggle-sidebar" aria-label="Toggle Sidebar">
-          <i data-lucide="chevron-left"></i>
-        </button>
-      </div>
-
-      <nav class="sidebar-nav">
-        <div class="nav-section">
-          <span class="nav-section-title">Lectures</span>
-          <a href="#" class="nav-item active">
-            <i data-lucide="book-open"></i>
-            <span class="nav-text">0 — Introduction</span>
-            <span class="badge">Active</span>
-          </a>
-          <a href="#" class="nav-item disabled">
-            <i data-lucide="lock"></i>
-            <span class="nav-text">Lecture 1</span>
-          </a>
-          <a href="#" class="nav-item disabled">
-            <i data-lucide="lock"></i>
-            <span class="nav-text">Lecture 2</span>
-          </a>
-        </div>
-      </nav>
-
-      <div class="sidebar-footer">
-        <div class="user-profile">
-          <div class="avatar">
-            <span>SN</span>
-            <span class="status-indicator"></span>
-          </div>
-          <div class="user-info">
-            <span class="user-name">Administrator star nova</span>
-            <span class="user-role">micro.github.io</span>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-      <header class="topbar">
-        <div class="topbar-left">
-          <button class="mobile-toggle" id="mobile-toggle" aria-label="Open Navigation">
-            <i data-lucide="menu"></i>
-          </button>
-          <div class="search-box">
-            <i data-lucide="search"></i>
-            <input type="text" placeholder="Search in Introduction..." />
-            <kbd>⌘K</kbd>
-          </div>
-        </div>
-        <div class="topbar-right">
-          <div class="status-badge">
-            <span class="pulse-dot"></span>
-            <span>0 — Introduction</span>
-          </div>
-        </div>
-      </header>
-
-      <div class="content-body">
-
-        <!-- Page Header -->
-        <div class="page-header">
-          <div>
-            <h1 class="page-title">0 — Introduction</h1>
-            <p class="page-subtitle">What use is microeconomic theory?</p>
-          </div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════
-             PART I  —  VARIAN'S ADVOCACY
-        ════════════════════════════════════════════ -->
-        <section class="course-section">
-          <div class="section-label">
-            <i data-lucide="bookmark"></i>
-            <span>Part I</span>
-          </div>
-          <h2 class="section-title">Why Does Economic Theory Matter?</h2>
-          <p class="section-intro">
-            Economic theory is often questioned for its distance from the real world. Varian identifies several concrete reasons why theory remains an indispensable tool — not just as an intellectual exercise, but as a <span class="hl">practical instrument for analysis and policy</span>.
-          </p>
-
-          <div class="card-grid">
-
-            <div class="info-card">
-              <div class="card-icon"><i data-lucide="database"></i></div>
-              <div class="card-body">
-                <h3>Substituting for Data</h3>
-                <p>When direct empirical data is unavailable or costly to gather, theory allows economists to <span class="hl">predict outcomes</span> by reasoning from first principles and assumptions.</p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="card-icon"><i data-lucide="crosshair"></i></div>
-              <div class="card-body">
-                <h3>Guiding the Identification of Key Parameters</h3>
-                <p>Theory tells us <span class="hl">which variables and parameters</span> are actually important for understanding a given economic phenomenon — saving researchers from collecting irrelevant information.</p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="card-icon"><i data-lucide="git-merge"></i></div>
-              <div class="card-body">
-                <h3>Connecting Disparate Problems</h3>
-                <p>Theory reveals that seemingly unrelated economic problems share a <span class="hl">common structure</span>. A single framework can illuminate labour markets, insurance, taxation, and auctions all at once.</p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="card-icon"><i data-lucide="lightbulb"></i></div>
-              <div class="card-body">
-                <h3>Generating Useful Insights</h3>
-                <p>Even an imperfect or simplified model can produce <span class="hl">valuable qualitative insights</span> into the mechanisms at work — insights that feed directly into policy debates, even when precise quantification is impossible.</p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="card-icon"><i data-lucide="calculator"></i></div>
-              <div class="card-body">
-                <h3>Offering Quantification &amp; Calculation</h3>
-                <p>Theory provides a <span class="hl">rigorous framework for measuring relationships</span> between variables — elasticities, welfare gains, deadweight losses — that are essential inputs for informed policy decision-making.</p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="card-icon"><i data-lucide="eye-off"></i></div>
-              <div class="card-body">
-                <h3>Serving as an Antidote to Introspection</h3>
-                <p>Personal experience and intuition systematically mislead us. Theory imposes <span class="hl">discipline and objectivity</span>, forcing economists to check their reasoning against a coherent logical structure rather than gut feeling.</p>
-              </div>
-            </div>
-
-            <div class="info-card card-wide">
-              <div class="card-icon"><i data-lucide="flask-conical"></i></div>
-              <div class="card-body">
-                <h3>Enabling Experimental Verification</h3>
-                <p>Theory produces <span class="hl">testable hypotheses</span>. By formalising propositions that can be confronted with data or laboratory experiments, theory creates a cumulative, self-correcting discipline: experiments refine theories, and refined theories guide new experiments.</p>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════
-             PART II  —  RUBINSTEIN'S DILEMMAS
-        ════════════════════════════════════════════ -->
-        <section class="course-section">
-          <div class="section-label">
-            <i data-lucide="bookmark"></i>
-            <span>Part II</span>
-          </div>
-          <h2 class="section-title">The Dilemmas of an Economic Theorist</h2>
-          <p class="section-intro">
-            Presenting economic theory is not without tension. Rubinstein identifies four recurring <span class="hl">challenges — or dilemmas</span> — that every economic theorist must confront when defending or communicating their work.
-          </p>
-
-          <!-- Overview chips -->
-          <div class="dilemma-overview">
-            <span class="dilemma-chip"><i data-lucide="alert-triangle"></i> Theory leads to absurd conclusions</span>
-            <span class="dilemma-chip"><i data-lucide="bar-chart-2"></i> Theory is rejected by the data</span>
-            <span class="dilemma-chip"><i data-lucide="eye"></i> Empirics alone identify regularities</span>
-            <span class="dilemma-chip"><i data-lucide="link-2-off"></i> Theory is irrelevant to the real world</span>
-          </div>
-
-          <!-- Dilemma 1 -->
-          <div class="dilemma-card">
-            <div class="dilemma-number">1</div>
-            <div class="dilemma-content">
-              <div class="dilemma-header">
-                <span class="dilemma-tag">The Dilemma of Absurd Conclusions</span>
-                <h3>What if a model predicts something obviously wrong?</h3>
-              </div>
-              <div class="dilemma-challenge">
-                <div class="challenge-label"><i data-lucide="help-circle"></i> Challenge</div>
-                <p>Should a model be discarded entirely when it produces results that seem absurd or counterfactual?</p>
-              </div>
-              <div class="dilemma-response">
-                <div class="response-label"><i data-lucide="check-circle-2"></i> Response</div>
-                <p>All models are <span class="hl">deliberate simplifications</span> of reality — they will inevitably fail in some contexts. Absurd conclusions are not a reason to discard a model; they are a signal. They <span class="hl">reveal the limits of the model's assumptions</span> and create opportunities to reinterpret them or build better ones.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Dilemma 2 -->
-          <div class="dilemma-card">
-            <div class="dilemma-number">2</div>
-            <div class="dilemma-content">
-              <div class="dilemma-header">
-                <span class="dilemma-tag">The Dilemma of Responding to Evidence</span>
-                <h3>What if the data contradict the model?</h3>
-              </div>
-              <div class="dilemma-challenge">
-                <div class="challenge-label"><i data-lucide="help-circle"></i> Challenge</div>
-                <p>Should economic models be adjusted or outright rejected when contradicted by experimental or empirical evidence?</p>
-              </div>
-              <div class="dilemma-response">
-                <div class="response-label"><i data-lucide="check-circle-2"></i> Response</div>
-                <p>Empirical refutations should be treated as <span class="hl">inputs for refinement</span>, not grounds for dismissal. Economists should use contradicting evidence as a basis for improving existing models or developing entirely new ones that better capture observed behaviour.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Dilemma 3 -->
-          <div class="dilemma-card">
-            <div class="dilemma-number">3</div>
-            <div class="dilemma-content">
-              <div class="dilemma-header">
-                <span class="dilemma-tag">The Dilemma of Modelless Regularities</span>
-                <h3>What if patterns can be found without any model?</h3>
-              </div>
-              <div class="dilemma-challenge">
-                <div class="challenge-label"><i data-lucide="help-circle"></i> Challenge</div>
-                <p>Should economists need formal models to discover regularities in human behaviour, or can direct observation do the job just as well?</p>
-              </div>
-              <div class="dilemma-response">
-                <div class="response-label"><i data-lucide="check-circle-2"></i> Response</div>
-                <p>Regularities can indeed be observed directly without theory. However, models remain valuable even then: they provide a <span class="hl">structured, systematic framework</span> for thinking about those regularities, making them communicable, generalisable, and testable beyond the original context.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Dilemma 4 -->
-          <div class="dilemma-card">
-            <div class="dilemma-number">4</div>
-            <div class="dilemma-content">
-              <div class="dilemma-header">
-                <span class="dilemma-tag">The Dilemma of Relevance</span>
-                <h3>Is theory too detached from the real world to matter?</h3>
-              </div>
-              <div class="dilemma-challenge">
-                <div class="challenge-label"><i data-lucide="help-circle"></i> Challenge</div>
-                <p>Can economic theorists offer meaningful, actionable advice, or are their models inevitably too abstract and detached to be relevant to real-world policy?</p>
-              </div>
-              <div class="dilemma-response">
-                <div class="response-label"><i data-lucide="check-circle-2"></i> Response</div>
-                <p>Theory may not always produce ready-made policy prescriptions — but it is still <span class="hl">fundamentally relevant</span> because it shapes how people think about economic problems. Theorists carry a responsibility: they must present their work honestly, acknowledge their models' limitations, and <span class="hl">resist oversimplification</span> when confronting complex real-world challenges.</p>
-              </div>
-            </div>
-          </div>
-
-        </section>
-
-        <!-- ═══════════════════════════════════════════
-             KEY TAKEAWAY
-        ════════════════════════════════════════════ -->
-        <div class="takeaway-banner">
-          <div class="takeaway-icon"><i data-lucide="sparkles"></i></div>
-          <div class="takeaway-text">
-            <p class="takeaway-label">Key Takeaway</p>
-            <p>Economic theory is not a perfect description of the world. Its value lies in structuring thought, identifying what matters, connecting problems, and generating testable predictions — while theorists must remain honest about its limits.</p>
-          </div>
-        </div>
-
-      </div>
-    </main>
+<!-- ══════════════════════════════════════════
+     SIDEBAR
+════════════════════════════════════════════ -->
+<aside class="sidebar open" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>MICRO<span>.</span></h1>
+    <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
   </div>
 
-  <script src="script.js"></script>
+  <div class="sidebar-search">
+    <input type="text" id="search-input" placeholder="🔍  Search a concept..." oninput="filterNav(this.value)">
+  </div>
+
+  <nav class="sidebar-nav" id="sidebar-nav">
+
+    <div class="accordion-item">
+      <button class="accordion-header open" onclick="toggleAccordion(this)">
+        <span>📂 Lectures</span>
+        <i class="acc-icon">▼</i>
+      </button>
+      <div class="accordion-content open">
+        <a href="#" class="active">0 — Introduction</a>
+        <a href="#">1 — Consumer Theory</a>
+        <a href="#">2 — Producer Theory</a>
+        <a href="#">3 — Market Equilibrium</a>
+        <a href="#">4 — Game Theory</a>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAccordion(this)">
+        <span>🗂 Intro Topics</span>
+        <i class="acc-icon">▼</i>
+      </button>
+      <div class="accordion-content">
+        <a href="#varian">Part I — Varian's Advocacy</a>
+        <a href="#dilemmas">Part II — Rubinstein's Dilemmas</a>
+        <a href="#takeaway">Key Takeaway</a>
+      </div>
+    </div>
+
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar">SN<span class="user-dot"></span></div>
+      <div class="user-info">
+        <div class="user-name">Administrator star nova</div>
+        <div class="user-role">micro.github.io</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ══════════════════════════════════════════
+     MAIN WRAPPER
+════════════════════════════════════════════ -->
+<div class="main-wrap" id="main-wrap">
+
+  <div class="topbar">
+    <button class="topbar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-breadcrumb">
+      MICRO <span class="sep">›</span> <strong>0 — Introduction</strong>
+    </div>
+    <div class="topbar-pill">
+      <span class="topbar-dot"></span>
+      Introduction
+    </div>
+  </div>
+
+  <div class="main-content">
+
+    <!-- ── PAGE TITLE ── -->
+    <div class="page-title-block">
+      <div class="page-label">0 — Introduction</div>
+      <h1>What Use Is Microeconomic Theory?</h1>
+      <p>An honest interrogation of the role of formal economic theory — between its remarkable strengths and the genuine challenges every theorist must confront.</p>
+    </div>
+
+
+    <!-- ══════════════════════════════════════
+         PART I — VARIAN'S ADVOCACY
+    ═══════════════════════════════════════ -->
+    <section id="varian">
+
+      <div class="section-header">
+        <div class="section-pill">📌 Part I</div>
+        <div class="section-title">Why Theory? <span>Varian's Advocacy</span></div>
+        <p class="section-lead">
+          The value of microeconomic theory is far from obvious at first glance. Why build abstract models of rational agents 
+          when the real world is messy and irrational? Varian provides seven compelling answers — each targeting a specific 
+          intellectual job that theory does that raw observation cannot.
+        </p>
+      </div>
+
+      <!-- Opening discussion question -->
+      <div class="callout callout-quote">
+        <div class="callout-label">Discussion</div>
+        <div class="callout-body"><strong>According to you, what use is economic theory?</strong> This question, posed to students in the very first lecture, is not rhetorical. The purpose is to confront your intuitions with what the discipline actually claims to do — and to be honest about the gap.</div>
+      </div>
+
+      <!-- 7 reasons grid -->
+      <div class="card-grid">
+
+        <!-- 1 -->
+        <div class="concept-card red-top">
+          <div class="card-icon-wrap">📊</div>
+          <h3>1 — Substituting for Data</h3>
+          <p>
+            The most immediate use of theory is to <strong>fill empirical gaps</strong>. Data collection is expensive, 
+            time-consuming, and sometimes impossible — past events cannot be rerun, and certain counterfactual scenarios 
+            (What if this policy had not been enacted? What if a new technology had arrived five years earlier?) will never 
+            be directly observed. Theory allows economists to <span class="hl">derive predictions about unobserved situations</span> 
+            by reasoning systematically from a set of plausible assumptions. Rather than waiting for data that may never arrive, 
+            a well-constructed model generates logical implications that can guide analysis and decision-making in the interim.
+          </p>
+        </div>
+
+        <!-- 2 -->
+        <div class="concept-card blue-top">
+          <div class="card-icon-wrap blue">🎯</div>
+          <h3>2 — Identifying Key Parameters</h3>
+          <p>
+            Not all variables are equally important. Without theory, a researcher faces an overwhelming dataset and no 
+            principled reason to focus on one parameter over another. Microeconomic models act as a <strong>filter</strong>: 
+            they tell you <span class="hl">which quantities you must measure</span> to understand a given phenomenon. 
+            For instance, a model of labour demand immediately identifies the elasticity of substitution between capital 
+            and labour as a crucial parameter — meaning empirical work should focus resources there, rather than collecting 
+            extraneous information. Theory transforms an open-ended empirical task into a targeted one.
+          </p>
+        </div>
+
+        <!-- 3 -->
+        <div class="concept-card green-top">
+          <div class="card-icon-wrap green">🔗</div>
+          <h3>3 — Connecting Disparate Problems</h3>
+          <p>
+            One of the most beautiful and practical features of economic theory is its capacity to reveal 
+            <strong>deep structural similarities</strong> between problems that look completely different on the surface. 
+            The same mathematical framework used to analyse the optimal deductible in an insurance contract can 
+            illuminate the optimal tax rate in a public finance problem, or the optimal search strategy in a job market. 
+            <span class="hl">A single model becomes a universal lens</span>. This cross-problem insight is something 
+            pure observation can never provide — it requires the abstract language of theory to see through the 
+            surface-level differences.
+          </p>
+        </div>
+
+        <!-- 4 -->
+        <div class="concept-card purple-top">
+          <div class="card-icon-wrap purple">💡</div>
+          <h3>4 — Generating Useful Insights</h3>
+          <p>
+            A model does not have to be literally true to be useful. The <strong>map is not the territory</strong>, 
+            and no one expects a map to include every tree and pothole — yet it remains invaluable for navigation. 
+            Even a highly stylised or simplified model can produce <span class="hl">qualitative insights about 
+            economic mechanisms</span> that are directly applicable in policy debates. For example, a simple 
+            competitive model of the labour market — even if it ignores search frictions, unions, and information 
+            asymmetries — immediately clarifies the trade-off between minimum wages and employment levels, 
+            shaping the terms of the debate even without producing exact numerical predictions.
+          </p>
+        </div>
+
+        <!-- 5 -->
+        <div class="concept-card red-top">
+          <div class="card-icon-wrap">🧮</div>
+          <h3>5 — Quantification &amp; Calculation</h3>
+          <p>
+            Policy-making is ultimately about numbers. How large is the deadweight loss from this tax? 
+            By how much does a subsidy increase welfare? What is the consumer surplus generated by a new product? 
+            These are not questions that intuition or verbal reasoning can answer. Microeconomic theory provides 
+            the <strong>formal framework</strong> that allows economists to translate qualitative understanding 
+            into <span class="hl">precise, quantified magnitudes</span>. This is the prerequisite for 
+            cost-benefit analysis, welfare evaluation, and any evidence-based policy recommendation.
+          </p>
+        </div>
+
+        <!-- 6 -->
+        <div class="concept-card blue-top">
+          <div class="card-icon-wrap blue">🧠</div>
+          <h3>6 — Antidote to Introspection</h3>
+          <p>
+            Human beings are deeply intuitive creatures. We reason by analogy, by personal experience, 
+            by narrative — and these cognitive habits systematically mislead us in complex economic environments. 
+            Someone who has never lost their job will dramatically underestimate the welfare cost of unemployment. 
+            Someone who grew up in inflation will over-estimate its contemporary risks. Theory serves as a 
+            <strong>corrective discipline</strong>: by forcing economists to write down explicit assumptions 
+            and derive their conclusions step by step, it prevents <span class="hl">individual biases and 
+            anecdotal experience from masquerading as general economic truth</span>.
+          </p>
+        </div>
+
+        <!-- 7 — full width -->
+        <div class="concept-card green-top card-full">
+          <div class="card-icon-wrap green">🔬</div>
+          <h3>7 — Enabling Experimental Verification</h3>
+          <p>
+            Perhaps the most scientifically important function of theory: it makes economics <strong>falsifiable</strong>. 
+            A theory that makes no testable predictions cannot be improved — it simply accumulates interpretations 
+            without ever being corrected. Microeconomic models generate <span class="hl">precise, testable hypotheses</span> 
+            that can be confronted with natural experiments, randomised controlled trials, or laboratory settings. 
+            When a hypothesis fails the test, theory provides the diagnostic language to understand <em>why</em> 
+            it failed and what assumption needs to be relaxed. This creates a cumulative, self-correcting 
+            scientific process: experiments refine theories, and refined theories generate better experiments. 
+            This is the feedback loop that transforms economics from pure speculation into a genuine empirical science.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Summary callout -->
+      <div class="callout callout-key">
+        <div class="callout-label">To Remember</div>
+        <div class="callout-body">
+          Varian's core message is that theory is not a competitor to empirical work — it is its 
+          <strong>indispensable complement</strong>. Theory tells you what to measure, why it matters, 
+          and how to interpret what you find. Without it, data is noise.
+        </div>
+      </div>
+
+    </section>
+
+
+    <hr class="sep-line">
+
+
+    <!-- ══════════════════════════════════════
+         PART II — RUBINSTEIN'S DILEMMAS
+    ═══════════════════════════════════════ -->
+    <section id="dilemmas">
+
+      <div class="section-header">
+        <div class="section-pill">📌 Part II</div>
+        <div class="section-title">The Dilemmas of an <span>Economic Theorist</span></div>
+        <p class="section-lead">
+          Rubinstein approaches the same question from the opposite angle: not "what can theory do?" but 
+          "what are the honest difficulties of being an economic theorist?". He identifies four recurrent 
+          dilemmas — situations where the theorist faces genuine intellectual discomfort that cannot simply 
+          be dismissed, and which demand a mature and reflective response.
+        </p>
+      </div>
+
+      <!-- Overview tags -->
+      <div class="tag-row">
+        <span class="tag tag-red">⚠ Absurd Conclusions</span>
+        <span class="tag tag-blue">📉 Rejected by Data</span>
+        <span class="tag tag-green">👁 Modelless Regularities</span>
+        <span class="tag tag-orange">🌍 Relevance</span>
+      </div>
+
+      <!-- Dilemma 1 -->
+      <div class="dilemma-block">
+        <div class="dilemma-top">
+          <div class="dilemma-num">1</div>
+          <div class="dilemma-top-text">
+            <div class="dilemma-tag">The Dilemma of Absurd Conclusions</div>
+            <div class="dilemma-title">What should a theorist do when their model predicts something obviously wrong?</div>
+          </div>
+        </div>
+        <div class="dilemma-body">
+          <div class="dilemma-challenge-box">
+            <div class="dilemma-inner-label">❓ The Challenge</div>
+            <p>
+              Some economic models, rigorously applied, lead to conclusions that defy common sense or 
+              everyday observation. The famous "folk theorem" in game theory predicts that virtually 
+              any outcome can be sustained in repeated games — a result so general it seems to say nothing. 
+              The Arrow-Debreu model of general equilibrium requires a level of market completeness 
+              that simply does not exist in reality. Rational expectations models predict that agents 
+              will never make systematic errors, yet we observe them constantly. 
+              Should a theorist <strong>discard the model</strong> the moment it yields an absurd result? 
+              Or is there still value in a model that breaks down in certain contexts?
+            </p>
+          </div>
+          <div class="dilemma-answer-box">
+            <div class="dilemma-inner-label">✔ The Response</div>
+            <p>
+              Rubinstein's answer is nuanced: <strong>no model should be discarded simply because it fails 
+              in some contexts</strong>. All models are, by construction, simplifications of an infinitely 
+              complex reality — that is not a bug, it is their defining feature. The appearance of an 
+              absurd conclusion is therefore not a fatal flaw but a <span class="hl">diagnostic signal</span>. 
+              It marks the boundary of the model's domain of validity and pinpoints the assumption that is 
+              doing too much work. A responsible theorist uses these failures as <strong>opportunities to 
+              reinterpret and sharpen their assumptions</strong>, not as excuses to abandon the entire 
+              enterprise. The goal is not a perfect model — it is a model that is honest about where 
+              it works and where it does not.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dilemma 2 -->
+      <div class="dilemma-block">
+        <div class="dilemma-top">
+          <div class="dilemma-num">2</div>
+          <div class="dilemma-top-text">
+            <div class="dilemma-tag">The Dilemma of Responding to Evidence</div>
+            <div class="dilemma-title">What should a theorist do when experimental data contradicts their model?</div>
+          </div>
+        </div>
+        <div class="dilemma-body">
+          <div class="dilemma-challenge-box">
+            <div class="dilemma-inner-label">❓ The Challenge</div>
+            <p>
+              The rise of behavioural economics and experimental methods has placed standard economic 
+              models under systematic empirical pressure. The expected utility framework is violated by 
+              the Allais Paradox. Purely self-interested rational agents are routinely outperformed in 
+              ultimatum games by human subjects who reject unfair offers even at personal cost. 
+              Discounting models are challenged by observed time inconsistency. 
+              If the data consistently contradicts a theory, isn't the scientific response to 
+              <strong>reject the theory</strong>? But then, which part of the theory do you reject — 
+              the rationality assumption? The utility function specification? The market structure?
+            </p>
+          </div>
+          <div class="dilemma-answer-box">
+            <div class="dilemma-inner-label">✔ The Response</div>
+            <p>
+              Rubinstein argues that empirical refutations should be treated as <strong>inputs for 
+              scientific progress</strong>, not as verdicts of failure. The productive response is 
+              neither to ignore the evidence nor to abandon the entire framework, but to use 
+              contradictions as <span class="hl">precise starting points for model refinement</span>. 
+              The Allais Paradox did not kill utility theory — it inspired prospect theory. 
+              Evidence of social preferences did not eliminate game theory — it generated models 
+              of reciprocity and inequality aversion. <strong>The relationship between theory and 
+              evidence should be iterative and mutual</strong>: evidence disciplines theory, 
+              and theory gives evidence its interpretive structure.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dilemma 3 -->
+      <div class="dilemma-block">
+        <div class="dilemma-top">
+          <div class="dilemma-num">3</div>
+          <div class="dilemma-top-text">
+            <div class="dilemma-tag">The Dilemma of Modelless Regularities</div>
+            <div class="dilemma-title">What if patterns in human behaviour can be identified without any formal model?</div>
+          </div>
+        </div>
+        <div class="dilemma-body">
+          <div class="dilemma-challenge-box">
+            <div class="dilemma-inner-label">❓ The Challenge</div>
+            <p>
+              The explosion of data science, big data, and machine learning has demonstrated that 
+              it is possible to identify powerful and predictively useful regularities in human 
+              behaviour through purely statistical methods — without ever writing down a utility 
+              function, a budget constraint, or an equilibrium condition. 
+              Netflix predicts your next viewing choice without a model of rational preferences. 
+              Credit scoring algorithms predict defaults without a theory of intertemporal optimisation. 
+              If observation and pattern-recognition can do the job, <strong>is economic theory 
+              simply redundant</strong>? Does the existence of modelless regularities make the 
+              theorist's toolkit obsolete?
+            </p>
+          </div>
+          <div class="dilemma-answer-box">
+            <div class="dilemma-inner-label">✔ The Response</div>
+            <p>
+              Rubinstein concedes the point: yes, regularities can often be discovered directly, 
+              without the mediation of formal models. But <strong>discovery is not understanding</strong>. 
+              A machine learning algorithm that predicts which customers will churn tells you nothing 
+              about <em>why</em> they churn, what policy could prevent it, or whether the regularity 
+              will survive if the environment changes. Economic theory provides a 
+              <span class="hl">structured, generalisable, and causally interpretable framework</span> 
+              for thinking about observed regularities. It enables researchers to reason about 
+              counterfactuals, transfer insights across contexts, and engage in normative analysis 
+              — all things that pure pattern-matching cannot do. Theory and observation are 
+              <strong>complements, not substitutes</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dilemma 4 -->
+      <div class="dilemma-block">
+        <div class="dilemma-top">
+          <div class="dilemma-num">4</div>
+          <div class="dilemma-top-text">
+            <div class="dilemma-tag">The Dilemma of Relevance</div>
+            <div class="dilemma-title">Are economic theorists too detached from reality to offer meaningful advice?</div>
+          </div>
+        </div>
+        <div class="dilemma-body">
+          <div class="dilemma-challenge-box">
+            <div class="dilemma-inner-label">❓ The Challenge</div>
+            <p>
+              The most politically charged of Rubinstein's dilemmas. Critics from both inside and 
+              outside economics frequently argue that high theory — general equilibrium analysis, 
+              mechanism design, optimal contract theory — is a sophisticated intellectual game with 
+              no real-world consequences. Policymakers do not consult theorists when designing 
+              minimum wage legislation or central bank mandates. The abstract models taught in 
+              doctoral programmes bear little resemblance to the messy, institutional reality 
+              that governments actually navigate. <strong>Is the economic theorist's work 
+              ultimately a form of elaborate academic self-amusement?</strong>
+            </p>
+          </div>
+          <div class="dilemma-answer-box">
+            <div class="dilemma-inner-label">✔ The Response</div>
+            <p>
+              Rubinstein offers a subtle but important defence. Theory may not always translate 
+              directly into policy prescriptions — and <strong>it would be dishonest to pretend 
+              that it does</strong>. But this does not mean it is irrelevant. Economic theory 
+              shapes the conceptual categories, the language, and the intuitions through which 
+              policymakers and the public think about economic problems, even when no explicit 
+              reference to a model is made. <span class="hl">The way a finance minister 
+              frames a budget constraint, or a central banker speaks about inflation expectations, 
+              is already saturated with theoretical concepts</span>. Theorists therefore carry 
+              a profound responsibility: they must present their work honestly, acknowledge 
+              the limits of their models, and <strong>resist the temptation to oversimplify 
+              or over-claim</strong> when speaking to complex, real-world issues. 
+              Intellectual integrity is not optional — it is the condition for remaining 
+              trustworthy and therefore genuinely influential.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <hr class="sep-line">
+
+
+    <!-- ══════════════════════════════════════
+         SYNTHESIS
+    ═══════════════════════════════════════ -->
+    <section>
+      <div class="section-header">
+        <div class="section-pill">🧩 Synthesis</div>
+        <div class="section-title">Putting It <span>Together</span></div>
+      </div>
+
+      <div class="card-grid card-grid-3">
+        <div class="concept-card">
+          <div class="card-icon-wrap">⚖️</div>
+          <h3>Theory as a Tool, Not a Truth</h3>
+          <p>Both Varian and Rubinstein agree: economic models are instruments, not descriptions. Their value lies in what they <span class="hl">enable</span> — clearer thinking, testable predictions, quantified trade-offs — not in whether they perfectly replicate reality.</p>
+        </div>
+        <div class="concept-card">
+          <div class="card-icon-wrap orange">🔄</div>
+          <h3>The Theory–Evidence Dialogue</h3>
+          <p>Theory without empirics is speculation; empirics without theory is noise. The scientific progress of microeconomics emerges from their <span class="hl">iterative dialogue</span>: models guide data collection, data challenges models, and models are revised accordingly.</p>
+        </div>
+        <div class="concept-card">
+          <div class="card-icon-wrap purple">🎓</div>
+          <h3>The Responsibility of the Theorist</h3>
+          <p>Given their influence — even when indirect — economic theorists must be honest about limitations, <span class="hl">resist oversimplification</span>, and communicate their work without overstating its real-world applicability.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         KEY TAKEAWAY
+    ═══════════════════════════════════════ -->
+    <div class="takeaway" id="takeaway">
+      <div class="takeaway-icon">✨</div>
+      <div>
+        <div class="takeaway-label">Key Takeaway — 0 Introduction</div>
+        <p>
+          Microeconomic theory is not a perfect map of the world. Its real power lies in structuring thought, 
+          revealing what matters, connecting apparently unrelated problems, and generating hypotheses that 
+          can be tested and refined. At the same time, every theorist must confront — honestly and without 
+          evasion — the limits of abstraction: models fail, data push back, and the gap between theory 
+          and the real world can be vast. The responsible economist acknowledges all of this, and builds 
+          theory that is simultaneously rigorous, humble, and useful.
+        </p>
+      </div>
+    </div>
+
+  </div><!-- /main-content -->
+</div><!-- /main-wrap -->
+
+
+<script>
+/* ── Sidebar Toggle ── */
+function toggleSidebar() {
+  const s = document.getElementById('sidebar');
+  const m = document.getElementById('main-wrap');
+  s.classList.toggle('open');
+  m.classList.toggle('expanded');
+}
+
+/* ── Accordion ── */
+function toggleAccordion(btn) {
+  const content = btn.nextElementSibling;
+  btn.classList.toggle('open');
+  content.classList.toggle('open');
+}
+// Open first accordion by default
+document.querySelectorAll('.accordion-header')[0].classList.add('open');
+document.querySelectorAll('.accordion-content')[0].classList.add('open');
+
+/* ── Search Filter ── */
+function filterNav(q) {
+  const links = document.querySelectorAll('.accordion-content a');
+  links.forEach(a => {
+    const match = a.textContent.toLowerCase().includes(q.toLowerCase());
+    a.style.display = match ? '' : 'none';
+  });
+  // open all accordions when searching
+  if (q.length > 0) {
+    document.querySelectorAll('.accordion-content').forEach(c => c.classList.add('open'));
+    document.querySelectorAll('.accordion-header').forEach(h => h.classList.add('open'));
+  }
+}
+
+/* ── Smooth scroll for sidebar links ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
 </body>
 </html>
