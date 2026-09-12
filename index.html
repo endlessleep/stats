@@ -227,7 +227,7 @@ body {
 .section-pill {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--red-muted); border: 1px solid var(--red-border);
-  color: var(--red); font-size: 0.7rem; font-weight: 800;
+  color: var(--red); font-size: 0.72rem; font-weight: 800;
   text-transform: uppercase; letter-spacing: 0.8px;
   padding: 4px 12px; border-radius: 999px; width: fit-content;
 }
@@ -255,11 +255,11 @@ body {
   border-left: 4px solid;
 }
 .callout-label {
-  font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+  font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
   letter-spacing: 0.6px; display: flex; align-items: center; gap: 6px;
 }
 .callout-label::before { font-size: 1rem; }
-.callout-body { font-size: 0.92rem; line-height: 1.7; }
+.callout-body { font-size: 0.93rem; line-height: 1.7; }
 .callout-body strong { font-weight: 700; }
 
 .callout-def   { background: var(--blue-muted);   border-color: #3b82f6; }
@@ -269,14 +269,6 @@ body {
 .callout-key   { background: var(--red-muted);    border-color: var(--red); }
 .callout-key .callout-label   { color: var(--red); }
 .callout-key .callout-label::before { content: "🔑"; }
-
-.callout-tip   { background: var(--green-muted);  border-color: #10b981; }
-.callout-tip .callout-label   { color: #34d399; }
-.callout-tip .callout-label::before { content: "💡"; }
-
-.callout-warn  { background: var(--orange-muted); border-color: #f59e0b; }
-.callout-warn .callout-label  { color: #fbbf24; }
-.callout-warn .callout-label::before { content: "⚠️"; }
 
 .callout-quote { background: var(--purple-muted); border-color: #8b5cf6; }
 .callout-quote .callout-label { color: #a78bfa; }
@@ -321,10 +313,8 @@ body {
 .card-icon-wrap.purple { background: linear-gradient(135deg, #8b5cf6, #5b21b6); box-shadow: 0 4px 12px rgba(139,92,246,0.25); }
 .card-icon-wrap.orange { background: linear-gradient(135deg, #f59e0b, #92400e); box-shadow: 0 4px 12px rgba(245,158,11,0.25); }
 
-.concept-card h3 { font-size: 0.97rem; font-weight: 800; margin-bottom: 10px; }
-.concept-card p  { font-size: 0.88rem; color: var(--text-2); line-height: 1.68; }
-.concept-card ul { padding-left: 18px; display: flex; flex-direction: column; gap: 7px; }
-.concept-card li { font-size: 0.87rem; color: var(--text-2); line-height: 1.6; }
+.concept-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 10px; }
+.concept-card p  { font-size: 0.9rem; color: var(--text-2); line-height: 1.7; }
 .concept-card strong { color: var(--text); font-weight: 700; }
 
 /* ── DILEMMA CARDS ── */
@@ -353,7 +343,7 @@ body {
 }
 .dilemma-top-text { flex: 1; }
 .dilemma-tag {
-  font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
   letter-spacing: 0.6px; color: var(--red);
   background: var(--red-muted); border: 1px solid var(--red-border);
   padding: 2px 9px; border-radius: 999px;
@@ -362,7 +352,7 @@ body {
 .dilemma-title { font-size: 1.05rem; font-weight: 800; line-height: 1.3; }
 .dilemma-body { padding: 22px; display: flex; flex-direction: column; gap: 14px; }
 .dilemma-inner-label {
-  font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+  font-size: 0.72rem; font-weight: 800; text-transform: uppercase;
   letter-spacing: 0.5px; margin-bottom: 5px; display: flex; align-items: center; gap: 5px;
 }
 .dilemma-challenge-box {
@@ -378,7 +368,7 @@ body {
 }
 .dilemma-answer-box .dilemma-inner-label { color: var(--red); }
 .dilemma-challenge-box p,
-.dilemma-answer-box p { font-size: 0.9rem; line-height: 1.7; color: var(--text-2); }
+.dilemma-answer-box p { font-size: 0.92rem; line-height: 1.7; color: var(--text-2); }
 .dilemma-answer-box p strong { color: var(--text); }
 
 /* ── HIGHLIGHT / FLUO TEXT ── */
@@ -402,7 +392,7 @@ body {
   font-size: 1.3rem; flex-shrink: 0;
   box-shadow: 0 4px 14px var(--red-glow);
 }
-.takeaway-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--red); margin-bottom: 7px; }
+.takeaway-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--red); margin-bottom: 7px; }
 .takeaway p { font-size: 0.97rem; color: var(--text-2); line-height: 1.72; }
 
 /* ── UTILITY ── */
@@ -443,7 +433,7 @@ body {
 <body>
 
 <!-- ══════════════════════════════════════════
-     SIDEBAR
+     SIDEBAR (Cleaned up: Only 0 - Introduction)
 ════════════════════════════════════════════ -->
 <aside class="sidebar open" id="sidebar">
   <div class="sidebar-brand">
@@ -459,27 +449,13 @@ body {
 
     <div class="accordion-item">
       <button class="accordion-header open" onclick="toggleAccordion(this)">
-        <span>📂 Lectures</span>
+        <span>📂 0 — Introduction</span>
         <i class="acc-icon">▼</i>
       </button>
       <div class="accordion-content open">
-        <a href="#" class="active">0 — Introduction</a>
-        <a href="#">1 — Consumer Theory</a>
-        <a href="#">2 — Producer Theory</a>
-        <a href="#">3 — Market Equilibrium</a>
-        <a href="#">4 — Game Theory</a>
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <button class="accordion-header" onclick="toggleAccordion(this)">
-        <span>🗂 Intro Topics</span>
-        <i class="acc-icon">▼</i>
-      </button>
-      <div class="accordion-content">
-        <a href="#varian">Part I — Varian's Advocacy</a>
-        <a href="#dilemmas">Part II — Rubinstein's Dilemmas</a>
-        <a href="#takeaway">Key Takeaway</a>
+        <a href="#varian" class="active">Varian's Advocacy</a>
+        <a href="#dilemmas">Rubinstein's Dilemmas</a>
+        <a href="#takeaway">Key Takeaways</a>
       </div>
     </div>
 
@@ -508,7 +484,7 @@ body {
     </div>
     <div class="topbar-pill">
       <span class="topbar-dot"></span>
-      Introduction
+      0 — Introduction
     </div>
   </div>
 
@@ -518,7 +494,7 @@ body {
     <div class="page-title-block">
       <div class="page-label">0 — Introduction</div>
       <h1>What Use Is Microeconomic Theory?</h1>
-      <p>An honest interrogation of the role of formal economic theory — between its remarkable strengths and the genuine challenges every theorist must confront.</p>
+      <p>Understanding why economic theory is useful, and exploring the main challenges faced by economic theorists when presenting their work.</p>
     </div>
 
 
@@ -529,18 +505,18 @@ body {
 
       <div class="section-header">
         <div class="section-pill">📌 Part I</div>
-        <div class="section-title">Why Theory? <span>Varian's Advocacy</span></div>
+        <div class="section-title">Varian's Advocacy</div>
         <p class="section-lead">
-          The value of microeconomic theory is far from obvious at first glance. Why build abstract models of rational agents 
-          when the real world is messy and irrational? Varian provides seven compelling answers — each targeting a specific 
-          intellectual job that theory does that raw observation cannot.
+          Why do we need economic theory? According to Hal Varian (1993), economic theory serves seven practical purposes in understanding economic behavior and making policy decisions.
         </p>
       </div>
 
-      <!-- Opening discussion question -->
+      <!-- Opening question -->
       <div class="callout callout-quote">
-        <div class="callout-label">Discussion</div>
-        <div class="callout-body"><strong>According to you, what use is economic theory?</strong> This question, posed to students in the very first lecture, is not rhetorical. The purpose is to confront your intuitions with what the discipline actually claims to do — and to be honest about the gap.</div>
+        <div class="callout-label">Discussion Question</div>
+        <div class="callout-body">
+          <strong>According to you, what use is economic theory?</strong> Think about why we build economic models instead of only looking at real-world numbers and stories.
+        </div>
       </div>
 
       <!-- 7 reasons grid -->
@@ -549,116 +525,72 @@ body {
         <!-- 1 -->
         <div class="concept-card red-top">
           <div class="card-icon-wrap">📊</div>
-          <h3>1 — Substituting for Data</h3>
+          <h3>1. Substituting for Data</h3>
           <p>
-            The most immediate use of theory is to <strong>fill empirical gaps</strong>. Data collection is expensive, 
-            time-consuming, and sometimes impossible — past events cannot be rerun, and certain counterfactual scenarios 
-            (What if this policy had not been enacted? What if a new technology had arrived five years earlier?) will never 
-            be directly observed. Theory allows economists to <span class="hl">derive predictions about unobserved situations</span> 
-            by reasoning systematically from a set of plausible assumptions. Rather than waiting for data that may never arrive, 
-            a well-constructed model generates logical implications that can guide analysis and decision-making in the interim.
+            Economic theory helps us <span class="hl">predict outcomes when direct data are lacking</span>. 
+            When we don't have enough real-world numbers or information, economic models allow us to logically reason and estimate what is likely to happen in a market or policy scenario.
           </p>
         </div>
 
         <!-- 2 -->
         <div class="concept-card blue-top">
           <div class="card-icon-wrap blue">🎯</div>
-          <h3>2 — Identifying Key Parameters</h3>
+          <h3>2. Guiding the Identification of Key Parameters</h3>
           <p>
-            Not all variables are equally important. Without theory, a researcher faces an overwhelming dataset and no 
-            principled reason to focus on one parameter over another. Microeconomic models act as a <strong>filter</strong>: 
-            they tell you <span class="hl">which quantities you must measure</span> to understand a given phenomenon. 
-            For instance, a model of labour demand immediately identifies the elasticity of substitution between capital 
-            and labour as a crucial parameter — meaning empirical work should focus resources there, rather than collecting 
-            extraneous information. Theory transforms an open-ended empirical task into a targeted one.
+            Theory helps in <span class="hl">identifying which parameters are important</span> for understanding economic phenomena. 
+            Instead of getting lost in thousands of details, economic models show us exactly which variables matter most when studying human choice and market behavior.
           </p>
         </div>
 
         <!-- 3 -->
         <div class="concept-card green-top">
           <div class="card-icon-wrap green">🔗</div>
-          <h3>3 — Connecting Disparate Problems</h3>
+          <h3>3. Connecting Disparate Problems</h3>
           <p>
-            One of the most beautiful and practical features of economic theory is its capacity to reveal 
-            <strong>deep structural similarities</strong> between problems that look completely different on the surface. 
-            The same mathematical framework used to analyse the optimal deductible in an insurance contract can 
-            illuminate the optimal tax rate in a public finance problem, or the optimal search strategy in a job market. 
-            <span class="hl">A single model becomes a universal lens</span>. This cross-problem insight is something 
-            pure observation can never provide — it requires the abstract language of theory to see through the 
-            surface-level differences.
+            Theory can reveal that <span class="hl">seemingly different economic problems are related</span>, providing a single unifying framework. 
+            For instance, problems in labor markets, taxation, and auctions often share the exact same underlying logic.
           </p>
         </div>
 
         <!-- 4 -->
         <div class="concept-card purple-top">
           <div class="card-icon-wrap purple">💡</div>
-          <h3>4 — Generating Useful Insights</h3>
+          <h3>4. Generating Useful Insights</h3>
           <p>
-            A model does not have to be literally true to be useful. The <strong>map is not the territory</strong>, 
-            and no one expects a map to include every tree and pothole — yet it remains invaluable for navigation. 
-            Even a highly stylised or simplified model can produce <span class="hl">qualitative insights about 
-            economic mechanisms</span> that are directly applicable in policy debates. For example, a simple 
-            competitive model of the labour market — even if it ignores search frictions, unions, and information 
-            asymmetries — immediately clarifies the trade-off between minimum wages and employment levels, 
-            shaping the terms of the debate even without producing exact numerical predictions.
+            Even if a theory is not entirely accurate or realistic, it can still provide <span class="hl">valuable insights into economic mechanisms</span> that are very useful in public policy debates and decision-making.
           </p>
         </div>
 
         <!-- 5 -->
         <div class="concept-card red-top">
           <div class="card-icon-wrap">🧮</div>
-          <h3>5 — Quantification &amp; Calculation</h3>
+          <h3>5. Offering Quantification and Calculation</h3>
           <p>
-            Policy-making is ultimately about numbers. How large is the deadweight loss from this tax? 
-            By how much does a subsidy increase welfare? What is the consumer surplus generated by a new product? 
-            These are not questions that intuition or verbal reasoning can answer. Microeconomic theory provides 
-            the <strong>formal framework</strong> that allows economists to translate qualitative understanding 
-            into <span class="hl">precise, quantified magnitudes</span>. This is the prerequisite for 
-            cost-benefit analysis, welfare evaluation, and any evidence-based policy recommendation.
+            Theory provides a structured framework for <span class="hl">quantifying relationships between economic variables</span>. 
+            This mathematical foundation is essential for making informed and calculated policy decisions.
           </p>
         </div>
 
         <!-- 6 -->
         <div class="concept-card blue-top">
           <div class="card-icon-wrap blue">🧠</div>
-          <h3>6 — Antidote to Introspection</h3>
+          <h3>6. Serving as an Antidote to Introspection</h3>
           <p>
-            Human beings are deeply intuitive creatures. We reason by analogy, by personal experience, 
-            by narrative — and these cognitive habits systematically mislead us in complex economic environments. 
-            Someone who has never lost their job will dramatically underestimate the welfare cost of unemployment. 
-            Someone who grew up in inflation will over-estimate its contemporary risks. Theory serves as a 
-            <strong>corrective discipline</strong>: by forcing economists to write down explicit assumptions 
-            and derive their conclusions step by step, it prevents <span class="hl">individual biases and 
-            anecdotal experience from masquerading as general economic truth</span>.
+            Theory helps us <span class="hl">overcome personal biases</span> that arise from individual experience and intuition. 
+            By enforcing strict logical rules, it leads to a more objective and scientific understanding of economic issues.
           </p>
         </div>
 
         <!-- 7 — full width -->
         <div class="concept-card green-top card-full">
           <div class="card-icon-wrap green">🔬</div>
-          <h3>7 — Enabling Experimental Verification</h3>
+          <h3>7. Enabling Experimental Verification</h3>
           <p>
-            Perhaps the most scientifically important function of theory: it makes economics <strong>falsifiable</strong>. 
-            A theory that makes no testable predictions cannot be improved — it simply accumulates interpretations 
-            without ever being corrected. Microeconomic models generate <span class="hl">precise, testable hypotheses</span> 
-            that can be confronted with natural experiments, randomised controlled trials, or laboratory settings. 
-            When a hypothesis fails the test, theory provides the diagnostic language to understand <em>why</em> 
-            it failed and what assumption needs to be relaxed. This creates a cumulative, self-correcting 
-            scientific process: experiments refine theories, and refined theories generate better experiments. 
-            This is the feedback loop that transforms economics from pure speculation into a genuine empirical science.
+            Theory allows for the <span class="hl">formulation of clear hypotheses</span> that can be tested through laboratory or field experiments. 
+            Testing these hypotheses helps us refine existing theories and continuously improve their real-world applicability.
           </p>
         </div>
 
-      </div>
-
-      <!-- Summary callout -->
-      <div class="callout callout-key">
-        <div class="callout-label">To Remember</div>
-        <div class="callout-body">
-          Varian's core message is that theory is not a competitor to empirical work — it is its 
-          <strong>indispensable complement</strong>. Theory tells you what to measure, why it matters, 
-          and how to interpret what you find. Without it, data is noise.
-        </div>
       </div>
 
     </section>
@@ -674,21 +606,18 @@ body {
 
       <div class="section-header">
         <div class="section-pill">📌 Part II</div>
-        <div class="section-title">The Dilemmas of an <span>Economic Theorist</span></div>
+        <div class="section-title">Rubinstein's Dilemmas</div>
         <p class="section-lead">
-          Rubinstein approaches the same question from the opposite angle: not "what can theory do?" but 
-          "what are the honest difficulties of being an economic theorist?". He identifies four recurrent 
-          dilemmas — situations where the theorist faces genuine intellectual discomfort that cannot simply 
-          be dismissed, and which demand a mature and reflective response.
+          Ariel Rubinstein (2006) explores the key challenges faced by economic theorists. Put yourself in the shoes of an economic theorist: <strong>what challenges do you face when presenting your work?</strong>
         </p>
       </div>
 
       <!-- Overview tags -->
       <div class="tag-row">
-        <span class="tag tag-red">⚠ Absurd Conclusions</span>
-        <span class="tag tag-blue">📉 Rejected by Data</span>
-        <span class="tag tag-green">👁 Modelless Regularities</span>
-        <span class="tag tag-orange">🌍 Relevance</span>
+        <span class="tag tag-red">1. Absurd Conclusions</span>
+        <span class="tag tag-blue">2. Rejected by Data</span>
+        <span class="tag tag-green">3. Modelless Regularities</span>
+        <span class="tag tag-orange">4. Relevance to Real-World</span>
       </div>
 
       <!-- Dilemma 1 -->
@@ -696,36 +625,21 @@ body {
         <div class="dilemma-top">
           <div class="dilemma-num">1</div>
           <div class="dilemma-top-text">
-            <div class="dilemma-tag">The Dilemma of Absurd Conclusions</div>
-            <div class="dilemma-title">What should a theorist do when their model predicts something obviously wrong?</div>
+            <div class="dilemma-tag">Rubinstein Dilemma 1</div>
+            <div class="dilemma-title">The Dilemma of Absurd Conclusions</div>
           </div>
         </div>
         <div class="dilemma-body">
           <div class="dilemma-challenge-box">
-            <div class="dilemma-inner-label">❓ The Challenge</div>
+            <div class="dilemma-inner-label">❓ Challenge</div>
             <p>
-              Some economic models, rigorously applied, lead to conclusions that defy common sense or 
-              everyday observation. The famous "folk theorem" in game theory predicts that virtually 
-              any outcome can be sustained in repeated games — a result so general it seems to say nothing. 
-              The Arrow-Debreu model of general equilibrium requires a level of market completeness 
-              that simply does not exist in reality. Rational expectations models predict that agents 
-              will never make systematic errors, yet we observe them constantly. 
-              Should a theorist <strong>discard the model</strong> the moment it yields an absurd result? 
-              Or is there still value in a model that breaks down in certain contexts?
+              <strong>Should a model be discarded if it leads to absurd conclusions, or should it be seen as a limited tool that fails in some contexts?</strong>
             </p>
           </div>
           <div class="dilemma-answer-box">
-            <div class="dilemma-inner-label">✔ The Response</div>
+            <div class="dilemma-inner-label">✔ Explanation &amp; Resolution</div>
             <p>
-              Rubinstein's answer is nuanced: <strong>no model should be discarded simply because it fails 
-              in some contexts</strong>. All models are, by construction, simplifications of an infinitely 
-              complex reality — that is not a bug, it is their defining feature. The appearance of an 
-              absurd conclusion is therefore not a fatal flaw but a <span class="hl">diagnostic signal</span>. 
-              It marks the boundary of the model's domain of validity and pinpoints the assumption that is 
-              doing too much work. A responsible theorist uses these failures as <strong>opportunities to 
-              reinterpret and sharpen their assumptions</strong>, not as excuses to abandon the entire 
-              enterprise. The goal is not a perfect model — it is a model that is honest about where 
-              it works and where it does not.
+              Economists should recognize that <span class="hl">all models are simplifications of reality</span> and will inevitably fail in some contexts. These absurd conclusions do not mean the whole theory is useless. Instead, they highlight the <span class="hl">limitations of the model's assumptions</span> and serve as an opportunity to reinterpret and improve them.
             </p>
           </div>
         </div>
@@ -736,36 +650,21 @@ body {
         <div class="dilemma-top">
           <div class="dilemma-num">2</div>
           <div class="dilemma-top-text">
-            <div class="dilemma-tag">The Dilemma of Responding to Evidence</div>
-            <div class="dilemma-title">What should a theorist do when experimental data contradicts their model?</div>
+            <div class="dilemma-tag">Rubinstein Dilemma 2</div>
+            <div class="dilemma-title">The Dilemma of Responding to Evidence</div>
           </div>
         </div>
         <div class="dilemma-body">
           <div class="dilemma-challenge-box">
-            <div class="dilemma-inner-label">❓ The Challenge</div>
+            <div class="dilemma-inner-label">❓ Challenge</div>
             <p>
-              The rise of behavioural economics and experimental methods has placed standard economic 
-              models under systematic empirical pressure. The expected utility framework is violated by 
-              the Allais Paradox. Purely self-interested rational agents are routinely outperformed in 
-              ultimatum games by human subjects who reject unfair offers even at personal cost. 
-              Discounting models are challenged by observed time inconsistency. 
-              If the data consistently contradicts a theory, isn't the scientific response to 
-              <strong>reject the theory</strong>? But then, which part of the theory do you reject — 
-              the rationality assumption? The utility function specification? The market structure?
+              <strong>Should economic models be adjusted or rejected if they are contradicted by experimental evidence?</strong>
             </p>
           </div>
           <div class="dilemma-answer-box">
-            <div class="dilemma-inner-label">✔ The Response</div>
+            <div class="dilemma-inner-label">✔ Explanation &amp; Resolution</div>
             <p>
-              Rubinstein argues that empirical refutations should be treated as <strong>inputs for 
-              scientific progress</strong>, not as verdicts of failure. The productive response is 
-              neither to ignore the evidence nor to abandon the entire framework, but to use 
-              contradictions as <span class="hl">precise starting points for model refinement</span>. 
-              The Allais Paradox did not kill utility theory — it inspired prospect theory. 
-              Evidence of social preferences did not eliminate game theory — it generated models 
-              of reciprocity and inequality aversion. <strong>The relationship between theory and 
-              evidence should be iterative and mutual</strong>: evidence disciplines theory, 
-              and theory gives evidence its interpretive structure.
+              Economists should use empirical refutations as a <span class="hl">basis for refining existing models or developing new ones</span>. When real-world evidence contradicts a model, it provides clear direction for updating assumptions to better reflect actual human behavior.
             </p>
           </div>
         </div>
@@ -776,38 +675,21 @@ body {
         <div class="dilemma-top">
           <div class="dilemma-num">3</div>
           <div class="dilemma-top-text">
-            <div class="dilemma-tag">The Dilemma of Modelless Regularities</div>
-            <div class="dilemma-title">What if patterns in human behaviour can be identified without any formal model?</div>
+            <div class="dilemma-tag">Rubinstein Dilemma 3</div>
+            <div class="dilemma-title">The Dilemma of Modelless Regularities</div>
           </div>
         </div>
         <div class="dilemma-body">
           <div class="dilemma-challenge-box">
-            <div class="dilemma-inner-label">❓ The Challenge</div>
+            <div class="dilemma-inner-label">❓ Challenge</div>
             <p>
-              The explosion of data science, big data, and machine learning has demonstrated that 
-              it is possible to identify powerful and predictively useful regularities in human 
-              behaviour through purely statistical methods — without ever writing down a utility 
-              function, a budget constraint, or an equilibrium condition. 
-              Netflix predicts your next viewing choice without a model of rational preferences. 
-              Credit scoring algorithms predict defaults without a theory of intertemporal optimisation. 
-              If observation and pattern-recognition can do the job, <strong>is economic theory 
-              simply redundant</strong>? Does the existence of modelless regularities make the 
-              theorist's toolkit obsolete?
+              <strong>Should economic theorists rely on models to discover regularities in human behavior, or can these regularities be identified directly through observation?</strong>
             </p>
           </div>
           <div class="dilemma-answer-box">
-            <div class="dilemma-inner-label">✔ The Response</div>
+            <div class="dilemma-inner-label">✔ Explanation &amp; Resolution</div>
             <p>
-              Rubinstein concedes the point: yes, regularities can often be discovered directly, 
-              without the mediation of formal models. But <strong>discovery is not understanding</strong>. 
-              A machine learning algorithm that predicts which customers will churn tells you nothing 
-              about <em>why</em> they churn, what policy could prevent it, or whether the regularity 
-              will survive if the environment changes. Economic theory provides a 
-              <span class="hl">structured, generalisable, and causally interpretable framework</span> 
-              for thinking about observed regularities. It enables researchers to reason about 
-              counterfactuals, transfer insights across contexts, and engage in normative analysis 
-              — all things that pure pattern-matching cannot do. Theory and observation are 
-              <strong>complements, not substitutes</strong>.
+              Behavioral regularities can often be <span class="hl">observed directly without the need for complex models</span>. However, models still play a crucial role by providing a <span class="hl">structured way to think about these regularities</span> and explain the underlying reasons behind them.
             </p>
           </div>
         </div>
@@ -818,40 +700,21 @@ body {
         <div class="dilemma-top">
           <div class="dilemma-num">4</div>
           <div class="dilemma-top-text">
-            <div class="dilemma-tag">The Dilemma of Relevance</div>
-            <div class="dilemma-title">Are economic theorists too detached from reality to offer meaningful advice?</div>
+            <div class="dilemma-tag">Rubinstein Dilemma 4</div>
+            <div class="dilemma-title">The Dilemma of Relevance</div>
           </div>
         </div>
         <div class="dilemma-body">
           <div class="dilemma-challenge-box">
-            <div class="dilemma-inner-label">❓ The Challenge</div>
+            <div class="dilemma-inner-label">❓ Challenge</div>
             <p>
-              The most politically charged of Rubinstein's dilemmas. Critics from both inside and 
-              outside economics frequently argue that high theory — general equilibrium analysis, 
-              mechanism design, optimal contract theory — is a sophisticated intellectual game with 
-              no real-world consequences. Policymakers do not consult theorists when designing 
-              minimum wage legislation or central bank mandates. The abstract models taught in 
-              doctoral programmes bear little resemblance to the messy, institutional reality 
-              that governments actually navigate. <strong>Is the economic theorist's work 
-              ultimately a form of elaborate academic self-amusement?</strong>
+              <strong>Can economic theorists offer meaningful advice that impacts the real world, or are their models too detached from reality to be relevant?</strong>
             </p>
           </div>
           <div class="dilemma-answer-box">
-            <div class="dilemma-inner-label">✔ The Response</div>
+            <div class="dilemma-inner-label">✔ Explanation &amp; Resolution</div>
             <p>
-              Rubinstein offers a subtle but important defence. Theory may not always translate 
-              directly into policy prescriptions — and <strong>it would be dishonest to pretend 
-              that it does</strong>. But this does not mean it is irrelevant. Economic theory 
-              shapes the conceptual categories, the language, and the intuitions through which 
-              policymakers and the public think about economic problems, even when no explicit 
-              reference to a model is made. <span class="hl">The way a finance minister 
-              frames a budget constraint, or a central banker speaks about inflation expectations, 
-              is already saturated with theoretical concepts</span>. Theorists therefore carry 
-              a profound responsibility: they must present their work honestly, acknowledge 
-              the limits of their models, and <strong>resist the temptation to oversimplify 
-              or over-claim</strong> when speaking to complex, real-world issues. 
-              Intellectual integrity is not optional — it is the condition for remaining 
-              trustworthy and therefore genuinely influential.
+              While economic theory may not always provide direct, actionable advice for every situation, it is still highly relevant because it <span class="hl">shapes the way people think about economic issues</span>. Theorists must be responsible when presenting their work by <span class="hl">recognizing the limitations of their models</span> and avoiding oversimplification when addressing complex real-world problems.
             </p>
           </div>
         </div>
@@ -864,35 +727,6 @@ body {
 
 
     <!-- ══════════════════════════════════════
-         SYNTHESIS
-    ═══════════════════════════════════════ -->
-    <section>
-      <div class="section-header">
-        <div class="section-pill">🧩 Synthesis</div>
-        <div class="section-title">Putting It <span>Together</span></div>
-      </div>
-
-      <div class="card-grid card-grid-3">
-        <div class="concept-card">
-          <div class="card-icon-wrap">⚖️</div>
-          <h3>Theory as a Tool, Not a Truth</h3>
-          <p>Both Varian and Rubinstein agree: economic models are instruments, not descriptions. Their value lies in what they <span class="hl">enable</span> — clearer thinking, testable predictions, quantified trade-offs — not in whether they perfectly replicate reality.</p>
-        </div>
-        <div class="concept-card">
-          <div class="card-icon-wrap orange">🔄</div>
-          <h3>The Theory–Evidence Dialogue</h3>
-          <p>Theory without empirics is speculation; empirics without theory is noise. The scientific progress of microeconomics emerges from their <span class="hl">iterative dialogue</span>: models guide data collection, data challenges models, and models are revised accordingly.</p>
-        </div>
-        <div class="concept-card">
-          <div class="card-icon-wrap purple">🎓</div>
-          <h3>The Responsibility of the Theorist</h3>
-          <p>Given their influence — even when indirect — economic theorists must be honest about limitations, <span class="hl">resist oversimplification</span>, and communicate their work without overstating its real-world applicability.</p>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ══════════════════════════════════════
          KEY TAKEAWAY
     ═══════════════════════════════════════ -->
     <div class="takeaway" id="takeaway">
@@ -900,12 +734,7 @@ body {
       <div>
         <div class="takeaway-label">Key Takeaway — 0 Introduction</div>
         <p>
-          Microeconomic theory is not a perfect map of the world. Its real power lies in structuring thought, 
-          revealing what matters, connecting apparently unrelated problems, and generating hypotheses that 
-          can be tested and refined. At the same time, every theorist must confront — honestly and without 
-          evasion — the limits of abstraction: models fail, data push back, and the gap between theory 
-          and the real world can be vast. The responsible economist acknowledges all of this, and builds 
-          theory that is simultaneously rigorous, humble, and useful.
+          Microeconomic theory is a tool to organize our thinking, identify key variables, predict outcomes without data, and test hypotheses. While models simplify reality and sometimes produce unexpected or incomplete results, they shape how we analyze economic problems as long as economists remain aware of their limitations.
         </p>
       </div>
     </div>
@@ -929,7 +758,7 @@ function toggleAccordion(btn) {
   btn.classList.toggle('open');
   content.classList.toggle('open');
 }
-// Open first accordion by default
+// Open accordion by default
 document.querySelectorAll('.accordion-header')[0].classList.add('open');
 document.querySelectorAll('.accordion-content')[0].classList.add('open');
 
@@ -940,7 +769,6 @@ function filterNav(q) {
     const match = a.textContent.toLowerCase().includes(q.toLowerCase());
     a.style.display = match ? '' : 'none';
   });
-  // open all accordions when searching
   if (q.length > 0) {
     document.querySelectorAll('.accordion-content').forEach(c => c.classList.add('open'));
     document.querySelectorAll('.accordion-header').forEach(h => h.classList.add('open'));
