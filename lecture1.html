@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MICRO — 1 · Preferences</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+
+<style>
+/* =====================================================
+   DESIGN SYSTEM — MICRO (Dark Red Premium)
+   ===================================================== */
+:root {
+  --sidebar-bg: #13020A;
+  --sidebar-width: 280px;
+  --bg: #0f1117;
+  --bg-card: #161922;
+  --red: #e11d48;
+  --red-bright: #ff2d55;
+  --red-muted: rgba(225,29,72,0.1);
+  --red-border: rgba(225,29,72,0.3);
+  --red-glow: rgba(225,29,72,0.15);
+  --red-gradient: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
+  --blue-muted: rgba(59,130,246,0.08);
+  --blue-border: rgba(59,130,246,0.3);
+  --green-muted: rgba(16,185,129,0.08);
+  --green-border: rgba(16,185,129,0.3);
+  --purple-muted: rgba(139,92,246,0.08);
+  --purple-border: rgba(139,92,246,0.3);
+  --orange-muted: rgba(245,158,11,0.08);
+  --orange-border: rgba(245,158,11,0.3);
+  --text: #f8fafc;
+  --text-2: #cbd5e1;
+  --text-3: #94a3b8;
+  --text-muted: #64748b;
+  --border: rgba(255,255,255,0.07);
+  --radius: 10px;
+  --radius-lg: 16px;
+  --font: 'Outfit', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  position: fixed; top:0; left:0; bottom:0;
+  z-index: 200; transition: transform .3s ease; overflow: hidden;
+}
+.sidebar.closed { transform: translateX(-100%); }
+.sidebar-brand {
+  padding: 22px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.sidebar-brand h1 { font-size: 1.3rem; font-weight: 800; letter-spacing: 1px; }
+.sidebar-brand h1 span { color: var(--red); }
+.sidebar-close { background:none; border:none; color:var(--text-3); font-size:1.4rem; cursor:pointer; }
+.sidebar-close:hover { color: var(--red); }
+.sidebar-nav { flex:1; overflow-y:auto; padding:12px 0; }
+.sidebar-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 22px;
+  color: var(--text-3); text-decoration: none;
+  font-size: 0.88rem; font-weight: 600;
+  transition: all .2s; border-left: 3px solid transparent;
+}
+.sidebar-link:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.sidebar-link.active { color: var(--red-bright); border-left-color: var(--red); background: var(--red-muted); }
+.sidebar-footer {
+  padding: 14px 16px; border-top: 1px solid var(--border);
+}
+.sidebar-user { display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--radius); padding:10px 12px; }
+.user-avatar { width:34px; height:34px; background:var(--red-gradient); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:800; color:#fff; flex-shrink:0; position:relative; }
+.user-dot { width:8px; height:8px; background:#10b981; border-radius:50%; border:2px solid var(--sidebar-bg); position:absolute; bottom:-2px; right:-2px; }
+.user-info { overflow:hidden; }
+.user-name { font-size:0.82rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.user-role { font-size:0.7rem; color:var(--text-muted); }
+
+/* ── TOPBAR ── */
+.topbar {
+  height: 64px; background: rgba(15,17,23,0.9); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px); position:sticky; top:0; z-index:100;
+  display:flex; align-items:center; padding:0 28px; gap:16px;
+}
+.topbar-toggle { background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text); width:38px; height:38px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; flex-shrink:0; transition:.2s; }
+.topbar-toggle:hover { border-color: var(--red-border); color: var(--red); }
+.topbar-breadcrumb { color:var(--text-3); font-size:0.88rem; display:flex; align-items:center; gap:6px; }
+.topbar-breadcrumb .sep { opacity:.4; }
+.topbar-breadcrumb strong { color:var(--text); font-weight:700; }
+.topbar-pill { margin-left:auto; background:var(--red-muted); border:1px solid var(--red-border); color:var(--red); padding:5px 14px; border-radius:999px; font-size:0.78rem; font-weight:700; display:flex; align-items:center; gap:7px; }
+.topbar-dot { width:7px; height:7px; border-radius:50%; background:var(--red); box-shadow:0 0 7px var(--red); }
+
+/* ── LAYOUT ── */
+.main-wrap { margin-left: var(--sidebar-width); flex:1; display:flex; flex-direction:column; transition:margin-left .3s; min-width:0; }
+.main-wrap.expanded { margin-left:0; }
+.main-content { padding:40px 44px 70px; max-width:860px; width:100%; margin:0 auto; display:flex; flex-direction:column; gap:52px; }
+
+/* ── PAGE TITLE ── */
+.page-title-block { border-bottom: 1px solid var(--border); padding-bottom: 24px; }
+.page-label { font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--red); margin-bottom:8px; }
+.page-title-block h1 { font-size:2rem; font-weight:800; letter-spacing:-0.5px; line-height:1.15; }
+.page-title-block p { color:var(--text-3); font-size:0.95rem; margin-top:7px; }
+
+/* ── CHAPTER / SECTION TITLES ── */
+.chapter-header { display:flex; flex-direction:column; gap:5px; }
+.chapter-pill { display:inline-flex; align-items:center; background:var(--red-muted); border:1px solid var(--red-border); color:var(--red); font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; padding:3px 10px; border-radius:999px; width:fit-content; }
+.chapter-title { font-size:1.45rem; font-weight:800; letter-spacing:-0.4px; }
+.chapter-title span { color:var(--red); }
+
+.subsection { display:flex; flex-direction:column; gap:22px; }
+.subsection-title { font-size:1.05rem; font-weight:800; color:var(--text); padding-bottom:8px; border-bottom:1px solid var(--border); }
+.sub-label { font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:4px; }
+
+/* ── KEY NOTE (visible intro sentence) ── */
+.key-note {
+  font-size:0.93rem; color:var(--text-2); line-height:1.65;
+  border-left: 3px solid var(--red);
+  padding: 10px 16px;
+  background: var(--red-muted);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.key-note strong { color:var(--text); font-weight:800; }
+
+/* ── DEFINITION BLOCK (notation relations) ── */
+.def-list { display:flex; flex-direction:column; gap:12px; }
+.def-item {
+  display:grid; grid-template-columns: 160px 1fr;
+  gap:0 20px; align-items:start;
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:14px 18px;
+}
+.def-item:hover { border-color: rgba(225,29,72,0.18); }
+.def-label { font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:var(--red); padding-top:2px; }
+.def-formula { font-size:0.92rem; color:var(--text-2); line-height:1.6; }
+.def-formula .meaning { display:block; font-size:0.85rem; color:var(--text-3); margin-top:4px; font-style:italic; }
+
+/* ── MATH DISPLAY ── */
+.math-display {
+  background: var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:14px 20px;
+  text-align:center; margin: 4px 0; overflow-x:auto;
+}
+.math-display.boxed { border-color:var(--red-border); background:var(--red-muted); }
+
+/* ── MINI SUMMARY TABLE ── */
+.relation-summary {
+  background: var(--bg-card); border:1px solid var(--border); border-radius:var(--radius);
+  overflow:hidden;
+}
+.relation-summary-row {
+  display:grid; grid-template-columns: 90px 1fr;
+  padding:10px 18px; gap:16px; align-items:center;
+  border-bottom:1px solid var(--border);
+  font-size:0.88rem;
+}
+.relation-summary-row:last-child { border-bottom:none; }
+.relation-summary-row .sym { color:var(--red); font-weight:700; }
+.relation-summary-row .desc { color:var(--text-2); }
+
+/* ── PROPERTY PILLS ROW ── */
+.property-list { display:flex; flex-direction:column; gap:10px; }
+.property-item {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:14px 18px;
+}
+.property-item.blue { border-left:3px solid #3b82f6; }
+.property-item.green { border-left:3px solid #10b981; }
+.property-name { font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
+.property-item.blue .property-name { color:#60a5fa; }
+.property-item.green .property-name { color:#34d399; }
+.property-body { font-size:0.9rem; color:var(--text-2); line-height:1.6; }
+.property-body .intuition { font-style:italic; color:var(--text-3); font-size:0.85rem; margin-top:5px; display:block; }
+.property-body strong { color:var(--text); font-weight:700; }
+
+/* ── BULLETS ── */
+.bullet-list { list-style:none; display:flex; flex-direction:column; gap:6px; padding:0; }
+.bullet-list li { font-size:0.9rem; color:var(--text-2); line-height:1.6; display:flex; gap:10px; align-items:baseline; }
+.bullet-list li::before { content:"—"; color:var(--red); font-weight:800; flex-shrink:0; }
+
+/* ── DISTINCTION BOX ── */
+.distinction {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px;
+}
+.dist-side {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px;
+}
+.dist-side.left { border-top:2px solid #3b82f6; }
+.dist-side.right { border-top:2px solid var(--red); }
+.dist-label { font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
+.dist-side.left .dist-label { color:#60a5fa; }
+.dist-side.right .dist-label { color:var(--red); }
+.dist-body { font-size:0.88rem; color:var(--text-2); line-height:1.6; }
+
+/* ── COLLAPSIBLE SECTION ── */
+.toggle-btn {
+  display:inline-flex; align-items:center; gap:7px;
+  background:none;
+  border:1px solid var(--border);
+  color:var(--text-3); font-family:var(--font);
+  font-size:0.8rem; font-weight:700;
+  padding:6px 14px; border-radius:999px;
+  cursor:pointer; transition:.2s; width:fit-content; margin-top:2px;
+}
+.toggle-btn:hover { border-color:var(--red-border); color:var(--red); background:var(--red-muted); }
+.toggle-btn .arrow { font-size:0.65rem; transition:transform .25s; display:inline-block; }
+.toggle-btn.open .arrow { transform:rotate(180deg); }
+.collapsible {
+  display:none; margin-top:10px;
+  background:rgba(10,11,16,0.7); border:1px solid var(--border);
+  border-radius:var(--radius); padding:18px 20px;
+  font-size:0.88rem; color:var(--text-2); line-height:1.7;
+}
+.collapsible.open { display:block; animation: fadeDown .2s ease; }
+.collapsible strong { color:var(--text); font-weight:700; }
+@keyframes fadeDown { from {opacity:0;transform:translateY(-6px);} to {opacity:1;transform:translateY(0);} }
+.collapsible .math-display { background: rgba(255,255,255,0.03); }
+
+/* ── INTRANSITIVITY CAUSE BLOCK ── */
+.cause-block {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:16px 18px; display:flex; flex-direction:column; gap:8px;
+}
+.cause-name { font-size:0.8rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:var(--red); }
+.cause-core { font-size:0.9rem; color:var(--text-2); line-height:1.6; font-style:italic; }
+
+/* ── END SUMMARY ── */
+.summary-card {
+  background:var(--bg-card); border:1px solid var(--red-border);
+  border-radius:var(--radius-lg); padding:28px;
+  display:flex; flex-direction:column; gap:20px;
+}
+.summary-card-title { font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:0.8px; color:var(--red); }
+.summary-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.summary-item { display:flex; flex-direction:column; gap:4px; }
+.summary-item-label { font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); }
+.summary-item-body { font-size:0.88rem; color:var(--text-2); line-height:1.55; }
+.summary-item .math-display { padding:8px 14px; margin:4px 0; }
+
+/* ── PLACEHOLDER ── */
+.placeholder {
+  border:1px dashed rgba(255,255,255,0.1); border-radius:var(--radius-lg);
+  padding:32px; text-align:center; color:var(--text-muted); font-size:0.88rem;
+}
+
+/* ── SEP ── */
+.sep-line { border:none; border-top:1px solid var(--border); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:10px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width:900px) {
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .main-wrap { margin-left:0 !important; }
+  .main-content { padding:24px 20px 40px; }
+  .def-item { grid-template-columns:1fr; }
+  .distinction { grid-template-columns:1fr; }
+  .summary-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar open" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>MICRO<span>.</span></h1>
+    <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="index.html" class="sidebar-link">📂 0 — Introduction</a>
+    <a href="lecture1.html" class="sidebar-link active">📂 1 — Choice Theory</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar">SN<span class="user-dot"></span></div>
+      <div class="user-info">
+        <div class="user-name">Administrator star nova</div>
+        <div class="user-role">micro.github.io</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main-wrap" id="main-wrap">
+
+  <div class="topbar">
+    <button class="topbar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-breadcrumb">
+      MICRO <span class="sep">›</span> 1 — Choice Theory <span class="sep">›</span> <strong>Preferences</strong>
+    </div>
+    <div class="topbar-pill"><span class="topbar-dot"></span>Lecture 1</div>
+  </div>
+
+  <div class="main-content">
+
+    <!-- PAGE TITLE -->
+    <div class="page-title-block">
+      <div class="page-label">Part I — Choice Theory</div>
+      <h1>1. Preferences</h1>
+      <p>Preference relations, rationality, and their potential failures.</p>
+    </div>
+
+
+    <!-- ══════════════════════════
+         1.1  PREFERENCE RELATIONS
+    ══════════════════════════ -->
+    <section class="subsection">
+      <div class="subsection-title">1.1 Preference Relations</div>
+
+      <div class="key-note">
+        Preferences capture only the <strong>ranking</strong> of alternatives — not absolute liking, disliking, or the <strong>intensity</strong> of preference.
+      </div>
+
+      <div>
+        <div class="sub-label">Let $X$ be the set of alternatives.</div>
+      </div>
+
+      <div class="def-list">
+
+        <div class="def-item">
+          <div class="def-label">Weak preference</div>
+          <div class="def-formula">
+            $x \succeq y$
+            <span class="meaning">"$x$ is at least as good as $y$."</span>
+          </div>
+        </div>
+
+        <div class="def-item">
+          <div class="def-label">Strict preference</div>
+          <div class="def-formula">
+            $x \succ y \iff x \succeq y \text{ and } y \not\succeq x$
+            <span class="meaning">"$x$ is strictly preferred to $y$."</span>
+          </div>
+        </div>
+
+        <div class="def-item">
+          <div class="def-label">Indifference</div>
+          <div class="def-formula">
+            $x \sim y \iff x \succeq y \text{ and } y \succeq x$
+            <span class="meaning">"The agent is indifferent between $x$ and $y$."</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Compact summary -->
+      <div class="relation-summary">
+        <div class="relation-summary-row">
+          <span class="sym">$\succeq$</span>
+          <span class="desc">Weak preference — general relation</span>
+        </div>
+        <div class="relation-summary-row">
+          <span class="sym">$\succ$</span>
+          <span class="desc">Strict preference only</span>
+        </div>
+        <div class="relation-summary-row">
+          <span class="sym">$\sim$</span>
+          <span class="desc">Indifference only</span>
+        </div>
+      </div>
+
+      <div class="key-note" style="border-color:#64748b; background:rgba(255,255,255,0.03);">
+        $x \succeq y$ can correspond to either $x \succ y$ &nbsp;or&nbsp; $x \sim y$.
+      </div>
+
+      <div>
+        <button class="toggle-btn" onclick="toggle(this, 'ex-weak')">
+          Show example — Weak preference, strict preference, indifference <span class="arrow">▾</span>
+        </button>
+        <div class="collapsible" id="ex-weak">
+          <p>Consider three bundles of goods: $A$, $B$, $C$.</p>
+          <ul class="bullet-list" style="margin-top:8px;">
+            <li>If an agent prefers $A$ over $B$ and would not accept $B$ instead: $A \succ B$</li>
+            <li>If an agent would accept either $A$ or $B$ with no preference: $A \sim B$</li>
+            <li>Both cases are captured by: $A \succeq B$</li>
+          </ul>
+          <p style="margin-top:10px;">Weak preference is the primitive concept — strict preference and indifference are both derived from it.</p>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ══════════════════════
+         1.2  RATIONALITY
+    ══════════════════════ -->
+    <section class="subsection">
+      <div class="subsection-title">1.2 Rationality</div>
+
+      <p style="font-size:0.9rem; color:var(--text-2);">A preference relation is <strong style="color:var(--text);">rational</strong> if it satisfies two axioms:</p>
+
+      <div class="property-list">
+
+        <div class="property-item blue">
+          <div class="property-name">Completeness</div>
+          <div class="property-body">
+            For any $x, y \in X$:
+            <div class="math-display" style="margin:8px 0;">$x \succeq y \quad \text{or} \quad y \succeq x \quad$ (or both)</div>
+            <span class="intuition">Any pair of alternatives can be compared. &nbsp;"Both" corresponds to $x \sim y$.</span>
+          </div>
+        </div>
+
+        <div class="property-item green">
+          <div class="property-name">Transitivity</div>
+          <div class="property-body">
+            <div class="math-display" style="margin:8px 0;">$x \succeq y \text{ and } y \succeq z \Rightarrow x \succeq z$</div>
+            <span class="intuition">Rankings must be logically consistent. Transitivity rules out preference cycles, except when alternatives are indifferent.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="math-display boxed">
+        $\boxed{\text{Rational preferences} = \text{Complete} + \text{Transitive}}$
+      </div>
+
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="toggle-btn" onclick="toggle(this, 'ex-complete')">
+          Show example — Completeness <span class="arrow">▾</span>
+        </button>
+        <button class="toggle-btn" onclick="toggle(this, 'ex-transit')">
+          Show example — Transitivity <span class="arrow">▾</span>
+        </button>
+      </div>
+
+      <div class="collapsible" id="ex-complete">
+        <p>An agent faces two options: bundle $A$ (more food, less leisure) and bundle $B$ (less food, more leisure).</p>
+        <p style="margin-top:8px;">Completeness requires that the agent can say one of: $A \succeq B$, $B \succeq A$, or both (indifference). The agent <strong>cannot simply be unable to compare them</strong> — that would be incompleteness, not indifference.</p>
+      </div>
+
+      <div class="collapsible" id="ex-transit">
+        <p>An agent prefers $A$ over $B$, and $B$ over $C$:</p>
+        <div class="math-display" style="margin:8px 0;">$A \succeq B \text{ and } B \succeq C$</div>
+        <p>Transitivity requires: $A \succeq C$</p>
+        <p style="margin-top:8px;">If instead the agent preferred $C$ over $A$, we would have a cycle $A \succ B \succ C \succ A$ — a contradiction with transitivity.</p>
+      </div>
+
+    </section>
+
+
+    <!-- ════════════════════════════
+         1.3  INCOMPLETE PREFERENCES
+    ════════════════════════════ -->
+    <section class="subsection">
+      <div class="subsection-title">1.3 Incomplete Preferences</div>
+
+      <p style="font-size:0.9rem; color:var(--text-2);">A preference relation is <strong style="color:var(--text);">incomplete</strong> when some pairs of alternatives cannot be ranked.</p>
+      <p style="font-size:0.9rem; color:var(--text-2); margin-top:6px;">That is, for some $x, y$: &nbsp; neither $x \succeq y$ &nbsp;nor&nbsp; $y \succeq x$ holds.</p>
+
+      <div>
+        <div class="sub-label" style="margin-bottom:8px;">Potential reasons</div>
+        <ul class="bullet-list">
+          <li>Cognitive limitations</li>
+          <li>Lack of information</li>
+        </ul>
+      </div>
+
+      <!-- Distinction box -->
+      <div>
+        <div class="sub-label" style="margin-bottom:8px;">Important distinction</div>
+        <div class="distinction">
+          <div class="dist-side left">
+            <div class="dist-label">Indifference &nbsp;$x \sim y$</div>
+            <div class="dist-body">The agent <strong>can</strong> compare $x$ and $y$, and considers them equally good.</div>
+          </div>
+          <div class="dist-side right">
+            <div class="dist-label">Incompleteness</div>
+            <div class="dist-body">The agent <strong>cannot</strong> form any ranking between $x$ and $y$.</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:0.88rem; color:var(--text-3); font-style:italic;">Empirical evidence suggests that completeness may fail in practice.</p>
+
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="toggle-btn" onclick="toggle(this, 'rn-incomplete')">
+          Show research note — Revealed incomplete preferences <span class="arrow">▾</span>
+        </button>
+        <button class="toggle-btn" onclick="toggle(this, 'emp-incomplete')">
+          Show empirical evidence <span class="arrow">▾</span>
+        </button>
+      </div>
+
+      <div class="collapsible" id="rn-incomplete">
+        <p><strong>Nielsen &amp; Rigotti (2023)</strong> — participants choose between:</p>
+        <ul class="bullet-list" style="margin-top:8px;">
+          <li>"I am indifferent" — the agent can compare but assigns equal value</li>
+          <li>"I don't know" — the agent genuinely cannot form a ranking</li>
+        </ul>
+        <p style="margin-top:10px;">Goal: distinguish true <em>indifference</em> from genuine <em>incompleteness</em>. The experiment uses <strong>real monetary incentives</strong> — choices affect actual payment — to ensure the stated preferences are revealed, not hypothetical.</p>
+      </div>
+
+      <div class="collapsible" id="emp-incomplete">
+        <ul class="bullet-list">
+          <li>Roughly <strong>40–50%</strong> of subjects display incomplete preferences in baseline treatment.</li>
+          <li>Up to around <strong>75%</strong> in a more cognitively demanding (complex) treatment.</li>
+        </ul>
+        <p style="margin-top:10px;">These numbers suggest that the completeness axiom — a cornerstone of rational preferences — is routinely violated by real decision-makers.</p>
+      </div>
+
+    </section>
+
+
+    <!-- ════════════════════════════
+         1.4  INTRANSITIVE PREFERENCES
+    ════════════════════════════ -->
+    <section class="subsection">
+      <div class="subsection-title">1.4 Intransitive Preferences</div>
+
+      <p style="font-size:0.9rem; color:var(--text-2);">Preferences are <strong style="color:var(--text);">intransitive</strong> if transitivity fails — there exist $x, y, z$ such that $x \succeq y$ and $y \succeq z$ but $x \not\succeq z$, or a cycle appears.</p>
+
+      <div>
+        <div class="sub-label" style="margin-bottom:8px;">Potential reasons</div>
+        <ul class="bullet-list">
+          <li>Incomplete preferences</li>
+          <li>Just perceptible differences</li>
+          <li>Framing</li>
+          <li>Condorcet paradox</li>
+          <li>Changes in preferences over time</li>
+        </ul>
+      </div>
+
+      <!-- Just perceptible differences -->
+      <div class="cause-block">
+        <div class="cause-name">Just perceptible differences</div>
+        <div class="cause-core">Small pairwise differences may be individually imperceptible, even though the cumulative difference becomes noticeable.</div>
+        <button class="toggle-btn" onclick="toggle(this, 'ex-jpd')">
+          Show example <span class="arrow">▾</span>
+        </button>
+        <div class="collapsible" id="ex-jpd">
+          <p>Consider a sequence of nearby grey shades: $g_1, g_2, \dots, g_{10}$, each slightly darker than the previous.</p>
+          <ul class="bullet-list" style="margin-top:8px;">
+            <li>Each adjacent pair $g_i \sim g_{i+1}$ — the difference is imperceptible.</li>
+            <li>But $g_1 \succ g_{10}$ — the first and last are clearly different.</li>
+          </ul>
+          <p style="margin-top:10px;">Chaining the indifferences gives $g_1 \sim g_{10}$ by transitivity — which contradicts the direct ranking. Hence apparent intransitivity.</p>
+        </div>
+      </div>
+
+      <!-- Framing -->
+      <div class="cause-block">
+        <div class="cause-name">Framing</div>
+        <div class="cause-core">Preferences may depend on how an economically equivalent situation is presented, not just on its objective content.</div>
+        <button class="toggle-btn" onclick="toggle(this, 'ex-framing')">
+          Show example <span class="arrow">▾</span>
+        </button>
+        <div class="collapsible" id="ex-framing">
+          <p>A stereo costs $125, a calculator costs $15. A nearby store offers a $5 discount.</p>
+          <ul class="bullet-list" style="margin-top:8px;">
+            <li>Most people travel to get the discount when it applies to the <strong>calculator</strong>: &nbsp;$\text{Calculator-Discount} \succ \text{No Discount}$</li>
+            <li>Most people do not bother when it applies to the <strong>stereo</strong>: &nbsp;$\text{No Discount} \succ \text{Stereo-Discount}$</li>
+            <li>Yet the direct comparison often gives: &nbsp;$\text{Calculator-Discount} \sim \text{Stereo-Discount}$</li>
+          </ul>
+          <p style="margin-top:10px;">This is inconsistent with transitivity — the saved amount is identical (\$5) in both cases, yet the framing reverses the choice.</p>
+        </div>
+      </div>
+
+      <!-- Condorcet -->
+      <div class="cause-block">
+        <div class="cause-name">Condorcet Paradox</div>
+        <div class="cause-core">Majority voting can generate cyclic social preferences even when each individual's preferences are transitive.</div>
+        <button class="toggle-btn" onclick="toggle(this, 'ex-condorcet')">
+          Show example <span class="arrow">▾</span>
+        </button>
+        <div class="collapsible" id="ex-condorcet">
+          <p>Three agents vote over: Opera ($O$), Rock ($R$), Ice-skating ($I$).</p>
+          <ul class="bullet-list" style="margin-top:8px;">
+            <li>Mom: $O \succ R \succ I$</li>
+            <li>Dad: $I \succ O \succ R$</li>
+            <li>Child: $R \succ I \succ O$</li>
+          </ul>
+          <p style="margin-top:10px;">Pairwise majority votes:</p>
+          <div class="math-display" style="margin:8px 0;">$O \succ R, \quad R \succ I, \quad I \succ O$</div>
+          <p>Hence: $O \succ R \succ I \succ O$ — a cycle. The intransitivity arises at the <strong>collective</strong> level, not the individual level.</p>
+        </div>
+      </div>
+
+      <!-- Changes over time -->
+      <div class="cause-block">
+        <div class="cause-name">Changes in preferences over time</div>
+        <div class="cause-core">Apparent intransitivity may arise when preferences themselves change between the moments of comparison.</div>
+        <button class="toggle-btn" onclick="toggle(this, 'ex-time')">
+          Show example <span class="arrow">▾</span>
+        </button>
+        <div class="collapsible" id="ex-time">
+          <p>A smoker's ranking after just finishing a cigarette:</p>
+          <div class="math-display" style="margin:8px 0;">$\text{NoCig} \succ \text{OneCig} \succ \text{TenCig}$</div>
+          <p style="margin-top:6px;">After a period of abstinence:</p>
+          <div class="math-display" style="margin:8px 0;">$\text{TenCig} \succ \text{NoCig} \succ \text{OneCig}$</div>
+          <p style="margin-top:8px;">The ranking is not stable — it reverses over time. What looks like an intransitive cycle is in fact a preference that has shifted between observations.</p>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ══════════════════════════════
+         1.5  NEURAL CORRELATES
+    ══════════════════════════════ -->
+    <section class="subsection">
+      <div class="subsection-title">1.5 Neural Correlates of Intransitive Preferences</div>
+
+      <button class="toggle-btn" onclick="toggle(this, 'rn-neural')">
+        Show research note <span class="arrow">▾</span>
+      </button>
+      <div class="collapsible" id="rn-neural">
+        <p><strong>Kalencher et al. (2010)</strong> — used brain imaging to investigate intransitive choices.</p>
+        <ul class="bullet-list" style="margin-top:8px;">
+          <li>Brain regions implicated: DLPFC, PPC, and striatum.</li>
+          <li>Intransitive choices may not simply be random noise or mistakes.</li>
+          <li>They may reflect <strong>context-dependent valuation</strong> — the brain assigns value differently depending on what other options are present.</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <hr class="sep-line">
+
+
+    <!-- ══════════════════════
+         END SUMMARY
+    ══════════════════════ -->
+    <section class="subsection">
+      <div class="subsection-title">What to Remember</div>
+
+      <div class="summary-card">
+        <div class="summary-card-title">Preference Relations — Definitions</div>
+        <div class="def-list">
+          <div class="def-item">
+            <div class="def-label">$x \succeq y$</div>
+            <div class="def-formula">$x$ is at least as good as $y$ <span class="meaning">Weak preference — the primitive relation.</span></div>
+          </div>
+          <div class="def-item">
+            <div class="def-label">$x \succ y$</div>
+            <div class="def-formula">$x \succeq y$ and $y \not\succeq x$ <span class="meaning">Strict preference — derived from $\succeq$.</span></div>
+          </div>
+          <div class="def-item">
+            <div class="def-label">$x \sim y$</div>
+            <div class="def-formula">$x \succeq y$ and $y \succeq x$ <span class="meaning">Indifference — derived from $\succeq$.</span></div>
+          </div>
+        </div>
+
+        <div class="math-display boxed">$\boxed{\text{Rational} = \text{Complete} + \text{Transitive}}$</div>
+
+        <div class="distinction">
+          <div class="dist-side left">
+            <div class="dist-label">Completeness</div>
+            <div class="dist-body">Every pair can be ranked: $x \succeq y$ or $y \succeq x$.</div>
+          </div>
+          <div class="dist-side right">
+            <div class="dist-label">Transitivity</div>
+            <div class="dist-body">$x \succeq y,\ y \succeq z \Rightarrow x \succeq z$</div>
+          </div>
+        </div>
+
+        <div class="math-display boxed">$\boxed{\text{Indifference} \neq \text{Incompleteness}}$</div>
+        <p style="font-size:0.88rem; color:var(--text-3);">Indifference = equal ranking. &nbsp; Incompleteness = no ranking possible.</p>
+
+        <p style="font-size:0.88rem; color:var(--text-2); font-style:italic;">Observed preferences may violate both completeness and transitivity.</p>
+      </div>
+    </section>
+
+
+    <hr class="sep-line">
+
+
+    <!-- ═══════════════════════════
+         SECTIONS 2 & 3 — PLACEHOLDERS
+    ═══════════════════════════ -->
+    <div class="placeholder">
+      <p>📌 &nbsp; <strong>2. Utility</strong> &nbsp;—&nbsp; coming soon</p>
+    </div>
+    <div class="placeholder">
+      <p>📌 &nbsp; <strong>3. Choice</strong> &nbsp;—&nbsp; coming soon</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('main-wrap').classList.toggle('expanded');
+}
+
+function toggle(btn, id) {
+  const box = document.getElementById(id);
+  const isOpen = box.classList.contains('open');
+  box.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  // Re-render MathJax inside newly opened section
+  if (!isOpen && window.MathJax) {
+    MathJax.typesetPromise([box]);
+  }
+}
+</script>
+</body>
+</html>
