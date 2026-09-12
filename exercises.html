@@ -621,6 +621,171 @@ body {
       </div>
     </div>
 
+    <!-- ════════════════════════════════════════════════════
+         EXERCISE 2 · JOINT PREFERENCE RELATION
+    ════════════════════════════════════════════════════ -->
+    <div class="part-banner">
+      <span class="part-pill red">Exercise 2 · Joint Preference Relation</span>
+      <div class="part-line"></div>
+    </div>
+
+    <!-- GLOBAL PROBLEM STATEMENT -->
+    <div class="exercise-statement-card">
+      <div class="statement-header">
+        <div class="statement-title">Exercise 2. Joint Preference Relation</div>
+        <span class="statement-badge">Problem Set</span>
+      </div>
+      <p style="font-size:0.92rem; color:var(--text-2); line-height:1.6;">
+        Two friends, Larry and Moe, wish to go on vacation together. Individually, they are standard preference maximizers — their preferences $\succeq_{\text{Larry}}$ and $\succeq_{\text{Moe}}$ are complete and transitive. They attempt to form a <strong>joint preference relation</strong> ($\succeq^*$), as follows:
+      </p>
+      <div class="math-display boxed" style="margin:8px 0;">
+        $$\boxed{x \succeq^* y \iff x \succeq_{\text{Larry}} y \quad\text{or}\quad x \succeq_{\text{Moe}} y}$$
+      </div>
+      <p style="font-size:0.88rem; color:var(--text-3); font-style:italic; line-height:1.5;">
+        That is, they jointly prefer $x$ to $y$ if <strong>either Larry or Moe</strong> prefers $x$ to $y$.
+      </p>
+      <ol style="margin-left:22px; display:flex; flex-direction:column; gap:8px; font-size:0.9rem; color:var(--text-2); margin-top:4px;">
+        <li>Prove that $\succeq^*$ is complete.</li>
+        <li>Show by example that it may not be transitive.</li>
+      </ol>
+    </div>
+
+
+    <!-- ── QUESTION 1 ── -->
+    <div class="question-card">
+      <div class="question-header">
+        <div class="question-title">1. Completeness of $\succeq^*$</div>
+      </div>
+      <div class="question-goal">
+        <strong>Goal:</strong> For any $x, y$, show that:
+        $$x \succeq^* y \quad\text{or}\quad y \succeq^* x$$
+      </div>
+
+      <div>
+        <button class="toggle-btn" onclick="toggle(this, 'sol-exo2-q1')">
+          Show solution — Question 1 <span class="arrow">▾</span>
+        </button>
+
+        <div class="collapsible" id="sol-exo2-q1">
+          <div class="sol-block">
+            
+            <div>
+              <strong>Goal.</strong> For any $x, y$, show:
+              <div class="math-display">$$x \succeq^* y \quad\text{or}\quad y \succeq^* x$$</div>
+            </div>
+
+            <div>
+              Since Larry's preferences are <strong>complete</strong>:
+              <div class="math-display">$$x \succeq_L y \quad\text{or}\quad y \succeq_L x$$</div>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Case 1</div>
+              <p>If $x \succeq_L y$, then Larry supports $x$ over $y$. By definition of the joint relation:</p>
+              <div class="math-display">$$x \succeq_L y \implies \boxed{x \succeq^* y}$$</div>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Case 2</div>
+              <p>If $y \succeq_L x$, then Larry supports the opposite ranking:</p>
+              <div class="math-display">$$y \succeq_L x \implies \boxed{y \succeq^* x}$$</div>
+            </div>
+
+            <div>
+              <div class="sol-step-title">Conclusion</div>
+              <p>Therefore, for every pair $x, y$:</p>
+              <div class="math-display boxed" style="margin:8px 0;">
+                $$\boxed{x \succeq^* y \quad\text{or}\quad y \succeq^* x}$$
+              </div>
+              <div class="math-display boxed green" style="margin-top:6px;">
+                $$\boxed{\succeq^* \text{ is complete}}$$
+              </div>
+            </div>
+
+            <div class="key-note" style="margin-top:8px;">
+              <strong>Key idea:</strong> Because the joint relation uses an <strong>OR</strong> condition, Larry alone is already enough to guarantee that every pair can be ranked!
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── QUESTION 2 ── -->
+    <div class="question-card">
+      <div class="question-header">
+        <div class="question-title">2. Non-Transitivity of $\succeq^*$ (Counterexample)</div>
+      </div>
+      <div class="question-goal">
+        <strong>Goal:</strong> Show by example that $\succeq^*$ may not be transitive:
+        $$x \succeq^* y \quad\text{and}\quad y \succeq^* z \quad\not\implies\quad x \succeq^* z$$
+      </div>
+
+      <div>
+        <button class="toggle-btn" onclick="toggle(this, 'sol-exo2-q2')">
+          Show solution — Question 2 <span class="arrow">▾</span>
+        </button>
+
+        <div class="collapsible" id="sol-exo2-q2">
+          <div class="sol-block">
+            
+            <div>
+              To violate transitivity, we need to find bundles $x, y, z$ such that:
+              <div class="math-display">
+                $$x \succeq^* y \quad\text{and}\quad y \succeq^* z, \qquad\text{but}\qquad \boxed{x \not\succeq^* z}$$
+              </div>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Counterexample Construction</div>
+              <p>Consider the following strict individual rankings on three destinations $\{x, y, z\}$:</p>
+              <div class="math-display">
+                $$\text{Larry: } \boxed{z \succ_L x \succ_L y} \qquad\text{and}\qquad \text{Moe: } \boxed{y \succ_M z \succ_M x}$$
+              </div>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Step 1 — Verify $x \succeq^* y$ and $y \succeq^* z$</div>
+              <p>• Larry has $x \succ_L y$, so $x \succeq_L y \implies \mathbf{x \succeq^* y}$.</p>
+              <p>• Moe has $y \succ_M z$, so $y \succeq_M z \implies \mathbf{y \succeq^* z}$.</p>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Step 2 — Check whether $x \succeq^* z$</div>
+              <p>If $\succeq^*$ were transitive, we would require $x \succeq^* z$. But checking individual preferences:</p>
+              <p>• Larry prefers $z \succ_L x \implies x \not\succeq_L z$.</p>
+              <p>• Moe prefers $z \succ_M x \implies x \not\succeq_M z$.</p>
+              <p style="margin-top:4px;">
+                Since <strong>neither Larry nor Moe</strong> supports $x \succeq z$, by definition:
+              </p>
+              <div class="math-display boxed" style="margin:6px 0;">
+                $$\boxed{x \not\succeq^* z}$$
+              </div>
+            </div>
+
+            <div>
+              <div class="sol-step-title">Conclusion</div>
+              <p>We have found:</p>
+              <div class="math-display">
+                $$x \succeq^* y, \qquad y \succeq^* z, \qquad x \not\succeq^* z$$
+              </div>
+              <div class="math-display boxed green" style="margin-top:6px;">
+                $$\boxed{\succeq^* \text{ may not be transitive}}$$
+              </div>
+            </div>
+
+            <div class="key-note" style="margin-top:8px;">
+              <strong>Final takeaway:</strong><br>
+              While $\succeq^*$ is <strong>complete</strong>, it <strong>need not be transitive</strong>.<br>
+              Therefore, the joint preference relation is <strong>not necessarily rational</strong>.
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
