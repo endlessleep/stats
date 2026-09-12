@@ -786,6 +786,193 @@ body {
       </div>
     </div>
 
+    <!-- ════════════════════════════════════════════════════
+         EXERCISE 3 · LEXICOGRAPHIC PREFERENCES
+    ════════════════════════════════════════════════════ -->
+    <div class="part-banner">
+      <span class="part-pill red">Exercise 3 · Lexicographic Preferences</span>
+      <div class="part-line"></div>
+    </div>
+
+    <!-- GLOBAL PROBLEM STATEMENT -->
+    <div class="exercise-statement-card">
+      <div class="statement-header">
+        <div class="statement-title">Exercise 3. Lexicographic Preferences</div>
+        <span class="statement-badge">Problem Set</span>
+      </div>
+      <p style="font-size:0.92rem; color:var(--text-2); line-height:1.6;">
+        Consider lexicographic preferences on bundles $x = (x_1, x_2)$ and $y = (y_1, y_2)$, defined by:
+      </p>
+      <div class="math-display boxed" style="margin:8px 0;">
+        $$\boxed{x \succeq y \iff x_1 > y_1 \quad\text{or}\quad \left(x_1 = y_1 \text{ and } x_2 \ge y_2\right)}$$
+      </div>
+      <p style="font-size:0.86rem; color:var(--text-3); font-style:italic; line-height:1.5;">
+        <strong>Intuition:</strong> The first coordinate has absolute priority. The second coordinate is considered only if the first coordinates are equal.
+      </p>
+      <p style="font-size:0.92rem; color:var(--text); font-weight:600; margin-top:8px;">
+        Show that lexicographic preferences are <strong>rational</strong> (i.e. complete and transitive):
+      </p>
+      <ol style="margin-left:22px; display:flex; flex-direction:column; gap:6px; font-size:0.9rem; color:var(--text-2); margin-top:4px;">
+        <li>Prove that $\succeq$ is complete.</li>
+        <li>Prove that $\succeq$ is transitive.</li>
+      </ol>
+    </div>
+
+
+    <!-- ── QUESTION 1 ── -->
+    <div class="question-card">
+      <div class="question-header">
+        <div class="question-title">1. Completeness of Lexicographic Preferences</div>
+      </div>
+      <div class="question-goal">
+        <strong>Goal:</strong> For any two bundles $x, y$, show:
+        $$x \succeq y \quad\text{or}\quad y \succeq x$$
+      </div>
+
+      <div>
+        <button class="toggle-btn" onclick="toggle(this, 'sol-exo3-q1')">
+          Show solution — Question 1 <span class="arrow">▾</span>
+        </button>
+
+        <div class="collapsible" id="sol-exo3-q1">
+          <div class="sol-block">
+            
+            <div>
+              <strong>Goal.</strong> For any two bundles $x, y$, show:
+              <div class="math-display">$$x \succeq y \quad\text{or}\quad y \succeq x$$</div>
+              Take $x = (x_1, x_2)$ and $y = (y_1, y_2)$. There are three mutually exclusive possibilities for the first coordinates:
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Case 1 — $x_1 > y_1$</div>
+              <p>If $x_1 > y_1$, then directly by definition of lexicographic preferences:</p>
+              <div class="math-display">$$x_1 > y_1 \implies \boxed{x \succeq y}$$</div>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Case 2 — $y_1 > x_1$</div>
+              <p>If $y_1 > x_1$, then symmetrically:</p>
+              <div class="math-display">$$y_1 > x_1 \implies \boxed{y \succeq x}$$</div>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Case 3 — $x_1 = y_1$</div>
+              <p>If $x_1 = y_1$, we compare the second coordinates. Since real numbers are comparable:</p>
+              <div class="math-display">$$x_2 \ge y_2 \quad\text{or}\quad y_2 \ge x_2$$</div>
+              <p>Hence:</p>
+              <div class="math-display">$$x \succeq y \quad\text{or}\quad y \succeq x$$</div>
+            </div>
+
+            <div>
+              <div class="sol-step-title">Conclusion</div>
+              <p>In all three cases, the bundles can be compared:</p>
+              <div class="math-display boxed green" style="margin:8px 0;">
+                $$\boxed{\succeq \text{ is complete}}$$
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ── QUESTION 2 ── -->
+    <div class="question-card">
+      <div class="question-header">
+        <div class="question-title">2. Transitivity of Lexicographic Preferences</div>
+      </div>
+      <div class="question-goal">
+        <strong>Goal:</strong> Assume $x \succeq y$ and $y \succeq z$. Prove that:
+        $$x \succeq z$$
+      </div>
+
+      <div>
+        <button class="toggle-btn" onclick="toggle(this, 'sol-exo3-q2')">
+          Show solution — Question 2 <span class="arrow">▾</span>
+        </button>
+
+        <div class="collapsible" id="sol-exo3-q2">
+          <div class="sol-block">
+            
+            <div>
+              <strong>Goal.</strong> Assume $x \succeq y$ and $y \succeq z$. We want to prove:
+              <div class="math-display">$$\boxed{x \succeq z}$$</div>
+              Because $x \succeq y$, there are two possible cases by definition.
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Case 1 — $x_1 > y_1$</div>
+              <p>We know $x_1 > y_1$.</p>
+              <p style="margin-top:4px;">Since $y \succeq z$, lexicographic preference implies:</p>
+              <div class="math-display">$$y_1 \ge z_1$$</div>
+              <p style="font-size:0.84rem; color:var(--text-3); font-style:italic;">
+                (Indeed, either $y_1 > z_1$ or $y_1 = z_1$.)
+              </p>
+              <p style="margin-top:6px;">Therefore:</p>
+              <div class="math-display">$$x_1 > y_1 \ge z_1 \implies x_1 > z_1$$</div>
+              <p>Since $x$ has a strictly larger first coordinate than $z$:</p>
+              <div class="math-display boxed" style="margin:6px 0;">
+                $$\boxed{x \succeq z}$$
+              </div>
+              <p style="font-size:0.84rem; color:var(--text-3); font-style:italic; margin-top:6px;">
+                <strong>Intuition:</strong> In this case, $x$ already has a strict advantage over $y$ in the first coordinate. Since $y$ is at least as good as $z$, $z$ cannot have a larger first coordinate than $y$. Therefore $x$ remains strictly ahead of $z$ in the first coordinate.
+              </p>
+            </div>
+
+            <div class="sol-subbox">
+              <div class="sol-step-title">Case 2 — $x_1 = y_1$ and $x_2 \ge y_2$</div>
+              <p>Now $x_1 = y_1$ and $x_2 \ge y_2$. Since $y \succeq z$, there are two subcases for $y \succeq z$:</p>
+
+              <!-- SUBCASE 2A -->
+              <div style="margin:8px 0; padding-left:12px; border-left:2px solid rgba(255,255,255,0.15);">
+                <div style="font-size:0.82rem; font-weight:800; color:var(--text); text-transform:uppercase;">Case 2a — $y_1 > z_1$</div>
+                <p style="margin-top:4px;">Since $x_1 = y_1$, we obtain:</p>
+                <div class="math-display">$$x_1 > z_1 \implies \boxed{x \succeq z}$$</div>
+              </div>
+
+              <!-- SUBCASE 2B -->
+              <div style="margin:8px 0; padding-left:12px; border-left:2px solid rgba(255,255,255,0.15);">
+                <div style="font-size:0.82rem; font-weight:800; color:var(--text); text-transform:uppercase;">Case 2b — $y_1 = z_1$ and $y_2 \ge z_2$</div>
+                <p style="margin-top:4px;">Since $x_1 = y_1$ and $y_1 = z_1$, we have:</p>
+                <div class="math-display">$$x_1 = y_1 = z_1$$</div>
+                <p>Also, $x_2 \ge y_2$ and $y_2 \ge z_2$. By transitivity of the numerical order on $\mathbb{R}$:</p>
+                <div class="math-display">$$x_2 \ge y_2 \ge z_2 \implies x_2 \ge z_2$$</div>
+                <p>Therefore $x_1 = z_1$ and $x_2 \ge z_2$, so by definition of lexicographic preferences:</p>
+                <div class="math-display boxed" style="margin:6px 0;">
+                  $$\boxed{x \succeq z}$$
+                </div>
+              </div>
+
+              <p style="font-size:0.84rem; color:var(--text-3); font-style:italic; margin-top:6px;">
+                <strong>Intuition:</strong> In Case 2, $x$ and $y$ are tied in the first coordinate. Therefore the way in which $y \succeq z$ holds matters: if $y$ beats $z$ in the first coordinate, $x$ also beats $z$; if their first coordinates are also equal, we must compare the second coordinates.
+              </p>
+            </div>
+
+            <div>
+              <div class="sol-step-title">Conclusion</div>
+              <p>In every possible case:</p>
+              <div class="math-display">
+                $$x \succeq y, \quad y \succeq z \implies x \succeq z$$
+              </div>
+              <div class="math-display boxed green" style="margin:8px 0;">
+                $$\boxed{\succeq \text{ is transitive}}$$
+              </div>
+            </div>
+
+            <div class="key-note" style="margin-top:8px;">
+              <strong>Final Conclusion:</strong><br>
+              Lexicographic preferences are both <strong>complete and transitive</strong>, hence:
+              <div class="math-display boxed" style="margin:8px 0; background:rgba(255,255,255,0.06);">
+                $$\boxed{\text{Lexicographic preferences are rational.}}$$
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
