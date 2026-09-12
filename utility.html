@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MICRO — 2 · Utility</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+
+<style>
+/* =====================================================
+   DESIGN SYSTEM — MICRO (Dark Red Premium)
+   ===================================================== */
+:root {
+  --sidebar-bg: #13020A;
+  --sidebar-width: 280px;
+  --bg: #0f1117;
+  --bg-card: #161922;
+  --red: #e11d48;
+  --red-bright: #ff2d55;
+  --red-muted: rgba(225,29,72,0.1);
+  --red-border: rgba(225,29,72,0.3);
+  --red-glow: rgba(225,29,72,0.15);
+  --red-gradient: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
+  --blue-muted: rgba(59,130,246,0.08);
+  --blue-border: rgba(59,130,246,0.3);
+  --green-muted: rgba(16,185,129,0.08);
+  --green-border: rgba(16,185,129,0.3);
+  --purple-muted: rgba(139,92,246,0.08);
+  --purple-border: rgba(139,92,246,0.3);
+  --orange-muted: rgba(245,158,11,0.08);
+  --orange-border: rgba(245,158,11,0.3);
+  --text: #f8fafc;
+  --text-2: #cbd5e1;
+  --text-3: #94a3b8;
+  --text-muted: #64748b;
+  --border: rgba(255,255,255,0.07);
+  --radius: 10px;
+  --radius-lg: 16px;
+  --font: 'Outfit', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  position: fixed; top:0; left:0; bottom:0;
+  z-index: 200; transition: transform .3s ease; overflow: hidden;
+}
+.sidebar:not(.open) { transform: translateX(-100%); }
+.sidebar-brand {
+  padding: 22px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.sidebar-brand h1 { font-size: 1.3rem; font-weight: 800; letter-spacing: 1px; }
+.sidebar-brand h1 span { color: var(--red); }
+.sidebar-close { background:none; border:none; color:var(--text-3); font-size:1.4rem; cursor:pointer; }
+.sidebar-close:hover { color: var(--red); }
+.sidebar-nav { flex:1; overflow-y:auto; padding:12px 0; }
+
+.sidebar-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 22px;
+  color: var(--text-3); text-decoration: none;
+  font-size: 0.88rem; font-weight: 700;
+  transition: all .2s; border-left: 3px solid transparent;
+}
+.sidebar-link:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.sidebar-link.active { color: var(--red-bright); border-left-color: var(--red); background: var(--red-muted); }
+
+.sidebar-group { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
+.sidebar-group-title {
+  padding: 10px 22px 4px;
+  font-size: 0.82rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.6px; color: var(--text-3);
+}
+.sidebar-sublink {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 22px 9px 36px;
+  color: var(--text-3); text-decoration: none;
+  font-size: 0.85rem; font-weight: 600;
+  transition: all .2s; border-left: 3px solid transparent;
+}
+.sidebar-sublink:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.sidebar-sublink.active { color: var(--red-bright); border-left-color: var(--red); background: var(--red-muted); }
+.sidebar-sublink.disabled { opacity: 0.4; cursor: not-allowed; }
+
+.sidebar-footer {
+  padding: 14px 16px; border-top: 1px solid var(--border);
+}
+.sidebar-user { display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:var(--radius); padding:10px 12px; }
+.user-avatar { width:34px; height:34px; background:var(--red-gradient); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:800; color:#fff; flex-shrink:0; position:relative; }
+.user-dot { width:8px; height:8px; background:#10b981; border-radius:50%; border:2px solid var(--sidebar-bg); position:absolute; bottom:-2px; right:-2px; }
+.user-info { overflow:hidden; }
+.user-name { font-size:0.82rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.user-role { font-size:0.7rem; color:var(--text-muted); }
+
+/* ── TOPBAR ── */
+.topbar {
+  height: 64px; background: rgba(15,17,23,0.9); border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px); position:sticky; top:0; z-index:100;
+  display:flex; align-items:center; padding:0 28px; gap:16px;
+}
+.topbar-toggle { background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text); width:38px; height:38px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem; flex-shrink:0; transition:.2s; }
+.topbar-toggle:hover { border-color: var(--red-border); color: var(--red); }
+.topbar-breadcrumb { color:var(--text-3); font-size:0.88rem; display:flex; align-items:center; gap:6px; }
+.topbar-breadcrumb .sep { opacity:.4; }
+.topbar-breadcrumb strong { color:var(--text); font-weight:700; }
+.topbar-pill { margin-left:auto; background:var(--red-muted); border:1px solid var(--red-border); color:var(--red); padding:5px 14px; border-radius:999px; font-size:0.78rem; font-weight:700; display:flex; align-items:center; gap:7px; }
+.topbar-dot { width:7px; height:7px; border-radius:50%; background:var(--red); box-shadow:0 0 7px var(--red); }
+
+/* ── LAYOUT ── */
+.main-wrap { margin-left: var(--sidebar-width); flex:1; display:flex; flex-direction:column; transition:margin-left .3s; min-width:0; }
+.main-wrap.expanded { margin-left:0; }
+.main-content { padding:40px 44px 70px; max-width:860px; width:100%; margin:0 auto; display:flex; flex-direction:column; gap:48px; }
+
+/* ── PAGE TITLE ── */
+.page-title-block { border-bottom: 1px solid var(--border); padding-bottom: 24px; }
+.page-label { font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--red); margin-bottom:8px; }
+.page-title-block h1 { font-size:2rem; font-weight:800; letter-spacing:-0.5px; line-height:1.15; }
+.page-title-block p { color:var(--text-3); font-size:0.95rem; margin-top:7px; }
+
+/* ── SUBSECTIONS ── */
+.subsection { display:flex; flex-direction:column; gap:20px; }
+.subsection-title { font-size:1.05rem; font-weight:800; color:var(--text); padding-bottom:8px; border-bottom:1px solid var(--border); }
+.sub-label { font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:4px; }
+
+/* ── KEY NOTE ── */
+.key-note {
+  font-size:0.92rem; color:var(--text-2); line-height:1.65;
+  border-left: 3px solid var(--red);
+  padding: 10px 16px;
+  background: var(--red-muted);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.key-note strong { color:var(--text); font-weight:800; }
+
+/* ── MATH DISPLAY ── */
+.math-display {
+  background: var(--bg-card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:14px 20px;
+  text-align:center; margin: 4px 0; overflow-x:auto;
+}
+.math-display.boxed { border-color:var(--red-border); background:var(--red-muted); }
+
+/* ── PROPERTY / THEOREM ITEM ── */
+.property-item {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:16px 20px; display:flex; flex-direction:column; gap:8px;
+}
+.property-item.red { border-left:3px solid var(--red); }
+.property-item.blue { border-left:3px solid #3b82f6; }
+.property-item.green { border-left:3px solid #10b981; }
+.property-name { font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; }
+.property-item.red .property-name { color:var(--red); }
+.property-item.blue .property-name { color:#60a5fa; }
+.property-item.green .property-name { color:#34d399; }
+.property-body { font-size:0.9rem; color:var(--text-2); line-height:1.6; }
+.property-body .intuition { font-style:italic; color:var(--text-3); font-size:0.85rem; margin-top:5px; display:block; }
+
+/* ── BULLETS ── */
+.bullet-list { list-style:none; display:flex; flex-direction:column; gap:6px; padding:0; }
+.bullet-list li { font-size:0.9rem; color:var(--text-2); line-height:1.6; display:flex; gap:10px; align-items:baseline; }
+.bullet-list li::before { content:"—"; color:var(--red); font-weight:800; flex-shrink:0; }
+
+/* ── DISTINCTION BOX ── */
+.distinction {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px;
+}
+.dist-side {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px;
+}
+.dist-side.left { border-top:2px solid #3b82f6; }
+.dist-side.right { border-top:2px solid var(--red); }
+.dist-label { font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px; }
+.dist-side.left .dist-label { color:#60a5fa; }
+.dist-side.right .dist-label { color:var(--red); }
+.dist-body { font-size:0.88rem; color:var(--text-2); line-height:1.6; }
+
+/* ── COLLAPSIBLE SECTION ── */
+.toggle-btn {
+  display:inline-flex; align-items:center; gap:7px;
+  background:none;
+  border:1px solid var(--border);
+  color:var(--text-3); font-family:var(--font);
+  font-size:0.8rem; font-weight:700;
+  padding:6px 14px; border-radius:999px;
+  cursor:pointer; transition:.2s; width:fit-content; margin-top:2px;
+}
+.toggle-btn:hover { border-color:var(--red-border); color:var(--red); background:var(--red-muted); }
+.toggle-btn .arrow { font-size:0.65rem; transition:transform .25s; display:inline-block; }
+.toggle-btn.open .arrow { transform:rotate(180deg); }
+.collapsible {
+  display:none; margin-top:10px;
+  background:rgba(10,11,16,0.7); border:1px solid var(--border);
+  border-radius:var(--radius); padding:18px 20px;
+  font-size:0.88rem; color:var(--text-2); line-height:1.7;
+}
+.collapsible.open { display:block; animation: fadeDown .2s ease; }
+.collapsible strong { color:var(--text); font-weight:700; }
+@keyframes fadeDown { from {opacity:0;transform:translateY(-6px);} to {opacity:1;transform:translateY(0);} }
+.collapsible .math-display { background: rgba(255,255,255,0.03); }
+
+/* ── SEP ── */
+.sep-line { border:none; border-top:1px solid var(--border); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.1); border-radius:10px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width:900px) {
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .main-wrap { margin-left:0 !important; }
+  .main-content { padding:24px 20px 40px; }
+  .distinction { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar open" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>MICRO<span>.</span></h1>
+    <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="index.html" class="sidebar-link">📂 0 — Introduction</a>
+    
+    <div class="sidebar-group">
+      <div class="sidebar-group-title">📂 1 — Choice Theory</div>
+      <a href="lecture1.html" class="sidebar-sublink">A) Preferences</a>
+      <a href="utility.html" class="sidebar-sublink active">B) Utility</a>
+      <a href="#" class="sidebar-sublink disabled">C) Choice</a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="user-avatar">SN<span class="user-dot"></span></div>
+      <div class="user-info">
+        <div class="user-name">Administrator star nova</div>
+        <div class="user-role">micro.github.io</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main-wrap" id="main-wrap">
+
+  <div class="topbar">
+    <button class="topbar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="topbar-breadcrumb">
+      MICRO <span class="sep">›</span> 1 — Choice Theory <span class="sep">›</span> <strong>Utility</strong>
+    </div>
+    <div class="topbar-pill"><span class="topbar-dot"></span>Part I</div>
+  </div>
+
+  <div class="main-content">
+
+    <!-- PAGE TITLE -->
+    <div class="page-title-block">
+      <div class="page-label">Part I — Choice Theory</div>
+      <h1>2. Utility</h1>
+      <p>Representation, ordinality, transformations, and continuous representations.</p>
+    </div>
+
+
+    <!-- ══════════════════════════
+         2.1  UTILITY REPRESENTATION
+    ══════════════════════════ -->
+    <section class="subsection">
+      <div class="subsection-title">2.1 Utility Representation</div>
+
+      <p style="font-size:0.9rem; color:var(--text-2);">Let $X$ be the set of alternatives.</p>
+
+      <p style="font-size:0.9rem; color:var(--text-2);">A utility function $u: X \to \mathbb{R}$ <strong>represents</strong> a preference relation $\succeq$ if:</p>
+
+      <div class="math-display boxed">
+        $\boxed{x \succeq y \iff u(x) \ge u(y)}$
+      </div>
+
+      <div class="key-note">
+        A utility function assigns numbers to alternatives in a way that preserves their ranking.
+      </div>
+
+      <ul class="bullet-list">
+        <li>Utility represents preferences — it does <strong>not</strong> create them.</li>
+        <li>Utility representations are generally <strong>not unique</strong>.</li>
+      </ul>
+
+      <!-- Distinction -->
+      <div class="property-item red">
+        <div class="property-name">Ordinal vs. Cardinal</div>
+        <div class="property-body">
+          Utility is <strong>ordinal</strong>, not cardinal. The numerical values themselves do not measure the intensity of preference.
+        </div>
+      </div>
+
+      <div>
+        <button class="toggle-btn" onclick="toggle(this, 'ex-ordinal')">
+          Show example — Ordinal meaning of utility <span class="arrow">▾</span>
+        </button>
+        <div class="collapsible" id="ex-ordinal">
+          <p>Suppose $u(A) - u(B) = 5$ &nbsp;and&nbsp; $u(A) - u(C) = 1$.</p>
+          <p style="margin-top:8px;">This does <strong>not</strong> imply that the preference for $A$ over $B$ is 5 times stronger than the preference for $A$ over $C$. Only the order matters ($u(A) > u(B) > u(C)$), not the differences between the numbers.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <hr class="sep-line">
+
+
+    <!-- ══════════════════════════════
+         2.2  REPRESENTATION & RATIONALITY
+    ══════════════════════════════ -->
+    <section class="subsection">
+      <div class="subsection-title">2.2 Representation and Rationality</div>
+
+      <div class="math-display boxed">
+        $\boxed{\text{If } \succeq \text{ is representable by a utility function, then } \succeq \text{ is rational.}}$
+      </div>
+
+      <div class="key-note">
+        Rational means <strong>complete</strong> and <strong>transitive</strong>.
+      </div>
+
+      <p style="font-size:0.9rem; color:var(--text-2); line-height:1.6;">
+        Real numbers can always be compared ($\ge$) and their ordering is transitive, so a preference relation represented by real-valued utility inherits completeness and transitivity.
+      </p>
+
+      <div>
+        <button class="toggle-btn" onclick="toggle(this, 'proof-rational')">
+          Show proof — Representability implies rationality <span class="arrow">▾</span>
+        </button>
+        <div class="collapsible" id="proof-rational">
+          <p style="font-weight:700; color:var(--red); margin-bottom:6px;">Part 1: Completeness</p>
+          <p>Since $u(x), u(y) \in \mathbb{R}$, either $u(x) \ge u(y)$ or $u(y) \ge u(x)$.</p>
+          <p style="margin-top:4px;">Therefore, $x \succeq y$ or $y \succeq x$. Hence $\succeq$ is complete.</p>
+
+          <p style="font-weight:700; color:var(--red); margin-top:14px; margin-bottom:6px;">Part 2: Transitivity</p>
+          <p>Suppose $x \succeq y$ and $y \succeq z$.</p>
+          <p style="margin-top:4px;">Then $u(x) \ge u(y)$ and $u(y) \ge u(z)$, which implies $u(x) \ge u(z)$.</p>
+          <p style="margin-top:4px;">Therefore, $x \succeq z$. Hence $\succeq$ is transitive. $\blacksquare$</p>
+        </div>
+      </div>
+    </section>
+
+
+    <hr class="sep-line">
+
+
+    <!-- ════════════════════════════════════════════
+         2.3  DOES RATIONALITY IMPLY REPRESENTATION?
+    ════════════════════════════════════════════ -->
+    <section class="subsection">
+      <div class="subsection-title">2.3 Does Rationality Imply Utility Representation?</div>
+
+      <div class="math-display boxed">
+        $\boxed{\text{Representable} \Rightarrow \text{Rational}} \quad \text{(Always)}$
+      </div>
+
+      <p style="font-size:0.9rem; color:var(--text-2);">The reverse implication depends on the choice set $X$:</p>
+
+      <!-- Finite X -->
+      <div class="property-item green">
+        <div class="property-name">Finite Choice Set ($X$ is finite)</div>
+        <div class="property-body">
+          <div class="math-display boxed" style="margin:8px 0;">
+            $\boxed{\text{Rational} \Rightarrow \text{Representable}}$
+          </div>
+          <span class="intuition">With finitely many alternatives, a complete and transitive ranking can always be encoded by real numbers.</span>
+        </div>
+        <div>
+          <button class="toggle-btn" onclick="toggle(this, 'ex-finite')">
+            Show example — Finite choice set <span class="arrow">▾</span>
+          </button>
+          <div class="collapsible" id="ex-finite">
+            <p>If $a \succ b \succ c$, we can simply assign:</p>
+            <div class="math-display" style="margin:8px 0;">$u(a) = 3, \quad u(b) = 2, \quad u(c) = 1$</div>
+            <p>This preserves $a \succ b \succ c$ perfectly.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Infinite X -->
+      <div class="property-item red">
+        <div class="property-name">Infinite Choice Set ($X$ is infinite)</div>
+        <div class="property-body">
+          <div class="math-display boxed" style="margin:8px 0;">
+            $\boxed{\text{Rational} \not\Rightarrow \text{Representable in general}}$
+          </div>
+          <span class="intuition">"Not necessarily" does not mean infinite choice sets are <em>never</em> representable. Some rational preferences on infinite sets ARE representable.</span>
+        </div>
+        <div>
+          <button class="toggle-btn" onclick="toggle(this, 'ex-infinite')">
+            Show example — Representable preferences on an infinite set <span class="arrow">▾</span>
+          </button>
+          <div class="collapsible" id="ex-infinite">
+            <p>On $X = \mathbb{R}_+$, define $x \succeq y \iff x \ge y$.</p>
+            <p style="margin-top:6px;">This rational preference relation on an infinite set is easily represented by:</p>
+            <div class="math-display" style="margin:8px 0;">$u(x) = x$</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <hr class="sep-line">
+
+
+    <!-- ════════════════════════════════
+         2.4  INCREASING TRANSFORMATIONS
+    ════════════════════════════════ -->
+    <section class="subsection">
+      <div class="subsection-title">2.4 Increasing Transformations</div>
+
+      <div class="property-item blue">
+        <div class="property-name">Proposition</div>
+        <div class="property-body">
+          If $u$ represents $\succeq$, then for any strictly increasing function $v: \mathbb{R} \to \mathbb{R}$, the composition $v \circ u$ also represents $\succeq$.
+          <div class="math-display" style="margin:10px 0;">
+            $u(x) \ge u(y) \iff v(u(x)) \ge v(u(y))$
+          </div>
+          <span class="intuition">Strictly increasing transformations preserve rankings. Therefore, utility is ordinal.</span>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="toggle-btn" onclick="toggle(this, 'proof-transf')">
+          Show proof — Increasing transformations preserve representation <span class="arrow">▾</span>
+        </button>
+        <button class="toggle-btn" onclick="toggle(this, 'ex-transf')">
+          Show example — Increasing transformation <span class="arrow">▾</span>
+        </button>
+      </div>
+
+      <div class="collapsible" id="proof-transf">
+        <p>By definition of utility representation:</p>
+        <div class="math-display" style="margin:8px 0;">$x \succeq y \iff u(x) \ge u(y)$</div>
+        <p>Since $v$ is strictly increasing:</p>
+        <div class="math-display" style="margin:8px 0;">$u(x) \ge u(y) \iff v(u(x)) \ge v(u(y))$</div>
+        <p>Therefore: $x \succeq y \iff v(u(x)) \ge v(u(y))$, so $v \circ u$ also represents $\succeq$. $\blacksquare$</p>
+      </div>
+
+      <div class="collapsible" id="ex-transf">
+        <p>Let $u(A)=3, u(B)=2, u(C)=1$, representing $A \succ B \succ C$.</p>
+        <p style="margin-top:6px;">Apply the strictly increasing transformation $v(t) = 10t + 100$:</p>
+        <div class="math-display" style="margin:8px 0;">$v(u(A)) = 130, \quad v(u(B)) = 120, \quad v(u(C)) = 110$</div>
+        <p>Since $130 > 120 > 110$, the preference ranking $A \succ B \succ C$ is completely unchanged.</p>
+      </div>
+    </section>
+
+
+    <hr class="sep-line">
+
+
+    <!-- ════════════════════════════════════════
+         2.5  CONTINUITY & UTILITY REPRESENTATION
+    ════════════════════════════════════════ -->
+    <section class="subsection">
+      <div class="subsection-title">2.5 Continuity and Utility Representation</div>
+
+      <div class="math-display boxed">
+        $\boxed{\text{When } X \subseteq \mathbb{R}^n, \text{ Rational } + \text{ Continuous Preferences } \Rightarrow \text{ Continuous Utility Representation } u: X \to \mathbb{R}}$
+      </div>
+
+      <div class="key-note">
+        Continuity prevents "jumps" in preferences. If a sequence of bundles $y^k \to y$ approaches $y$, then preferences behave consistently in the limit.
+      </div>
+
+      <div>
+        <button class="toggle-btn" onclick="toggle(this, 'counterex-lex')">
+          Show counterexample — Lexicographic preferences <span class="arrow">▾</span>
+        </button>
+        <div class="collapsible" id="counterex-lex">
+          <p><strong>Lexicographic Preferences</strong> on $\mathbb{R}^2_+$ are defined by: $x \succ y$ if either $x_1 > y_1$, or ($x_1 = y_1$ and $x_2 > y_2$).</p>
+          <span class="intuition" style="margin-top:4px; display:block;">The first coordinate has absolute priority; the second coordinate matters only if the first coordinates are equal.</span>
+
+          <p style="font-weight:700; color:var(--red); margin-top:14px; margin-bottom:6px;">Counterexample Proof of Non-Continuity:</p>
+          <p>Let $x = (0.5, 0.5)$ and $y^k = \left(0.5 + \frac{1}{k}, 0\right)$.</p>
+          <ul class="bullet-list" style="margin-top:8px;">
+            <li>For every finite $k$: $y^k \succ x$ &nbsp;because $0.5 + \frac{1}{k} > 0.5$.</li>
+            <li>In the limit as $k \to \infty$: $y^k \to (0.5, 0)$.</li>
+            <li>Direct comparison gives: $x \succ (0.5, 0)$ &nbsp;because first coordinates are equal ($0.5 = 0.5$) and $0.5 > 0$.</li>
+          </ul>
+          <p style="margin-top:10px;">Preferences "jump" at the limit: $y^k \succ x$ for all $k$, but $\lim y^k \prec x$.</p>
+          <p style="margin-top:8px; font-weight:700;">Conclusion: Lexicographic preferences are rational but not continuous, and therefore cannot be represented by a continuous utility function.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('main-wrap').classList.toggle('expanded');
+}
+
+function toggle(btn, id) {
+  const box = document.getElementById(id);
+  const isOpen = box.classList.contains('open');
+  box.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  if (!isOpen && window.MathJax) {
+    MathJax.typesetPromise([box]);
+  }
+}
+</script>
+</body>
+</html>
